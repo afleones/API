@@ -44,6 +44,7 @@ class weightController extends Controller
     public function show(weight $weight)
     {
         $weight = weight::selectRaw("id,
+        weight,
         size,
         headcircunference,
         gillperimeter,
