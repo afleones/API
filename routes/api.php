@@ -63,6 +63,7 @@ Route::post('login', [AuthContoller::class, 'login']);
 
 
  Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], function(){
+    
     Route::get('user-profile', [AuthContoller::class, 'userProfile']);
     Route::post('logout', [AuthContoller::class, 'logOut']);
     Route::post('change-password', [AuthContoller::class, 'changePassword']);
@@ -184,6 +185,15 @@ Route::post('login', [AuthContoller::class, 'login']);
     /* End */
 
     //Api Routes GenomaX_Documents End
+});
+
+Route::group(['middleware' => ['cors']], function () {
+    /*living place*/
+    Route::get('vivienda', [viviendaController::class, 'show']);
+    Route::post('saveVivienda', [viviendaController::class, 'store']);
+    Route::post('updateVivienda', [viviendaController::class, 'update']);
+    Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
+    /* End */   //Rutas a las que se permitirá acceso
 });
 
 
