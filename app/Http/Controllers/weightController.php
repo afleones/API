@@ -28,14 +28,13 @@ class weightController extends Controller
         $weight = new weight();
 
         $weight->size = $data['size'];
+
         // Guardamos el objeto en la base de datos
         $weight->save();
     
     
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Datos insertados correctamente']);
-
-
 
     }
 
@@ -45,7 +44,6 @@ class weightController extends Controller
     public function show(weight $weight)
     {
         $weight = weight::selectRaw("id,
-        id,
         size,
         headcircunference,
         gillperimeter,
@@ -67,13 +65,11 @@ class weightController extends Controller
 
         $id = $data['id'];
         
-        $rol_familiar = $data['rol_familiar'];
+        $size = $data['size'];
         
-        $tabla = weight::where('id', $id)
-                   
-                   ->firstOrFail();
+        $tabla = weight::where('id', $id)->firstOrFail();
 
-        $tabla->rol_familiar = $rol_familiar;
+        $tabla->size = $size;
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página

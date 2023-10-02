@@ -28,39 +28,7 @@ class personaController extends Controller
         $persona = new persona();
 
         $persona->rol_familiar = $data['rol_familiar'];
-        /*
-        $persona->primer_nombre = $data['primer_nombre'];
-        $persona->segundo_nombre = $data['segundo_nombre'];
-        $persona->primer_apellido = $data['primer_apellido'];
-        $persona->segundo_apellido = $data['segundo_apellido'];
-        $persona->tipo_documento = $data['tipo_documento'];
-        $persona->numero_documento = $data['numero_documento'];
-        $persona->fecha_nacimiento = $data['fecha_nacimiento'];
-        $persona->edad = $data['edad'];
-        $persona->sexo = $data['sexo'];
-        $persona->identidad_genero = $data['identidad_genero'];
-        $persona->telefono_familiar = $data['telefono_familiar'];
-        $persona->nivel_escolaridad = $data['nivel_escolaridad'];
-        $persona->aporta_ingresos = $data['aporta_ingresos'];
-        $persona->tipo_afiliacion = $data['tipo_afiliacion'];
-        $persona->grupo_atencion_familiar = $data['grupo_atencion_familiar'];
-        $persona->habla_creole = $data['habla_creole'];
-        $persona->vacunas_covid = $data['vacunas_covid'];
-        $persona->dosis_vacuna = $data['dosis_vacuna'];
-        $persona->consumo_sustancias = $data['consumo_sustancias'];
-        $persona->tipo_sustancias = $data['tipo_sustancias'];
-        $persona->persona_recibe_visita = $data['persona_recibe_visita'];
-        $persona->cursos_vida_integrantes = $data['cursos_vida_integrantes'];
-        $persona->ocupacion_integrantes = $data['ocupacion_integrantes'];
-        $persona->situacion_discapacidad = $data['situacion_discapacidad'];
-        $persona->tipo_discapacidad = $data['tipo_discapacidad'];
-        $persona->atencion_integral = $data['atencion_integral'];
-        $persona->vinculacion_sgsss = $data['vinculacion_sgsss'];
-        $persona->percepcion_funcionalidad = $data['percepcion_funcionalidad'];
-        $persona->cuidador_principal = $data['cuidador_principal: false,'];
-        $persona->escala_zarit = $data['escala_zarit'];
 
-        */
         // Guardamos el objeto en la base de datos
         $persona->save();
     

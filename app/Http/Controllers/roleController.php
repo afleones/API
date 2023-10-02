@@ -48,16 +48,34 @@ class roleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $data = $request->json()->all();
+
+        $id = $data['id'];
+        
+        $namerole = $data['namerole'];
+        
+        $tabla = role::where('id', $id)->firstOrFail();
+
+        $tabla->namerole = $namerole;
+        $tabla->save();
+
+        // Puedes retornar una respuesta o redireccionar a otra página
+        return response()->json(['message' => 'Datos Actualizado correctamente']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->json()->all();
+        //var_dump($data);exit();
+        $id = $data['id'];
+        role::where('id', $id)->where('id', $id)->delete();
+    
+        return response()->json(['message' => 'Dato borrado correctamente']);
+
     }
 }
