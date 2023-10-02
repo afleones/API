@@ -44,6 +44,9 @@ use App\Http\Controllers\CryptDBController;
 
 use App\Http\Controllers\DashBoardController;
 
+
+
+
 //Api Controllers GenomaX_Documents Start
 use App\Http\Controllers\Api\AuthContoller;
 use App\Http\Controllers\viviendaController;
@@ -140,16 +143,16 @@ Route::post('login', [AuthContoller::class, 'login']);
 
     /*living place*/
     Route::get('vivienda', [viviendaController::class, 'show']);
-    Route::post('savevivienda', [viviendaController::class, 'store']);
-    Route::post('updatevivienda', [viviendaController::class, 'update']);
-    Route::post('deletevivienda', [viviendaController::class, 'destroy']);
+    Route::post('saveVivienda', [viviendaController::class, 'store']);
+    Route::post('updateVivienda', [viviendaController::class, 'update']);
+    Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
     /* End */
 
     /* person start */
     Route::get('persona', [personaController::class, 'show']);
-    Route::post('savepersona', [personaController::class, 'store']);
-    Route::post('updatepersona', [personaController::class, 'update']);
-    Route::post('deletepersona', [personaController::class, 'destroy']);
+    Route::post('savePersona', [personaController::class, 'store']);
+    Route::post('updatePersona', [personaController::class, 'update']);
+    Route::post('deletePersona', [personaController::class, 'destroy']);
     /* End */
 
     /* company */
@@ -182,6 +185,8 @@ Route::post('login', [AuthContoller::class, 'login']);
 
     //Api Routes GenomaX_Documents End
 });
+
+
 
 Route::get('users', [AuthContoller::class, 'allUsers']);
 Route::get('plans', [PlansController::class, 'show']);
