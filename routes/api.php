@@ -50,6 +50,7 @@ use App\Http\Controllers\viviendaController;
 use App\Http\Controllers\personaController;
 use App\Http\Controllers\companyController;
 use App\Http\Controllers\roleController;
+use App\Http\Controllers\weightController;
 //Api Controllers GenomaX_Documents End
 
 
@@ -162,6 +163,13 @@ Route::post('login', [AuthContoller::class, 'login']);
     Route::post('saveRole', [roleController::class, 'store']);
     Route::post('updateRole', [roleController::class, 'update']);
     Route::post('deleteRole', [roleController::class, 'destroy']);
+    /* End */
+
+    /* weight */
+    Route::get('Weight', [weightController::class, 'show']);
+    Route::post('saveWeight', [weightController::class, 'store']);
+    Route::post('updateWeight', [weightController::class, 'update']);
+    Route::post('deleteWeight', [weightController::class, 'destroy']);
     /* End */
 
     //Api Routes GenomaX_Documents End
