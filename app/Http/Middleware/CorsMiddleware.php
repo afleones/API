@@ -27,12 +27,12 @@ class CorsMiddleware
         $allowedOrigin = 'http://localhost:5173';
 
         // Configurar las cabeceras CORS
-        header("Access-Control-Allow-Origin: $allowedOrigin");
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-        header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, weight, otras-cabeceras-que-necesitas");
+        $response->header("Access-Control-Allow-Origin: $allowedOrigin");
+        $response->header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+        $response->header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, weight, otras-cabeceras-que-necesitas");
 
         // Permitir que las cookies se incluyan en las solicitudes (si es necesario)
-        header("Access-Control-Allow-Credentials: true");
+        $response->header("Access-Control-Allow-Credentials: true");
 
         // Configurar la duración de la caché de las cabeceras preflight (solicitud OPTIONS)
         if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
