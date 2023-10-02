@@ -141,13 +141,7 @@ Route::post('login', [AuthContoller::class, 'login']);
 
 
     //Api Controllers GenomaX_Documents Start
-
-    /*living place*/
-    Route::get('vivienda', [viviendaController::class, 'show']);
-    Route::post('saveVivienda', [viviendaController::class, 'store']);
-    Route::post('updateVivienda', [viviendaController::class, 'update']);
-    Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
-    /* End */
+ 
 
     /* person start */
     Route::get('persona', [personaController::class, 'show']);
@@ -196,6 +190,12 @@ Route::group(['middleware' => ['cors']], function () {
     /* End */   //Rutas a las que se permitirá acceso
 });
 
+  /*living place*/
+  Route::get('vivienda', [viviendaController::class, 'show']);
+  Route::post('saveVivienda', [viviendaController::class, 'store']);
+  Route::post('updateVivienda', [viviendaController::class, 'update']);
+  Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
+  /* End */
 
 
 Route::get('users', [AuthContoller::class, 'allUsers']);
