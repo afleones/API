@@ -28,7 +28,6 @@ class viviendaController extends Controller
 
         // Asignamos los datos a las propiedades del objeto
         $vivienda->division_geografica= $data['division_geografica'];
-        /*
         $vivienda->direccion= $data['direccion'];
         $vivienda->territorio= $data['territorio'];
         $vivienda->microterritorio= $data['microterritorio'];
@@ -103,7 +102,6 @@ class viviendaController extends Controller
         $vivienda->mapa_relaciones_recursos= $data['mapa_relaciones_recursos'];
         $vivienda->cuidador_principal_nombre= $data['cuidador_principal_nombre'];
 
-        */
         // Guardamos el objeto en la base de datos
         $vivienda->save();
     
