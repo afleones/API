@@ -51,6 +51,7 @@ use App\Http\Controllers\personaController;
 use App\Http\Controllers\companyController;
 use App\Http\Controllers\roleController;
 use App\Http\Controllers\weightController;
+use App\Http\Controllers\conditionsController;
 //Api Controllers GenomaX_Documents End
 
 
@@ -170,6 +171,13 @@ Route::post('login', [AuthContoller::class, 'login']);
     Route::post('saveWeight', [weightController::class, 'store']);
     Route::post('updateWeight', [weightController::class, 'update']);
     Route::post('deleteWeight', [weightController::class, 'destroy']);
+    /* End */
+
+    /* conditions */
+    Route::get('conditions', [conditionsController::class, 'show']);
+    Route::post('saveConditions', [conditionsController::class, 'store']);
+    Route::post('updateConditions', [conditionsController::class, 'update']);
+    Route::post('deleteConditions', [conditionsController::class, 'destroy']);
     /* End */
 
     //Api Routes GenomaX_Documents End
