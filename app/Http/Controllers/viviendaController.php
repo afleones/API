@@ -27,7 +27,7 @@ class viviendaController extends Controller
         $vivienda = new vivienda();
 
         // Asignamos los datos a las propiedades del objeto
-        // $vivienda->division_geografica= $data['division_geografica'];
+        $vivienda->division_geografica= $data['division_geografica'];
         // $vivienda->direccion= $data['direccion'];
         // $vivienda->territorio= $data['territorio'];
         // $vivienda->microterritorio= $data['microterritorio'];
