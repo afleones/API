@@ -181,14 +181,14 @@ Route::post('login', [AuthContoller::class, 'login']);
     //Api Routes GenomaX_Documents End
 });
 
-// Route::group(['middleware' => ['cors']], function () {
-//     /*living place*/
-//     Route::get('vivienda', [viviendaController::class, 'show']);
-//     Route::post('saveVivienda', [viviendaController::class, 'store']);
-//     Route::post('updateVivienda', [viviendaController::class, 'update']);
-//     Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
-//     /* End */   //Rutas a las que se permitirá acceso
-// });
+Route::group(['middleware' => ['cors']], function () {
+    /*living place*/
+    Route::get('vivienda', [viviendaController::class, 'show']);
+    Route::post('saveVivienda', [viviendaController::class, 'store']);
+    Route::post('updateVivienda', [viviendaController::class, 'update']);
+    Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
+    /* End */   //Rutas a las que se permitirá acceso
+});
 
   /*living place*/
   Route::get('vivienda', [viviendaController::class, 'show']);
