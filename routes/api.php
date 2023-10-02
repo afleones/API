@@ -48,6 +48,8 @@ use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\Api\AuthContoller;
 use App\Http\Controllers\viviendaController;
 use App\Http\Controllers\personaController;
+use App\Http\Controllers\companyController;
+use App\Http\Controllers\roleController;
 //Api Controllers GenomaX_Documents End
 
 
@@ -133,15 +135,35 @@ Route::post('login', [AuthContoller::class, 'login']);
 
 
     //Api Controllers GenomaX_Documents Start
+
+    /*living place*/
     Route::get('vivienda', [viviendaController::class, 'show']);
     Route::post('savevivienda', [viviendaController::class, 'store']);
     Route::post('updatevivienda', [viviendaController::class, 'update']);
     Route::post('deletevivienda', [viviendaController::class, 'destroy']);
+    /* End */
 
+    /* person start */
     Route::get('persona', [personaController::class, 'show']);
     Route::post('savepersona', [personaController::class, 'store']);
     Route::post('updatepersona', [personaController::class, 'update']);
     Route::post('deletepersona', [personaController::class, 'destroy']);
+    /* End */
+
+    /* company */
+    Route::get('company', [companyController::class, 'show']);
+    Route::post('saveCompany', [companyController::class, 'store']);
+    Route::post('updateCompany', [companyController::class, 'update']);
+    Route::post('deleteCompany', [companyController::class, 'destroy']);
+    /* End */
+
+    /* empresa */
+    Route::get('role', [roleController::class, 'show']);
+    Route::post('saveRole', [roleController::class, 'store']);
+    Route::post('updateRole', [roleController::class, 'update']);
+    Route::post('deleteRole', [roleController::class, 'destroy']);
+    /* End */
+
     //Api Routes GenomaX_Documents End
 });
 
