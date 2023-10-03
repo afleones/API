@@ -199,17 +199,17 @@ Route::post('login', [AuthContoller::class, 'login']);
     Route::post('deleteWomenHealth', [womenhealthController::class, 'destroy']);
     /* End */
 
-        /* company */
-        Route::post('savePrueba', [pruebaController::class, 'store']);
-        Route::get('pruebas', [pruebaController::class, 'index']);
-        Route::post('prueba', [pruebaController::class, 'show']);
-        Route::post('updatePrueba', [pruebaController::class, 'update']);
-        Route::post('deletePrueba', [pruebaController::class, 'destroy']);
-        /* End */
-    
-
     //Api Routes GenomaX_Documents End
 });
+    /* company */
+    Route::post('savePrueba', [pruebaController::class, 'store']);
+    Route::get('pruebas', [pruebaController::class, 'index']);
+    Route::post('prueba', [pruebaController::class, 'show']);
+    Route::post('updatePrueba', [pruebaController::class, 'update']);
+    Route::post('deletePrueba', [pruebaController::class, 'destroy']);
+    /* End */
+
+
 
   /*living place*/
   Route::get('vivienda', [viviendaController::class, 'show']);
