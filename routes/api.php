@@ -85,7 +85,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     //Api Controllers GenomaX_Documents Start
 
-    /*living place*/
+    /* Rutas de Viviendas */
     Route::post('saveLivingPlace', [livingplaceController::class, 'store']);
     Route::get('livingplaces', [livingplaceController::class, 'index']);
     Route::post('livingplace', [livingplaceController::class, 'show']);
@@ -93,7 +93,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deletelivingplaces', [livingplaceController::class, 'destroy']);
     /* End */
 
-    /* person start */
+    /* Rutas de personas */
     Route::post('savePerson', [personController::class, 'store']);
     Route::get('People', [personController::class, 'index']);
     Route::post('Person', [personController::class, 'show']);
@@ -101,7 +101,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deletePerson', [personController::class, 'destroy']);
     /* End */
 
-    /* company */
+    /* Rutas de Empresas */
     Route::post('saveCompany', [companyController::class, 'store']);
     Route::get('companies', [companyController::class, 'index']);
     Route::post('company', [companyController::class, 'show']);
@@ -109,7 +109,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deleteCompany', [companyController::class, 'destroy']);
     /* End */
 
-    /* empresa */
+    /* Rutas de Roles */
     Route::post('saveRole', [roleController::class, 'store']);
     Route::get('roles', [roleController::class, 'index']);
     Route::post('role', [roleController::class, 'show']);
@@ -117,7 +117,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deleteRole', [roleController::class, 'destroy']);
     /* End */
 
-    /* weight */
+    /* Rutas de Primera Infancia */
     Route::post('saveEarlychildHood', [earlychildhoodController::class, 'store']);
     Route::get('earlychildhoods', [earlychildhoodController::class, 'index']);
     Route::post('earlychildhood', [earlychildhoodController::class, 'show']);
@@ -125,7 +125,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deletesaveEarlychildHood', [earlychildhoodController::class, 'destroy']);
     /* End */
 
-    /* CommunicableDiseases */
+    /* Rutas Enfermedades transmisibles */
     Route::post('saveCommunicableDiseases', [communicablediseasesController::class, 'store']);
     Route::get('CommunicableDiseases', [communicablediseasesController::class, 'index']);
     Route::post('communicableDisease', [womenhealthController::class, 'show']);
@@ -133,7 +133,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deleteCommunicableDiseases', [communicablediseasesController::class, 'destroy']);
     /* End */
 
-    /* womenHealth */
+    /* Rutas Salud de la Mujer */
     Route::post('saveWomenHealth', [womenhealthController::class, 'store']);
     Route::get('womenHealths', [womenhealthController::class, 'index']);
     Route::post('womenHealth', [womenhealthController::class, 'show']);
