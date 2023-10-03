@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class weight extends Model
+class earlychildhood extends Model
 {
     use HasFactory;
 
     protected $connection = 'maite';
-    protected $table = 'weight';
+    protected $table = 'earlychildhood';
 }
