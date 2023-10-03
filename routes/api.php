@@ -63,7 +63,6 @@ Route::post('login', [AuthContoller::class, 'login']);
 
 
  Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], function(){
-    
     Route::get('user-profile', [AuthContoller::class, 'userProfile']);
     Route::post('logout', [AuthContoller::class, 'logOut']);
     Route::post('change-password', [AuthContoller::class, 'changePassword']);
@@ -178,16 +177,14 @@ Route::post('login', [AuthContoller::class, 'login']);
     Route::post('deleteConditions', [conditionsController::class, 'destroy']);
     /* End */
 
-    //Api Routes GenomaX_Documents End
-});
+    /* CommunicableDiseases */
+    Route::post('saveCommunicableDiseases', [communicablediseasesController::class, 'store']);
+    Route::get('CommunicableDiseases', [communicablediseasesController::class, 'show']);
+    Route::post('updateCommunicableDiseases', [communicablediseasesController::class, 'update']);
+    Route::post('deleteCommunicableDiseases', [communicablediseasesController::class, 'destroy']);
+    /* End */
 
-Route::group(['middleware' => ['cors']], function () {
-    /*living place*/
-    Route::get('vivienda', [viviendaController::class, 'show']);
-    Route::post('saveVivienda', [viviendaController::class, 'store']);
-    Route::post('updateVivienda', [viviendaController::class, 'update']);
-    Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
-    /* End */   //Rutas a las que se permitirá acceso
+    //Api Routes GenomaX_Documents End
 });
 
   /*living place*/
