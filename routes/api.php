@@ -196,7 +196,7 @@ Route::post('login', [AuthContoller::class, 'login']);
     Route::post('saveWomenHealth', [womenhealthController::class, 'store']);
     Route::get('womenHealth', [womenhealthController::class, 'show']);
     Route::post('updateWomenHealth', [womenhealthController::class, 'update']);
-    Route::post('deleteWomenHealth', [womenhealthController::class, 'destroy']);   
+    Route::post('deleteWomenHealth', [womenhealthController::class, 'destroy']);
     /* End */
 
     //Api Routes GenomaX_Documents End
