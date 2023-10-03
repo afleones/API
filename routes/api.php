@@ -48,7 +48,7 @@ use App\Http\Controllers\DashBoardController;
 
 
 //Api Controllers GenomaX_Documents Start
-use App\Http\Controllers\Api\AuthContoller;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\viviendaController;
 use App\Http\Controllers\personController;
 use App\Http\Controllers\companyController;
@@ -57,17 +57,18 @@ use App\Http\Controllers\earlychildhoodController;
 use App\Http\Controllers\communicablediseasesController;
 use App\Http\Controllers\womenhealthController;
 use App\Http\Controllers\pruebaController;
+use App\Http\Controllers\childhoodController;
 //Api Controllers GenomaX_Documents End
 
 
-Route::post('register', [AuthContoller::class, 'register']);
-Route::post('login', [AuthContoller::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 
 
  Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], function(){
-    Route::get('user-profile', [AuthContoller::class, 'userProfile']);
-    Route::post('logout', [AuthContoller::class, 'logOut']);
-    Route::post('change-password', [AuthContoller::class, 'changePassword']);
+    Route::get('user-profile', [AuthController::class, 'userProfile']);
+    Route::post('logout', [AuthController::class, 'logOut']);
+    Route::post('change-password', [AuthController::class, 'changePassword']);
     Route::get('load-menu', [MenuController::class, 'getMenuWithItems']);
 
     Route::get('taxes', [TaxesController::class, 'index']);
@@ -199,9 +200,7 @@ Route::post('login', [AuthContoller::class, 'login']);
     Route::post('deleteWomenHealth', [womenhealthController::class, 'destroy']);
     /* End */
 
-    //Api Routes GenomaX_Documents End
-});
-    /* company */
+    /* prueba */
     Route::post('savePrueba', [pruebaController::class, 'store']);
     Route::get('pruebas', [pruebaController::class, 'index']);
     Route::post('prueba', [pruebaController::class, 'show']);
@@ -209,17 +208,18 @@ Route::post('login', [AuthContoller::class, 'login']);
     Route::post('deletePrueba', [pruebaController::class, 'destroy']);
     /* End */
 
+    /* Childhood */
+    Route::post('saveChildHood', [childhoodController::class, 'store']);
+    Route::get('childHoods', [childhoodController::class, 'index']);
+    Route::post('childHood', [childhoodController::class, 'show']);
+    Route::post('updateChildHood', [childhoodController::class, 'update']);
+    Route::post('deleteChildHood', [childhoodController::class, 'destroy']);
+    /* End */
 
+    //Api Routes GenomaX_Documents End
+});
 
-  /*living place*/
-  Route::get('vivienda', [viviendaController::class, 'show']);
-  Route::post('saveVivienda', [viviendaController::class, 'store']);
-  Route::post('updateVivienda', [viviendaController::class, 'update']);
-  Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
-  /* End */
-
-
-Route::get('users', [AuthContoller::class, 'allUsers']);
+Route::get('users', [AuthController::class, 'allUsers']);
 Route::get('plans', [PlansController::class, 'show']);
 
 Route::get('/invoice-pdf/{dbname}/{invoice}', [PdfController::class, 'invoicePdf']);
