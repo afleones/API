@@ -208,13 +208,13 @@ Route::post('login', [AuthController::class, 'login']);
     Route::post('deletePrueba', [pruebaController::class, 'destroy']);
     /* End */
 
-        /* Childhood */
-        Route::post('saveChildHood', [childhoodController::class, 'store']);
-        Route::get('childHoods', [childhoodController::class, 'index']);
-        Route::post('childHood', [childhoodController::class, 'show']);
-        Route::post('updateChildHood', [childhoodController::class, 'update']);
-        Route::post('deleteChildHood', [childhoodController::class, 'destroy']);
-        /* End */
+    /* Childhood */
+    Route::post('saveChildHood', [childhoodController::class, 'store']);
+    Route::get('childHoods', [childhoodController::class, 'index']);
+    Route::post('childHood', [childhoodController::class, 'show']);
+    Route::post('updateChildHood', [childhoodController::class, 'update']);
+    Route::post('deleteChildHood', [childhoodController::class, 'destroy']);
+    /* End */
 
     //Api Routes GenomaX_Documents End
 });
