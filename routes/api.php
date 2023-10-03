@@ -143,36 +143,41 @@ Route::post('login', [AuthContoller::class, 'login']);
     //Api Controllers GenomaX_Documents Start
 
     /*living place*/
-    Route::get('vivienda', [viviendaController::class, 'index']);
     Route::post('saveVivienda', [viviendaController::class, 'store']);
+    Route::get('viviendas', [viviendaController::class, 'index']);
+    Route::post('vivienda', [viviendaController::class, 'show']);
     Route::post('updateVivienda', [viviendaController::class, 'update']);
     Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
     /* End */
 
     /* person start */
-    Route::get('persona', [personaController::class, 'index']);
     Route::post('savePersona', [personaController::class, 'store']);
+    Route::get('personas', [personaController::class, 'index']);
+    Route::post('persona', [personaController::class, 'show']);
     Route::post('updatePersona', [personaController::class, 'update']);
     Route::post('deletePersona', [personaController::class, 'destroy']);
     /* End */
 
     /* company */
-    Route::get('company', [companyController::class, 'index']);
     Route::post('saveCompany', [companyController::class, 'store']);
+    Route::get('companies', [companyController::class, 'index']);
+    Route::post('company', [companyController::class, 'show']);
     Route::post('updateCompany', [companyController::class, 'update']);
     Route::post('deleteCompany', [companyController::class, 'destroy']);
     /* End */
 
     /* empresa */
-    Route::get('role', [roleController::class, 'index']);
     Route::post('saveRole', [roleController::class, 'store']);
+    Route::get('roles', [roleController::class, 'index']);
+    Route::post('role', [roleController::class, 'show']);
     Route::post('updateRole', [roleController::class, 'update']);
     Route::post('deleteRole', [roleController::class, 'destroy']);
     /* End */
 
     /* weight */
-    Route::get('earlychildhood', [earlychildhoodController::class, 'index']);
     Route::post('saveEarlychildHood', [earlychildhoodController::class, 'store']);
+    Route::get('earlychildhoods', [earlychildhoodController::class, 'index']);
+    Route::post('earlychildhood', [earlychildhoodController::class, 'show']);
     Route::post('updatesaveEarlychildHood', [earlychildhoodController::class, 'update']);
     Route::post('deletesaveEarlychildHood', [earlychildhoodController::class, 'destroy']);
     /* End */
@@ -180,13 +185,15 @@ Route::post('login', [AuthContoller::class, 'login']);
     /* CommunicableDiseases */
     Route::post('saveCommunicableDiseases', [communicablediseasesController::class, 'store']);
     Route::get('CommunicableDiseases', [communicablediseasesController::class, 'index']);
+    Route::post('communicableDisease', [womenhealthController::class, 'show']);
     Route::post('updateCommunicableDiseases', [communicablediseasesController::class, 'update']);
     Route::post('deleteCommunicableDiseases', [communicablediseasesController::class, 'destroy']);
     /* End */
 
     /* womenHealth */
     Route::post('saveWomenHealth', [womenhealthController::class, 'store']);
-    Route::get('womenHealth', [womenhealthController::class, 'index']);
+    Route::get('womenHealths', [womenhealthController::class, 'index']);
+    Route::post('womenHealth', [womenhealthController::class, 'show']);
     Route::post('updateWomenHealth', [womenhealthController::class, 'update']);
     Route::post('deleteWomenHealth', [womenhealthController::class, 'destroy']);
     /* End */
