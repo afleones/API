@@ -26,20 +26,13 @@ class pruebaController extends Controller
     {
         //
         $data = $request->all();
-
-        
         // Creamos un nuevo objeto del modelo
         $prueba = new prueba();
         $prueba->campo_de_prueba = $data['campo_de_prueba'];
         // Guardamos el objeto en la base de datos
         $prueba->save();
-    
-    
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Prueba Correcta']);
-
-
-
     }
 
     /**
@@ -47,7 +40,7 @@ class pruebaController extends Controller
      */
     public function show(prueba $prueba)
     {
-        
+        //
     }
 
     /**
