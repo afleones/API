@@ -14,7 +14,7 @@ class pruebaController extends Controller
     {
        //
        $prueba = prueba::selectRaw("id,
-       campo_de_prueba
+       rol_familiar
        ")->get();
        return $prueba;
     }
@@ -28,7 +28,7 @@ class pruebaController extends Controller
         $data = $request->all();
         // Creamos un nuevo objeto del modelo
         $prueba = new prueba();
-        $prueba->campo_de_prueba = $data['campo_de_prueba'];
+        $prueba->rol_familiar = $data['rol_familiar'];
         // Guardamos el objeto en la base de datos
         $prueba->save();
         // Retornamos una respuesta de éxito
@@ -52,12 +52,12 @@ class pruebaController extends Controller
 
         $id = $data['id'];
         
-        $campo_de_prueba = $data['campo_de_prueba'];
+        $rol_familiar = $data['rol_familiar'];
         $tabla = prueba::where('id', $id)
                    
                    ->firstOrFail();
 
-        $tabla->campo_de_prueba = $campo_de_prueba;
+        $tabla->rol_familiar = $rol_familiar;
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
