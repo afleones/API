@@ -55,6 +55,8 @@ use App\Http\Controllers\companyController;
 use App\Http\Controllers\roleController;
 use App\Http\Controllers\weightController;
 use App\Http\Controllers\conditionsController;
+use App\Http\Controllers\communicablediseasesController;
+use App\Http\Controllers\womenhealthController;
 //Api Controllers GenomaX_Documents End
 
 
