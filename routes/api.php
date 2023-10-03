@@ -44,9 +44,6 @@ use App\Http\Controllers\CryptDBController;
 
 use App\Http\Controllers\DashBoardController;
 
-
-
-
 //Api Controllers GenomaX_Documents Start
 
 /* Controlador de Autorizacion */
