@@ -307,6 +307,5 @@ class livingplaceController extends Controller
         livingplace::where('id', $id)->where('id', $id)->delete();
     
         return response()->json(['message' => 'Dato borrado correctamente']);
-
     }
 }
