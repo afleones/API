@@ -12,7 +12,6 @@ class viviendaController extends Controller
      */
     public function index()
     {
-        //
         $vivienda = vivienda::selectRaw("id,
         division_geografica,
         direccion,
