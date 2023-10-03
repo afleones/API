@@ -50,7 +50,7 @@ use App\Http\Controllers\DashBoardController;
 //Api Controllers GenomaX_Documents Start
 use App\Http\Controllers\Api\AuthContoller;
 use App\Http\Controllers\viviendaController;
-use App\Http\Controllers\personaController;
+use App\Http\Controllers\personController;
 use App\Http\Controllers\companyController;
 use App\Http\Controllers\roleController;
 use App\Http\Controllers\earlychildhoodController;
@@ -151,11 +151,11 @@ Route::post('login', [AuthContoller::class, 'login']);
     /* End */
 
     /* person start */
-    Route::post('savePersona', [personaController::class, 'store']);
-    Route::get('personas', [personaController::class, 'index']);
-    Route::post('persona', [personaController::class, 'show']);
-    Route::post('updatePersona', [personaController::class, 'update']);
-    Route::post('deletePersona', [personaController::class, 'destroy']);
+    Route::post('savePerson', [personController::class, 'store']);
+    Route::get('People', [personController::class, 'index']);
+    Route::post('Person', [personController::class, 'show']);
+    Route::post('updatePerson', [personController::class, 'update']);
+    Route::post('deletePerson', [personController::class, 'destroy']);
     /* End */
 
     /* company */
