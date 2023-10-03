@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\weight;
+use App\Models\earlychildhood;
 use Illuminate\Http\Request;
 
-class weightController extends Controller
+class earlychildhoodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,12 +25,12 @@ class weightController extends Controller
 
         
         // Creamos un nuevo objeto del modelo
-        $weight = new weight();
+        $earlychildhood = new earlychildhood();
 
-        $weight->size = $data['size'];
+        $earlychildhood->size = $data['size'];
 
         // Guardamos el objeto en la base de datos
-        $weight->save();
+        $earlychildhood->save();
     
     
         // Retornamos una respuesta de éxito
@@ -41,20 +41,40 @@ class weightController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(weight $weight)
+    public function show(earlychildhood $earlychildhood)
     {
-        $weight = weight::selectRaw("id,
+        $earlychildhood = earlychildhood::selectRaw("id,
         weight,
         size,
         headcircunference,
         gillperimeter,
         perimeterwaist,
         perimeterHip,
-        bloodpressure,
+        systolicPressure,
+        diastolicPressure,
+        antecedentprematurity,
+        congenitalanomaly,
+        consumptionsubstances,
+        breastfeeding,
+        chroniccondition,
+        disability,
+        promotionhealth,
+        Completevaccination,
+        deworming,
+        oralhygiene,
+        childdevelopment,
+        signsera,
+        Ancestralmedicine,
+        signsera2,
+        victimization,
+        malnutrition,
+        overweightobesity,
+        dangerdeath,
+        nutritionalproblems,
         created_at,
         updated_at,
         ")->get();
-        return $weight;
+        return $earlychildhood;
     }
 
     /**
@@ -63,13 +83,9 @@ class weightController extends Controller
     public function update(Request $request)
     {
         $data = $request->json()->all();
-
-        $id = $data['id'];
-        
-        $size = $data['size'];
-        
-        $tabla = weight::where('id', $id)->firstOrFail();
-
+        $id = $data['id']; 
+        $size = $data['size'];    
+        $tabla = earlychildhood::where('id', $id)->firstOrFail();
         $tabla->size = $size;
         $tabla->save();
 
@@ -85,8 +101,7 @@ class weightController extends Controller
         $data = $request->json()->all();
         //var_dump($data);exit();
         $id = $data['id'];
-        weight::where('id', $id)->where('id', $id)->delete();
-    
+        earlychildhood::where('id', $id)->where('id', $id)->delete();   
         return response()->json(['message' => 'Dato borrado correctamente']);
 
     }

@@ -53,8 +53,7 @@ use App\Http\Controllers\viviendaController;
 use App\Http\Controllers\personaController;
 use App\Http\Controllers\companyController;
 use App\Http\Controllers\roleController;
-use App\Http\Controllers\weightController;
-use App\Http\Controllers\conditionsController;
+use App\Http\Controllers\earlychildhoodController;
 use App\Http\Controllers\communicablediseasesController;
 use App\Http\Controllers\womenhealthController;
 //Api Controllers GenomaX_Documents End
@@ -172,17 +171,10 @@ Route::post('login', [AuthContoller::class, 'login']);
     /* End */
 
     /* weight */
-    Route::get('Weight', [weightController::class, 'show']);
-    Route::post('saveWeight', [weightController::class, 'store']);
-    Route::post('updateWeight', [weightController::class, 'update']);
-    Route::post('deleteWeight', [weightController::class, 'destroy']);
-    /* End */
-
-    /* conditions */
-    Route::get('conditions', [conditionsController::class, 'show']);
-    Route::post('saveConditions', [conditionsController::class, 'store']);
-    Route::post('updateConditions', [conditionsController::class, 'update']);
-    Route::post('deleteConditions', [conditionsController::class, 'destroy']);
+    Route::get('earlychildhood', [earlychildhoodController::class, 'show']);
+    Route::post('saveEarlychildHood', [earlychildhoodController::class, 'store']);
+    Route::post('updatesaveEarlychildHood', [earlychildhoodController::class, 'update']);
+    Route::post('deletesaveEarlychildHood', [earlychildhoodController::class, 'destroy']);
     /* End */
 
     /* CommunicableDiseases */
