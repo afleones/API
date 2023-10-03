@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 App::setLocale('es');
 
-class AuthContoller extends Controller
+class AuthController extends Controller
 {
 
     public function register(Request $request) {
