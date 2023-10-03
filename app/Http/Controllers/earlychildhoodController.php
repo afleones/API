@@ -71,6 +71,8 @@ class earlychildhoodController extends Controller
         overweightobesity,
         dangerdeath,
         nutritionalproblems,
+        dresserChronic,
+        tripZonesEndemic,
         created_at,
         updated_at,
         ")->get();
