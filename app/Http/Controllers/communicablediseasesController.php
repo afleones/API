@@ -12,7 +12,24 @@ class communicablediseasesController extends Controller
      */
     public function index()
     {
-        //
+        $communicablediseases = communicablediseases::selectRaw("id,
+        nombreCompleto,
+        sexo,
+        edad,
+        parentezco,
+        ocupacion,
+        aportaIngresos,
+        nivelEscolaridad,
+        tipoAfiliacion,
+        grupoAtencionEspecial,
+        hablaCreole,
+        vacunaCovid,
+        dosisVacuna,
+        consumoSustancias,
+        sustanciasConsumidas,
+        userid
+        ")->get();
+        return $communicablediseases;
     }
 
     /**
@@ -28,7 +45,7 @@ class communicablediseasesController extends Controller
         $communicablediseases = new communicablediseases();
 
         $communicablediseases->nombreCompleto = $data['nombreCompleto'];
-        /*
+        
         $communicablediseases->sexo = $data['sexo'];
         $communicablediseases->edad = $data['edad'];
         $communicablediseases->parentezco = $data['parentezco'];
@@ -42,7 +59,8 @@ class communicablediseasesController extends Controller
         $communicablediseases->dosisVacuna = $data['dosisVacuna'];
         $communicablediseases->consumoSustancias = $data['consumoSustancias'];
         $communicablediseases->sustanciasConsumidas = $data['sustanciasConsumidas'];
-*/
+        $communicablediseases->userid = $data['userid'];
+
 
         // Guardamos el objeto en la base de datos
         $communicablediseases->save();
@@ -57,22 +75,7 @@ class communicablediseasesController extends Controller
      */
     public function show(communicablediseases $communicablediseases)
     {
-        $communicablediseases = communicablediseases::selectRaw("id,
-        nombreCompleto,
-        sexo,
-        edad,
-        parentezco,
-        ocupacion,
-        aportaIngresos,
-        nivelEscolaridad,
-        tipoAfiliacion,
-        grupoAtencionEspecial,
-        hablaCreole,
-        vacunaCovid,
-        dosisVacuna,
-        consumoSustancias,
-        sustanciasConsumidas")->get();
-        return $communicablediseases;
+       
     }
 
     /**
@@ -84,7 +87,7 @@ class communicablediseasesController extends Controller
 
         $id = $data['id'];
         $nombreCompleto = $data['nombreCompleto'];
-        /*
+        
         $sexo = $data['sexo'];
         $edad = $data['edad'];
         $parentezco = $data['parentezco'];
@@ -98,8 +101,8 @@ class communicablediseasesController extends Controller
         $dosisVacuna = $data['dosisVacuna'];
         $consumoSustancias = $data['consumoSustancias'];
         $sustanciasConsumidas = $data['sustanciasConsumidas'];
+        $userid = $data['userid'];
 
-*/
 
         
         $tabla = communicablediseases::where('id', $id)
