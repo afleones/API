@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\vivienda;
+use App\Models\livingplace;
 use Illuminate\Http\Request;
 
-class viviendaController extends Controller
+class livingplaceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $vivienda = vivienda::selectRaw("id,
+        $livingplace = livingplace::selectRaw("id,
         division_geografica,
         direccion,
         territorio,
@@ -89,7 +89,7 @@ class viviendaController extends Controller
         cuidador_principal_nombre,
         userid
         ")->get();
-        return $vivienda;
+        return $livingplace;
     }
 
     /**
@@ -102,89 +102,89 @@ class viviendaController extends Controller
 
         
         // Creamos un nuevo objeto del modelo
-        $vivienda = new vivienda();
+        $livingplace = new livingplace();
 
         // Asignamos los datos a las propiedades del objeto
-        $vivienda->division_geografica= $data['division_geografica'];
+        $livingplace->division_geografica= $data['division_geografica'];
         
-        $vivienda->direccion= $data['direccion'];
-        $vivienda->territorio= $data['territorio'];
-        $vivienda->microterritorio= $data['microterritorio'];
-        $vivienda->tipo_vivienda= $data['tipo_vivienda'];
-        $vivienda->tenencia_vivienda= $data['tenencia_vivienda'];
-        $vivienda->estrato= $data['estrato'];
-        $vivienda->num_habitantes= $data['num_habitantes'];
-        $vivienda->num_familias= $data['num_familias'];
-        $vivienda->num_hogares= $data['num_hogares'];
-        $vivienda->material_paredes= $data['material_paredes'];
-        $vivienda->estado_paredes= $data['estado_paredes'];
-        $vivienda->material_piso= $data['material_piso'];
-        $vivienda->material_techo= $data['material_techo'];
-        $vivienda->estado_techo= $data['estado_techo'];
-        $vivienda->num_habitaciones= $data['num_habitaciones'];
-        $vivienda->hacinamiento= $data['hacinamiento'];
-        $vivienda->actividad_economica= $data['actividad_economica'];
-        $vivienda->acceso_vivienda= $data['acceso_vivienda'];
-        $vivienda->cerca_vivienda= $data['cerca_vivienda'];
-        $vivienda->desplazamiento_familia= $data['desplazamiento_familia'];
-        $vivienda->escenarios_riesgo= $data['escenarios_riesgo'];
-        $vivienda->fuente_agua= $data['fuente_agua'];
-        $vivienda->agua_potable= $data['agua_potable'];
-        $vivienda->tratamiento_agua= $data['tratamiento_agua'];
-        $vivienda->horas_agua= $data['horas_agua'];
-        $vivienda->tanque_agua= $data['tanque_agua'];
-        $vivienda->frecuencia_lavado_tanque= $data['frecuencia_lavado_tanque'];
-        $vivienda->sistema_excretas= $data['sistema_excretas'];
-        $vivienda->separacion_residuos= $data['separacion_residuos'];
-        $vivienda->disposicion_residuos= $data['disposicion_residuos'];
-        $vivienda->sistema_aguas_residuales= $data['sistema_aguas_residuales'];
-        $vivienda->condiciones_higiene= $data['condiciones_higiene'];
-        $vivienda->lavado_manos= $data['lavado_manos'];
-        $vivienda->cepillado_dientes= $data['cepillado_dientes'];
-        $vivienda->comparten_implementos= $data['comparten_implementos'];
-        $vivienda->implementos_disposicion= $data['implementos_disposicion'];
-        $vivienda->fuente_energia= $data['fuente_energia'];
-        $vivienda->convive_con_animales= $data['convive_con_animales'];
-        $vivienda->animales_conviven= $data['animales_conviven'];
-        $vivienda->desparasita_animales= $data['desparasita_animales'];
-        $vivienda->vacuna_animales= $data['vacuna_animales'];
-        $vivienda->excretas_animales= $data['excretas_animales'];
-        $vivienda->presencia_vectores= $data['presencia_vectores'];
-        $vivienda->vectores_presentes= $data['vectores_presentes'];
-        $vivienda->criaderos_vectores= $data['criaderos_vectores'];
-        $vivienda->animales_venenosos= $data['animales_venenosos'];
-        $vivienda->animales_venenosos_presentes= $data['animales_venenosos_presentes'];
-        $vivienda->almacenamiento_productos= $data['almacenamiento_productos'];
-        $vivienda->almacenamiento_quimicos= $data['almacenamiento_quimicos'];
-        $vivienda->disposicion_residuos_aseo= $data['disposicion_residuos_aseo'];
-        $vivienda->disposicion_residuos_peligrosos= $data['disposicion_residuos_peligrosos'];
-        $vivienda->sintomas_menores_5= $data['sintomas_menores_5'];
-        $vivienda->sintomas_mayores_5= $data['sintomas_mayores_5'];
-        $vivienda->almacenamiento_alimentos= $data['almacenamiento_alimentos'];
-        $vivienda->limpieza_cocina= $data['limpieza_cocina'];
-        $vivienda->tipo_familia= $data['tipo_familia'];
-        $vivienda->num_personas_familia= $data['num_personas_familia'];
-        $vivienda->curso_vida_familia= $data['curso_vida_familia'];
-        $vivienda->integrantes_comunidad_LGBTI= $data['integrantes_comunidad_LGBTI'];
-        $vivienda->cuidados_momentos_curso_vida= $data['cuidados_momentos_curso_vida'];
-        $vivienda->estilo_vida_predominante= $data['estilo_vida_predominante'];
-        $vivienda->antecedentes_enfermedades_familiares= $data['antecedentes_enfermedades_familiares'];
-        $vivienda->riesgos_psicosociales_familiares= $data['riesgos_psicosociales_familiares'];
-        $vivienda->subsidio_institucion_nacional= $data['subsidio_institucion_nacional'];
-        $vivienda->tipo_subsidio_aporte= $data['tipo_subsidio_aporte'];
-        $vivienda->integrante_situacion_discapacidad= $data['integrante_situacion_discapacidad'];
-        $vivienda->familiar_victima_conflicto_armado= $data['familiar_victima_conflicto_armado'];
-        $vivienda->hecho_victimizante_conflicto_armado= $data['hecho_victimizante_conflicto_armado'];
-        $vivienda->percepcion_funcionabilidad_familiar= $data['percepcion_funcionabilidad_familiar'];
-        $vivienda->cuidador_principal= $data['cuidador_principal'];
-        $vivienda->sobrecarga_cuidador= $data['sobrecarga_cuidador'];
-        $vivienda->mapa_relaciones_recursos= $data['mapa_relaciones_recursos'];
-        $vivienda->cuidador_principal_nombre= $data['cuidador_principal_nombre'];
-        $vivienda->userid= $data['userid'];
+        // $livingplace->direccion= $data['direccion'];
+        // $livingplace->territorio= $data['territorio'];
+        // $livingplace->microterritorio= $data['microterritorio'];
+        // $livingplace->tipo_vivienda= $data['tipo_vivienda'];
+        // $livingplace->tenencia_vivienda= $data['tenencia_vivienda'];
+        // $livingplace->estrato= $data['estrato'];
+        // $livingplace->num_habitantes= $data['num_habitantes'];
+        // $livingplace->num_familias= $data['num_familias'];
+        // $livingplace->num_hogares= $data['num_hogares'];
+        // $livingplace->material_paredes= $data['material_paredes'];
+        // $livingplace->estado_paredes= $data['estado_paredes'];
+        // $livingplace->material_piso= $data['material_piso'];
+        // $livingplace->material_techo= $data['material_techo'];
+        // $livingplace->estado_techo= $data['estado_techo'];
+        // $livingplace->num_habitaciones= $data['num_habitaciones'];
+        // $livingplace->hacinamiento= $data['hacinamiento'];
+        // $livingplace->actividad_economica= $data['actividad_economica'];
+        // $livingplace->acceso_vivienda= $data['acceso_vivienda'];
+        // $livingplace->cerca_vivienda= $data['cerca_vivienda'];
+        // $livingplace->desplazamiento_familia= $data['desplazamiento_familia'];
+        // $livingplace->escenarios_riesgo= $data['escenarios_riesgo'];
+        // $livingplace->fuente_agua= $data['fuente_agua'];
+        // $livingplace->agua_potable= $data['agua_potable'];
+        // $livingplace->tratamiento_agua= $data['tratamiento_agua'];
+        // $livingplace->horas_agua= $data['horas_agua'];
+        // $livingplace->tanque_agua= $data['tanque_agua'];
+        // $livingplace->frecuencia_lavado_tanque= $data['frecuencia_lavado_tanque'];
+        // $livingplace->sistema_excretas= $data['sistema_excretas'];
+        // $livingplace->separacion_residuos= $data['separacion_residuos'];
+        // $livingplace->disposicion_residuos= $data['disposicion_residuos'];
+        // $livingplace->sistema_aguas_residuales= $data['sistema_aguas_residuales'];
+        // $livingplace->condiciones_higiene= $data['condiciones_higiene'];
+        // $livingplace->lavado_manos= $data['lavado_manos'];
+        // $livingplace->cepillado_dientes= $data['cepillado_dientes'];
+        // $livingplace->comparten_implementos= $data['comparten_implementos'];
+        // $livingplace->implementos_disposicion= $data['implementos_disposicion'];
+        // $livingplace->fuente_energia= $data['fuente_energia'];
+        // $livingplace->convive_con_animales= $data['convive_con_animales'];
+        // $livingplace->animales_conviven= $data['animales_conviven'];
+        // $livingplace->desparasita_animales= $data['desparasita_animales'];
+        // $livingplace->vacuna_animales= $data['vacuna_animales'];
+        // $livingplace->excretas_animales= $data['excretas_animales'];
+        // $livingplace->presencia_vectores= $data['presencia_vectores'];
+        // $livingplace->vectores_presentes= $data['vectores_presentes'];
+        // $livingplace->criaderos_vectores= $data['criaderos_vectores'];
+        // $livingplace->animales_venenosos= $data['animales_venenosos'];
+        // $livingplace->animales_venenosos_presentes= $data['animales_venenosos_presentes'];
+        // $livingplace->almacenamiento_productos= $data['almacenamiento_productos'];
+        // $livingplace->almacenamiento_quimicos= $data['almacenamiento_quimicos'];
+        // $livingplace->disposicion_residuos_aseo= $data['disposicion_residuos_aseo'];
+        // $livingplace->disposicion_residuos_peligrosos= $data['disposicion_residuos_peligrosos'];
+        // $livingplace->sintomas_menores_5= $data['sintomas_menores_5'];
+        // $livingplace->sintomas_mayores_5= $data['sintomas_mayores_5'];
+        // $livingplace->almacenamiento_alimentos= $data['almacenamiento_alimentos'];
+        // $livingplace->limpieza_cocina= $data['limpieza_cocina'];
+        // $livingplace->tipo_familia= $data['tipo_familia'];
+        // $livingplace->num_personas_familia= $data['num_personas_familia'];
+        // $livingplace->curso_vida_familia= $data['curso_vida_familia'];
+        // $livingplace->integrantes_comunidad_LGBTI= $data['integrantes_comunidad_LGBTI'];
+        // $livingplace->cuidados_momentos_curso_vida= $data['cuidados_momentos_curso_vida'];
+        // $livingplace->estilo_vida_predominante= $data['estilo_vida_predominante'];
+        // $livingplace->antecedentes_enfermedades_familiares= $data['antecedentes_enfermedades_familiares'];
+        // $livingplace->riesgos_psicosociales_familiares= $data['riesgos_psicosociales_familiares'];
+        // $livingplace->subsidio_institucion_nacional= $data['subsidio_institucion_nacional'];
+        // $livingplace->tipo_subsidio_aporte= $data['tipo_subsidio_aporte'];
+        // $livingplace->integrante_situacion_discapacidad= $data['integrante_situacion_discapacidad'];
+        // $livingplace->familiar_victima_conflicto_armado= $data['familiar_victima_conflicto_armado'];
+        // $livingplace->hecho_victimizante_conflicto_armado= $data['hecho_victimizante_conflicto_armado'];
+        // $livingplace->percepcion_funcionabilidad_familiar= $data['percepcion_funcionabilidad_familiar'];
+        // $livingplace->cuidador_principal= $data['cuidador_principal'];
+        // $livingplace->sobrecarga_cuidador= $data['sobrecarga_cuidador'];
+        // $livingplace->mapa_relaciones_recursos= $data['mapa_relaciones_recursos'];
+        // $livingplace->cuidador_principal_nombre= $data['cuidador_principal_nombre'];
+        // $livingplace->userid= $data['userid'];
 
         
         // Guardamos el objeto en la base de datos
-        $vivienda->save();
+        $livingplace->save();
     
     
         // Retornamos una respuesta de éxito
@@ -195,7 +195,7 @@ class viviendaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(vivienda $vivienda)
+    public function show(livingplace $livingplace)
     {
         
     }
@@ -286,7 +286,7 @@ class viviendaController extends Controller
         $userid= $data['userid'];
         
 
-        $tabla = vivienda::where('id', $id)
+        $tabla = livingplace::where('id', $id)
                    
                    ->firstOrFail();
 
@@ -305,7 +305,7 @@ class viviendaController extends Controller
         $data = $request->json()->all();
         //var_dump($data);exit();
         $id = $data['id'];
-        vivienda::where('id', $id)->where('id', $id)->delete();
+        livingplace::where('id', $id)->where('id', $id)->delete();
     
         return response()->json(['message' => 'Dato borrado correctamente']);
 

@@ -2,28 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\company;
+use App\Models\prueba;
 use Illuminate\Http\Request;
 
-class companyController extends Controller
+class pruebaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $company = company::selectRaw("id,
-        nitcode,
-        businessname,
-        address,
-        telephonetype,
-        telephone,
-        email,
-        responsible,  
-        created_at,
-        updated_at
-        ")->get();
-        return $company;
+       //
+       $prueba = prueba::selectRaw("id,
+       rol_familiar
+       ")->get();
+       return $prueba;
     }
 
     /**
@@ -31,27 +24,21 @@ class companyController extends Controller
      */
     public function store(Request $request)
     {
+        //
         $data = $request->all();
-
-        
         // Creamos un nuevo objeto del modelo
-        $company = new company();
-
-        // Asignamos los datos a las propiedades del objeto
-        $company->nitcode= $data['nitcode'];
-
+        $prueba = new prueba();
+        $prueba->rol_familiar = $data['rol_familiar'];
         // Guardamos el objeto en la base de datos
-        $company->save();
-    
+        $prueba->save();
         // Retornamos una respuesta de éxito
-        return response()->json(['message' => 'Correctly Registered Company']);
-
+        return response()->json(['message' => 'Prueba Correcta']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(prueba $prueba)
     {
         //
     }
@@ -65,19 +52,17 @@ class companyController extends Controller
 
         $id = $data['id'];
         
-        $nitcode = $data['nitcode'];
-        
-        $tabla = weight::where('id', $id)
+        $rol_familiar = $data['rol_familiar'];
+        $tabla = prueba::where('id', $id)
                    
                    ->firstOrFail();
 
-        $tabla->nitcode = $nitcode;
+        $tabla->rol_familiar = $rol_familiar;
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
         return response()->json(['message' => 'Datos Actualizado correctamente']);
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -87,7 +72,7 @@ class companyController extends Controller
         $data = $request->json()->all();
         //var_dump($data);exit();
         $id = $data['id'];
-        weight::where('id', $id)->where('id', $id)->delete();
+        prueba::where('id', $id)->where('id', $id)->delete();
     
         return response()->json(['message' => 'Dato borrado correctamente']);
 
