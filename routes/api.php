@@ -180,9 +180,9 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* End */
 
     /* Rutas de Adulto Mayor */
-    Route::post('saveOld', [adultController::class, 'store']);
-    Route::get('olds', [adultController::class, 'index']);
-    Route::post('old', [adultController::class, 'show']);
+    Route::post('saveOld', [oldController::class, 'store']);
+    Route::get('olds', [oldController::class, 'index']);
+    Route::post('old', [oldController::class, 'show']);
     Route::post('updateOld', [oldController::class, 'update']);
     Route::post('deleteOld', [oldController::class, 'destroy']);
     /* End */
