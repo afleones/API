@@ -87,9 +87,10 @@ class earlychildhoodController extends Controller
         $earlychildhood->nutritionalproblems = $data['nutritionalproblems'];
         $earlychildhood->dresserChronic = $data['dresserChronic'];
         $earlychildhood->tripZonesEndemic = $data['tripZonesEndemic'];
-        $earlychildhood->personaid = $data['personaid'];
         $earlychildhood->useriduserid = $data['userid'];
-        
+        $earlychildhood->personaid = $data['personaid'];
+        $earlychildhood->viviendaid = $data['viviendaid'];
+
         //Guardamos el objeto en la base de datos
         $earlychildhood->save();
     
@@ -112,7 +113,7 @@ class earlychildhoodController extends Controller
     {
         $data = $request->json()->all();
         $id = $data['id']; 
-        $size = $data['size'];    
+        $weight = $data['weight'];    
         $tabla = earlychildhood::where('id', $id)->firstOrFail();
         $tabla->size = $size;
         $tabla->save();
