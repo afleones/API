@@ -12,7 +12,18 @@ class companyController extends Controller
      */
     public function index()
     {
-        //
+        $company = company::selectRaw("id,
+        nitcode,
+        businessname,
+        address,
+        telephonetype,
+        telephone,
+        email,
+        responsible,  
+        created_at,
+        updated_at
+        ")->get();
+        return $company;
     }
 
     /**
@@ -42,18 +53,7 @@ class companyController extends Controller
      */
     public function show(string $id)
     {
-        $company = company::selectRaw("id,
-        nitcode,
-        businessname,
-        address,
-        telephonetype,
-        telephone,
-        email,
-        responsible,  
-        created_at,
-        updated_at
-        ")->get();
-        return $company;
+        //
     }
 
     /**

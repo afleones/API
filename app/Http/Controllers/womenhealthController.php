@@ -13,7 +13,8 @@ class womenhealthController extends Controller
     public function index()
     {
         //
-        $womenhealth = womenhealth::selectRaw("peso,
+        $womenhealth = womenhealth::selectRaw("id,
+        peso,
         talla,
         imc,
         tensionArterial,

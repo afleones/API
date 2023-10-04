@@ -69,6 +69,10 @@ use App\Http\Controllers\womenhealthController;
 use App\Http\Controllers\pruebaController;
 /*  */
 
+/* controlador de adolescencees */
+use App\Http\Controllers\adolescenceController;
+/*  */
+
 //Api Controllers GenomaX_Documents End
 
 
@@ -151,7 +155,15 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deleteChildHood', [childhoodController::class, 'destroy']);
     /* End */
 
-//Api Routes GenomaX_Documents End
+    /* Rutas de Adolescencia */
+    Route::post('saveAdolescence', [adolescenceController::class, 'store']);
+    Route::get('adolescences', [adolescenceController::class, 'index']);
+    Route::post('adolescence', [adolescenceController::class, 'show']);
+    Route::post('updateAdolescence', [adolescenceController::class, 'update']);
+    Route::post('deleteAdolescence', [adolescenceController::class, 'destroy']);
+    /* End */
+
+    //Api Routes GenomaX_Documents End
 
     Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::post('logout', [AuthController::class, 'logOut']);
