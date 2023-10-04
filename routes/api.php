@@ -77,6 +77,10 @@ use App\Http\Controllers\adolescenceController;
 use App\Http\Controllers\adultController;
 /*  */
 
+/* controlador de Adulto Mayor */
+use App\Http\Controllers\oldController;
+/*  */
+
 //Api Controllers GenomaX_Documents End
 
 
@@ -167,13 +171,21 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deleteAdolescence', [adolescenceController::class, 'destroy']);
     /* End */
 
-     /* Rutas de Adulto */
-     Route::post('saveAdult', [adultController::class, 'store']);
-     Route::get('adults', [adultController::class, 'index']);
-     Route::post('adult', [adultController::class, 'show']);
-     Route::post('updateAdult', [adultController::class, 'update']);
-     Route::post('deleteAdult', [adultController::class, 'destroy']);
-     /* End */
+    /* Rutas de Adulto */
+    Route::post('saveAdult', [adultController::class, 'store']);
+    Route::get('adults', [adultController::class, 'index']);
+    Route::post('adult', [adultController::class, 'show']);
+    Route::post('updateAdult', [adultController::class, 'update']);
+    Route::post('deleteAdult', [adultController::class, 'destroy']);
+    /* End */
+
+    /* Rutas de Adulto Mayor */
+    Route::post('saveOld', [adultController::class, 'store']);
+    Route::get('olds', [adultController::class, 'index']);
+    Route::post('old', [adultController::class, 'show']);
+    Route::post('updateOld', [oldController::class, 'update']);
+    Route::post('deleteOld', [oldController::class, 'destroy']);
+    /* End */
 
     //Api Routes GenomaX_Documents End
 
