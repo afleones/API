@@ -49,7 +49,7 @@ use App\Http\Controllers\DashBoardController;
 
 //Api Controllers GenomaX_Documents Start
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\viviendaController;
+use App\Http\Controllers\livingplaceController;
 use App\Http\Controllers\personController;
 use App\Http\Controllers\companyController;
 use App\Http\Controllers\roleController;
@@ -145,11 +145,11 @@ Route::post('login', [AuthController::class, 'login']);
     //Api Controllers GenomaX_Documents Start
 
     /*living place*/
-    Route::post('saveVivienda', [viviendaController::class, 'store']);
-    Route::get('viviendas', [viviendaController::class, 'index']);
-    Route::post('vivienda', [viviendaController::class, 'show']);
-    Route::post('updateVivienda', [viviendaController::class, 'update']);
-    Route::post('deleteVivienda', [viviendaController::class, 'destroy']);
+    Route::post('saveLivingPlace', [livingplaceController::class, 'store']);
+    Route::get('livingPlaces', [livingplaceController::class, 'index']);
+    Route::post('livingplace', [livingplaceController::class, 'show']);
+    Route::post('updateLivingPlace', [livingplaceController::class, 'update']);
+    Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']);
     /* End */
 
     /* person start */
