@@ -101,7 +101,6 @@ class womenhealthController extends Controller
         $id = $data['id'];
         
         $peso= $data['peso'];
-        
         $talla= $data['talla'];
         $imc= $data['imc'];
         $tensionArterial= $data['tensionArterial'];
@@ -126,7 +125,6 @@ class womenhealthController extends Controller
                    
         ->firstOrFail();
 
-        $tabla->peso = $peso;
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
