@@ -54,7 +54,8 @@ class earlychildhoodController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
+        // $validatedData = $request->validate($rules);
+    
         // Creamos un nuevo objeto del modelo
         $earlychildhood = new earlychildhood();
         $earlychildhood->weight = $data['weight'];
@@ -88,7 +89,8 @@ class earlychildhoodController extends Controller
         $earlychildhood->tripZonesEndemic = $data['tripZonesEndemic'];
         $earlychildhood->personaid = $data['personaid'];
         $earlychildhood->useriduserid = $data['userid'];
-        // Guardamos el objeto en la base de datos
+        
+        //Guardamos el objeto en la base de datos
         $earlychildhood->save();
     
         // Retornamos una respuesta de éxito
