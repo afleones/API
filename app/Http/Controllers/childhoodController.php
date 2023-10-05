@@ -68,7 +68,7 @@ class childhoodController extends Controller
         $childhood->perimeterWaist = $data['perimeterWaist'];
         $childhood->perimeterHip = $data['perimeterHip'];
         $childhood->systolicPressure = $data['systolicPressure'];
-        $childhood->diastolicPressure = $data['diastolicpdiastolicPressureressure'];
+        $childhood->diastolicPressure = $data['diastolicPressure'];
         $childhood->congenitalAnomaly = $data['congenitalAnomaly'];
         $childhood->consumptionSubstances = $data['consumptionSubstances'];
         $childhood->chronicConditions = $data['chronicConditions'];
