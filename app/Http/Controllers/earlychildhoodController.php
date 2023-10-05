@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\earlychildhood;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class earlychildhoodController extends Controller
 {
@@ -42,6 +43,7 @@ class earlychildhoodController extends Controller
         nutritionalProblems,
         dresserChronic,
         tripZonesEndemic,
+        userId,
         personaId,
         viviendaId,
         created_at
@@ -112,7 +114,7 @@ class earlychildhoodController extends Controller
         // $fecha1 = $data['fecha1'];
         // $fecha2 = $data['fecha2'];
         $earlychildhood = earlychildhood::where('userid', $userid)
-                         ->where(function($query) use ( $data) {
+                         ->where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->orWhere('id', $data['id']);
                             }
@@ -130,57 +132,54 @@ class earlychildhoodController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'weight' => 'numeric',
-            'size' => 'numeric',
-            'headcircunference' => 'numeric',
-            'gillperimeter' => 'numeric',
-            'perimeterwaist' => 'numeric',
-            'perimeterHip' => 'numeric',
-            'systolicPressure' => 'numeric',
-            'diastolicPressure' => 'numeric',
-            'antecedentprematurity' => 'numeric',
-            'congenitalanomaly' => 'numeric',
-            'consumptionsubstances' => 'numeric',
-            'breastfeeding' => 'numeric',
-            'chroniccondition' => 'numeric',
-            'disability' => 'numeric',
-            'promotionhealth' => 'numeric',
-            'Completevaccination' => 'numeric',
-            'deworming' => 'numeric',
-            'oralhygiene' => 'numeric',
-            'childdevelopment' => 'numeric',
-            'signsera' => 'numeric',
-            'Ancestralmedicine' => 'numeric',
-            'signsera2' => 'numeric',
-            'victimization' => 'numeric',
-            'malnutrition' => 'numeric',
-            'overweightobesity' => 'numeric',
-            'dangerdeath' => 'numeric',
-            'nutritionalproblems' => 'numeric',
-            'dresserChronic' => 'numeric',
-            'tripZonesEndemic' => 'numeric',
-            'userid' => 'numeric',
-            'personaid' => 'numeric',
-            'viviendaid' => 'numeric',
-            'created_at' => 'date',
-            'updated_at' => 'date',
-        ]);
+            // Validación de datos
+            $request->validate([
+                'weight' => 'numeric',
+                'size' => 'numeric',
+                'headCircunference' => 'numeric',
+                'gillPerimeter' => 'numeric',
+                'perimeterWaist' => 'numeric',
+                'perimeterHip' => 'numeric',
+                'systolicPressure' => 'numeric',
+                'diastolicPressure' => 'numeric',
+                'antecedentPrematurity' => Rule::in([2, 1]), // 0 o 1 para TINYINT
+                'congenitalAnomaly' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'consumptionSubstances' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'breastfeeding' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'chronicCondition' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'disability' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'promotionHealth' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'completeVaccination' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'deworming' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'oralHygiene' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'childDevelopment' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'signSera' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'ancestralMedicine' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'signSera2' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'victimization' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'malnutrition' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'overweightObesity' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'dangerDeath' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'nutritionalProblems' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'dresserChronic' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'tripZonesEndemic' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'userId' => 'numeric',
+                'personaId' => 'numeric',
+                'viviendaId' => 'numeric',
+            ]);
         
-        // Buscar el registro por ID
-        $registro = Registro::find($id);
-
-        if (!$registro) {
-            return response()->json(['message' => 'Registro no encontrado'], 404);
+            // Buscar el registro por ID
+            $registro = earlychildhood::find($id);
+        
+            if (!$registro) {
+                return response()->json(['message' => 'Registro no encontrado'], 404);
+            }
+        
+            // Actualizar los campos
+            $registro->update($request->all());
+        
+            return response()->json(['message' => 'Registro actualizado con éxito']);
         }
-
-        // Actualizar los campos
-        $registro->fill($request->all());
-        $registro->save();
-
-        return response()->json(['message' => 'Registro actualizado con éxito']);
-    }
-
     /**
      * Remove the specified resource from storage.
      */
