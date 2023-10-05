@@ -127,8 +127,8 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveEarlyChildHood', [earlychildhoodController::class, 'store']);
     Route::get('earlyChildHoods', [earlychildhoodController::class, 'index']);
     Route::post('earlyChildHoods', [earlychildhoodController::class, 'show']);
-    Route::post('updatesaveEarlychildHood', [earlychildhoodController::class, 'update']);
-    Route::post('deletesaveEarlychildHood', [earlychildhoodController::class, 'destroy']);
+    Route::post('updateEarlychildHood', [earlychildhoodController::class, 'update']);
+    Route::post('deleteEarlychildHood', [earlychildhoodController::class, 'destroy']);
     /* End */
 
     /* Rutas de Enfermedades Transmisibles */

@@ -43,7 +43,9 @@ class childhoodController extends Controller
        schoolPerformance,
        dresserChronic,
        tripZonesEndemic,
-       userid
+       userid,
+       updated_at,
+       created_at
        ")->get();
        return $childhood;
     }
@@ -121,6 +123,19 @@ class childhoodController extends Controller
 
         $dataArray = array($childhood);                 
         return $dataArray;
+      
+    public function show(request $request, childhood $childhood)
+    {
+       // Obtén los parámetros de consulta desde la solicitud de React
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Realiza la consulta utilizando los campos created_at
+        $data = childhood::whereBetween('created_at', [$startDate, $endDate])->get();
+
+        // Devuelve los resultados en formato JSON
+        return response()->json($data);
+
     }
 
     /**

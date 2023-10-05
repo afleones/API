@@ -42,6 +42,9 @@ class earlychildhoodController extends Controller
         nutritionalproblems,
         dresserChronic,
         tripZonesEndemic,
+        userid,
+        personaid,
+        viviendaid,
         created_at,
         updated_at")->get();
         return $earlychildhood;
