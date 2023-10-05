@@ -104,7 +104,7 @@ class earlychildhoodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(earlychildhood $earlychildhood)
+    public function show(Request $request, earlychildhood $earlychildhood)
     {
         $data = $request->json()->all();
         //var_dump($data);exit();
