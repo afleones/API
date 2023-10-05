@@ -75,7 +75,7 @@ class earlychildhoodController extends Controller
         $earlychildhood->chronicCondition = $data['chronicCondition'];
         $earlychildhood->disability = $data['disability'];
         $earlychildhood->promotionHealth = $data['promotionHealth'];
-        $earlychildhood->completeVaccination = $data['CompleteVaccination'];
+        $earlychildhood->completeVaccination = $data['completeVaccination'];
         $earlychildhood->deworming = $data['deworming'];
         $earlychildhood->oralHygiene = $data['oralHygiene'];
         $earlychildhood->childDevelopment = $data['childDevelopment'];
