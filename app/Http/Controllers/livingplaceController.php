@@ -210,9 +210,9 @@ class livingplaceController extends Controller
                             if (isset($data['id'])) {
                                 $query->orWhere('id', $data['id']);
                             }
-                            if (isset($data['territorio'])) {
-                                $query->orWhere('territorio', $data['territorio']);
-                            }
+                            // if (isset($data['territorio'])) {
+                            //     $query->orWhere('territorio', $data['territorio']);
+                            // }
                             $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
                          ->get();

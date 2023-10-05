@@ -106,7 +106,8 @@ class earlychildhoodController extends Controller
      */
     public function show(Request $request, earlychildhood $earlychildhood)
     {
-        $data = $request->json()->all();
+       //$data = $request->json()->all();  recibe por raw
+       $data = $request->all();   //recibe por json
         //var_dump($data);exit();
         $userid = $data['userid'];
         // $fecha1 = $data['fecha1'];
@@ -116,12 +117,14 @@ class earlychildhoodController extends Controller
                             if (isset($data['id'])) {
                                 $query->orWhere('id', $data['id']);
                             }
-                            if (isset($data['personaid'])) {
-                                $query->orWhere('personaid', $data['personaid']);
-                            }
+                            // if (isset($data['personaid'])) {
+                            //     $query->orWhere('personaid', $data['personaid']);
+                            // }
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
                          ->get();
+        $dataArray = array($earlychildhood);                 
+        return $dataArray;
     }
     /**
      * Update the specified resource in storage.
