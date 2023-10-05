@@ -15,37 +15,36 @@ class earlychildhoodController extends Controller
         $earlychildhood = earlychildhood::selectRaw("id,
         weight,
         size,
-        headcircunference,
-        gillperimeter,
-        perimeterwaist,
+        headCircunference,
+        gillPerimeter,
+        perimeterWaist,
         perimeterHip,
         systolicPressure,
         diastolicPressure,
-        antecedentprematurity,
-        congenitalanomaly,
-        consumptionsubstances,
+        antecedentPrematurity,
+        congenitalAnomaly,
+        consumptionSubstances,
         breastfeeding,
-        chroniccondition,
+        chronicCondition,
         disability,
-        promotionhealth,
-        Completevaccination,
+        promotionHealth,
+        completeVaccination,
         deworming,
-        oralhygiene,
-        childdevelopment,
-        signsera,
-        Ancestralmedicine,
-        signsera2,
+        oralHygiene,
+        childDevelopment,
+        signSera,
+        ancestralMedicine,
+        signSera2,
         victimization,
         malnutrition,
-        overweightobesity,
-        dangerdeath,
-        nutritionalproblems,
+        overweightObesity,
+        dangerDeath,
+        nutritionalProblems,
         dresserChronic,
         tripZonesEndemic,
-        userid,
-        personaid,
-        viviendaid,
-        created_at,
+        personaId,
+        viviendaId,
+        created_at
         updated_at")->get();
         return $earlychildhood;
 
@@ -63,37 +62,37 @@ class earlychildhoodController extends Controller
         $earlychildhood = new earlychildhood();
         $earlychildhood->weight = $data['weight'];
         $earlychildhood->size = $data['size'];
-        $earlychildhood->headcircunference = $data['headcircunference'];
-        $earlychildhood->gillperimeter = $data['gillperimeter'];
-        $earlychildhood->perimeterwaist = $data['perimeterwaist'];
-        $earlychildhood->perimeterHip= $data['perimeterHip'];
+        $earlychildhood->headCircunference = $data['headcircunference'];
+        $earlychildhood->gillPerimeter = $data['gillperimeter'];
+        $earlychildhood->perimeterWaist = $data['perimeterwaist'];
+        $earlychildhood->perimeterHip = $data['perimeterHip'];
         $earlychildhood->systolicPressure = $data['systolicPressure'];
         $earlychildhood->diastolicPressure = $data['diastolicPressure'];
-        $earlychildhood->antecedentprematurity = $data['antecedentprematurity'];
-        $earlychildhood->congenitalanomaly = $data['congenitalanomaly'];
-        $earlychildhood->consumptionsubstances = $data['consumptionsubstances'];
+        $earlychildhood->antecedentPrematurity = $data['antecedentprematurity'];
+        $earlychildhood->congenitalAnomaly = $data['congenitalAnomaly'];
+        $earlychildhood->consumptionSubstances = $data['consumptionsubstances'];
         $earlychildhood->breastfeeding = $data['breastfeeding'];
-        $earlychildhood->chroniccondition = $data['chroniccondition'];
+        $earlychildhood->chronicCondition = $data['chroniccondition'];
         $earlychildhood->disability = $data['disability'];
-        $earlychildhood->promotionhealth = $data['promotionhealth'];
-        $earlychildhood->Completevaccination = $data['Completevaccination'];
+        $earlychildhood->promotionHealth = $data['promotionhealth'];
+        $earlychildhood->completeVaccination = $data['Completevaccination'];
         $earlychildhood->deworming = $data['deworming'];
-        $earlychildhood->oralhygiene = $data['oralhygiene'];
-        $earlychildhood->childdevelopment = $data['childdevelopment'];
-        $earlychildhood->signsera = $data['signsera'];
-        $earlychildhood->Ancestralmedicine = $data['Ancestralmedicine'];
-        $earlychildhood->signsera2 = $data['signsera2'];
+        $earlychildhood->oralHygiene = $data['oralhygiene'];
+        $earlychildhood->childDevelopment = $data['childdevelopment'];
+        $earlychildhood->signSera = $data['signsera'];
+        $earlychildhood->ancestralMedicine = $data['Ancestralmedicine'];
+        $earlychildhood->signSera2 = $data['signsera2'];
         $earlychildhood->victimization = $data['victimization'];
         $earlychildhood->malnutrition = $data['malnutrition'];
-        $earlychildhood->overweightobesity = $data['overweightobesity'];
-        $earlychildhood->dangerdeath = $data['dangerdeath'];
-        $earlychildhood->nutritionalproblems = $data['nutritionalproblems'];
+        $earlychildhood->overweightObesity = $data['overweightobesity'];
+        $earlychildhood->dangerDeath = $data['dangerdeath'];
+        $earlychildhood->nutritionalProblems = $data['nutritionalproblems'];
         $earlychildhood->dresserChronic = $data['dresserChronic'];
         $earlychildhood->tripZonesEndemic = $data['tripZonesEndemic'];
-        $earlychildhood->userid = $data['userid'];
-        $earlychildhood->personaid = $data['personaid'];
-        $earlychildhood->viviendaid = $data['viviendaid'];
-
+        $earlychildhood->userId = $data['userid'];
+        $earlychildhood->personaId = $data['personaid'];
+        $earlychildhood->viviendaId = $data['viviendaid'];
+        
         //Guardamos el objeto en la base de datos
         $earlychildhood->save();
     
