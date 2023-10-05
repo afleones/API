@@ -126,17 +126,58 @@ class earlychildhoodController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $data = $request->json()->all();
-        $id = $data['id']; 
-        $weight = $data['weight'];    
-        $tabla = earlychildhood::where('id', $id)->firstOrFail();
-        $tabla->size = $size;
-        $tabla->save();
+        $request->validate([
+            'weight' => 'numeric',
+            'size' => 'numeric',
+            'headcircunference' => 'numeric',
+            'gillperimeter' => 'numeric',
+            'perimeterwaist' => 'numeric',
+            'perimeterHip' => 'numeric',
+            'systolicPressure' => 'numeric',
+            'diastolicPressure' => 'numeric',
+            'antecedentprematurity' => 'numeric',
+            'congenitalanomaly' => 'numeric',
+            'consumptionsubstances' => 'numeric',
+            'breastfeeding' => 'numeric',
+            'chroniccondition' => 'numeric',
+            'disability' => 'numeric',
+            'promotionhealth' => 'numeric',
+            'Completevaccination' => 'numeric',
+            'deworming' => 'numeric',
+            'oralhygiene' => 'numeric',
+            'childdevelopment' => 'numeric',
+            'signsera' => 'numeric',
+            'Ancestralmedicine' => 'numeric',
+            'signsera2' => 'numeric',
+            'victimization' => 'numeric',
+            'malnutrition' => 'numeric',
+            'overweightobesity' => 'numeric',
+            'dangerdeath' => 'numeric',
+            'nutritionalproblems' => 'numeric',
+            'dresserChronic' => 'numeric',
+            'tripZonesEndemic' => 'numeric',
+            'userid' => 'numeric',
+            'personaid' => 'numeric',
+            'viviendaid' => 'numeric',
+            'created_at' => 'date',
+            'updated_at' => 'date',
+        ]);
+        
 
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+        // Buscar el registro por ID
+        $registro = Registro::find($id);
+
+        if (!$registro) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+
+        // Actualizar los campos
+        $registro->fill($request->all());
+        $registro->save();
+
+        return response()->json(['message' => 'Registro actualizado con éxito']);
     }
 
     /**
@@ -146,8 +187,8 @@ class earlychildhoodController extends Controller
     {
         $data = $request->json()->all();
         //var_dump($data);exit();
-        $id = $data['userid'];
-        earlychildhood::where('id', $id)->where('id', $id)->delete();   
+        $id = $data['personid'];
+        earlychildhood::where('', $id)->where('personid', $id)->delete();   
         return response()->json(['message' => 'Dato borrado correctamente']);
 
     }
