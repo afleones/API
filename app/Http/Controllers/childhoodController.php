@@ -93,11 +93,9 @@ class childhoodController extends Controller
         $childhood->userId = $data['userId'];  
         $childhood->personaId = $data['personaId'];  
         $childhood->viviendaId = $data['viviendaId'];  
+        $childhood->save();
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Datos insertados correctamente']);
-
-
-
     }
 
     /**
