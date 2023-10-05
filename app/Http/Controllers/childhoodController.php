@@ -107,7 +107,7 @@ class childhoodController extends Controller
         $data = $request->all(); 
 
         //var_dump($data);exit();
-        $userid = $data['userid'];
+        $userid = $data['userId'];
         //$fecha1 = $data['fecha1'];
         //$fecha2 = $data['fecha2'];
         //$viviendaid = $data['viviendaid'];
