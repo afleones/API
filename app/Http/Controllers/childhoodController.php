@@ -91,8 +91,8 @@ class childhoodController extends Controller
         $childhood->dresserChronic = $data['dresserChronic'];
         $childhood->tripZonesEndemic = $data['tripZonesEndemic'];
         $childhood->userId = $data['userId'];  
-        $childhood->userId = $data['personId'];  
-        $childhood->userId = $data['viviendaId'];  
+        $childhood->personaId = $data['personaId'];  
+        $childhood->viviendaId = $data['viviendaId'];  
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Datos insertados correctamente']);
 
