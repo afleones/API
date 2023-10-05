@@ -13,7 +13,7 @@ class personController extends Controller
     public function index()
     {
        //
-       $person = person::selectRaw("id,
+       $person = DB::table('person')->select('*')->toArray("id,
        rol_familiar,
        primer_nombre,
        segundo_nombre,

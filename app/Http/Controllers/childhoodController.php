@@ -118,25 +118,10 @@ class childhoodController extends Controller
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
                          ->get();
-
-       
-
         $dataArray = array($childhood);                 
         return $dataArray;
-      
-    public function show(request $request, childhood $childhood)
-    {
-       // Obtén los parámetros de consulta desde la solicitud de React
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
 
-        // Realiza la consulta utilizando los campos created_at
-        $data = childhood::whereBetween('created_at', [$startDate, $endDate])->get();
-
-        // Devuelve los resultados en formato JSON
-        return response()->json($data);
-
-    }
+    }  
 
     /**
      * Update the specified resource in storage.
