@@ -116,22 +116,25 @@ class personController extends Controller
      */
     public function show(Request $request, person $person)
     {
-        $data = $request->json()->all();
+        //$data = $request->json()->all();
+        $data = $request->all(); 
+
         //var_dump($data);exit();
         $userid = $data['userid'];
-        $fecha1 = $data['fecha1'];
-        $fecha2 = $data['fecha2'];
+        //$fecha1 = $data['fecha1'];
+        //$fecha2 = $data['fecha2'];
+        //$viviendaid = $data['viviendaid'];
         
 
         $person = person::where('userid', $userid)
-                         ->where(function($query) use ($fecha1, $fecha2, $data) {
+                         ->where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->orWhere('id', $data['id']);
                             }
-                            if (isset($data['territorio'])) {
-                                $query->orWhere('territorio', $data['territorio']);
+                            if (isset($data['viviendaid'])) {
+                                $query->orWhere('viviendaid', $data['viviendaid']);
                             }
-                            $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
                          ->get();
 

@@ -77,22 +77,23 @@ class communicablediseasesController extends Controller
      */
     public function show(Request $request, communicablediseases $communicablediseases)
     {
-        $data = $request->json()->all();
+        //$data = $request->json()->all();
+        $data = $request->all(); 
         //var_dump($data);exit();
         $userid = $data['userid'];
-        $fecha1 = $data['fecha1'];
-        $fecha2 = $data['fecha2'];
+        //$fecha1 = $data['fecha1'];
+        //$fecha2 = $data['fecha2'];
         
 
         $communicablediseases = communicablediseases::where('userid', $userid)
-                         ->where(function($query) use ($fecha1, $fecha2, $data) {
+                         ->where(function($query) use ( $data) {
                             if (isset($data['id'])) {
                                 $query->orWhere('id', $data['id']);
                             }
-                            if (isset($data['id'])) {
-                                $query->orWhere('id', $data['id']);
+                            if (isset($data['personaid'])) {
+                                $query->orWhere('personaid', $data['personaid']);
                             }
-                            $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
                          ->get();
 
