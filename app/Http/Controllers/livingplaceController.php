@@ -197,7 +197,8 @@ class livingplaceController extends Controller
      */
     public function show(Request $request, livingplace $livingplace)
     {
-        $data = $request->json()->all();
+        //$data = $request->json()->all();  recibe por raw
+        $data = $request->all();   //recibe por json
         //var_dump($data);exit();
         $userid = $data['userid'];
         $fecha1 = $data['fecha1'];
