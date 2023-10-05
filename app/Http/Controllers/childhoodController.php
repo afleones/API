@@ -58,35 +58,35 @@ class childhoodController extends Controller
         // Creamos un nuevo objeto del modelo
         $childhood = new childhood();
         $childhood->weight = $data['weight'];
-        // $childhood->size = $data['size'];
-        // $childhood->headcircunference = $data['headcircunference'];
-        // $childhood->gillperimeter = $data['gillperimeter'];
-        // $childhood->perimeterwaist = $data['perimeterwaist'];
-        // $childhood->perimeterHip = $data['perimeterHip'];
-        // $childhood->systolicpressure = $data['systolicpressure'];
-        // $childhood->diastolicpressure = $data['diastolicpressure'];
-        // $childhood->congenitalAnomaly = $data['congenitalAnomaly'];
-        // $childhood->consumptionSubstances = $data['consumptionSubstances'];
-        // $childhood->chronicConditions = $data['chronicConditions'];
-        // $childhood->disability = $data['disability'];
-        // $childhood->promotionHealth = $data['promotionHealth'];
-        // $childhood->completeVaccination = $data['completeVaccination'];
-        // $childhood->deworming = $data['deworming'];
-        // $childhood->oralHygiene = $data['oralHygiene'];
-        // $childhood->optometryPending = $data['optometryPending'];
-        // $childhood->problemsDevelopment = $data['problemsDevelopment'];
-        // $childhood->signsEda = $data['signsEda'];
-        // $childhood->signsEra = $data['signsEra'];
-        // $childhood->nutritionalProblems = $data['nutritionalProblems'];
-        // $childhood->malnutrition = $data['malnutrition'];
-        // $childhood->overweightobesity = $data['overweightobesity'];
-        // $childhood->dangerDeath = $data['dangerDeath'];
-        // $childhood->victimization = $data['victimization'];
-        // $childhood->unschooling = $data['unschooling'];
-        // $childhood->schoolPerformance = $data['schoolPerformance'];
-        // $childhood->dresserChronic = $data['dresserChronic'];
-        // $childhood->tripZonesEndemic = $data['tripZonesEndemic'];
-        // $childhood->userid = $data['userid'];
+        $childhood->size = $data['size'];
+        $childhood->headcircunference = $data['headcircunference'];
+        $childhood->gillperimeter = $data['gillperimeter'];
+        $childhood->perimeterwaist = $data['perimeterwaist'];
+        $childhood->perimeterHip = $data['perimeterHip'];
+        $childhood->systolicpressure = $data['systolicpressure'];
+        $childhood->diastolicpressure = $data['diastolicpressure'];
+        $childhood->congenitalAnomaly = $data['congenitalAnomaly'];
+        $childhood->consumptionSubstances = $data['consumptionSubstances'];
+        $childhood->chronicConditions = $data['chronicConditions'];
+        $childhood->disability = $data['disability'];
+        $childhood->promotionHealth = $data['promotionHealth'];
+        $childhood->completeVaccination = $data['completeVaccination'];
+        $childhood->deworming = $data['deworming'];
+        $childhood->oralHygiene = $data['oralHygiene'];
+        $childhood->optometryPending = $data['optometryPending'];
+        $childhood->problemsDevelopment = $data['problemsDevelopment'];
+        $childhood->signsEda = $data['signsEda'];
+        $childhood->signsEra = $data['signsEra'];
+        $childhood->nutritionalProblems = $data['nutritionalProblems'];
+        $childhood->malnutrition = $data['malnutrition'];
+        $childhood->overweightobesity = $data['overweightobesity'];
+        $childhood->dangerDeath = $data['dangerDeath'];
+        $childhood->victimization = $data['victimization'];
+        $childhood->unschooling = $data['unschooling'];
+        $childhood->schoolPerformance = $data['schoolPerformance'];
+        $childhood->dresserChronic = $data['dresserChronic'];
+        $childhood->tripZonesEndemic = $data['tripZonesEndemic'];
+        $childhood->userid = $data['userid'];
         // Guardamos el objeto en la base de datos
         $childhood->save();
         // Retornamos una respuesta de éxito
@@ -96,9 +96,31 @@ class childhoodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(childhood $childhood)
+    public function show(Request $request, childhood $childhood)
     {
-        //
+        $data = $request->json()->all();
+        //var_dump($data);exit();
+        $userid = $data['userid'];
+        // $fecha1 = $data['fecha1'];
+        // $fecha2 = $data['fecha2'];
+        
+
+        $childhood = childhood::where('userid', $userid)
+                         ->where(function($query) use ($data) {
+                            if (isset($data['id'])) {
+                                $query->orWhere('id', $data['id']);
+                            }
+                            if (isset($data['personaid'])) {
+                                $query->orWhere('personaid', $data['personaid']);
+                            }
+                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+                         })
+                         ->get();
+
+       
+
+        $dataArray = array($childhood);                 
+        return $dataArray;
     }
 
     /**
