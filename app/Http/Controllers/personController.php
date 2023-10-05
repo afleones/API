@@ -114,9 +114,31 @@ class personController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(person $person)
+    public function show(Request $request, person $person)
     {
+        $data = $request->json()->all();
+        //var_dump($data);exit();
+        $userid = $data['userid'];
+        $fecha1 = $data['fecha1'];
+        $fecha2 = $data['fecha2'];
         
+
+        $person = person::where('userid', $userid)
+                         ->where(function($query) use ($fecha1, $fecha2, $data) {
+                            if (isset($data['id'])) {
+                                $query->orWhere('id', $data['id']);
+                            }
+                            if (isset($data['territorio'])) {
+                                $query->orWhere('territorio', $data['territorio']);
+                            }
+                            $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+                         })
+                         ->get();
+
+       
+
+        $dataArray = array($person);                 
+        return $dataArray;
     }
 
     /**
