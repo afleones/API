@@ -106,7 +106,29 @@ class earlychildhoodController extends Controller
      */
     public function show(earlychildhood $earlychildhood)
     {
-        //
+        $data = $request->json()->all();
+        //var_dump($data);exit();
+        $userid = $data['userid'];
+        // $fecha1 = $data['fecha1'];
+        // $fecha2 = $data['fecha2'];
+
+
+        $earlychildhood = earlychildhood::where('userid', $userid)
+                         ->where(function($query) use ( $data) {
+                            if (isset($data['id'])) {
+                                $query->orWhere('id', $data['id']);
+                            }
+                            if (isset($data['personaid'])) {
+                                $query->orWhere('personaid', $data['personaid']);
+                            }
+                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+                         })
+                         ->get();
+
+
+
+        $dataArray = array($earlychildhood);                 
+        return $dataArray;
     }
 
     /**
