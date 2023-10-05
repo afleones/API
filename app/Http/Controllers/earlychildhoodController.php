@@ -110,10 +110,10 @@ class earlychildhoodController extends Controller
        //$data = $request->json()->all();  recibe por raw
        $data = $request->all();   //recibe por json
         //var_dump($data);exit();
-        $userid = $data['userid'];
+        $userid = $data['userId'];
         // $fecha1 = $data['fecha1'];
         // $fecha2 = $data['fecha2'];
-        $earlychildhood = earlychildhood::where('userid', $userid)
+        $earlychildhood = earlychildhood::where('userId', $userid)
                          ->where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->orWhere('id', $data['id']);
