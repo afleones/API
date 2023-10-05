@@ -113,16 +113,16 @@ class childhoodController extends Controller
         //$viviendaid = $data['viviendaid'];
         
 
-        $childhood = childhood::where('userid', $userid)
+        $childhood = childhood::where('userId', $userid)
                          ->where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->Where('id', $data['id']);
                             }
-                            if (isset($data['userid'])) {
-                                $query->Where('userid', $data['userid']);
+                            if (isset($data['userId'])) {
+                                $query->Where('userId', $data['userId']);
                             }
-                            if (isset($data['viviendaid'])) {
-                                $query->Where('viviendaid', $data['viviendaid']);
+                            if (isset($data['viviendaId'])) {
+                                $query->Where('viviendaId', $data['viviendaId']);
                             }
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
