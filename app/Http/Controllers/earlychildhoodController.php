@@ -90,7 +90,7 @@ class earlychildhoodController extends Controller
         $earlychildhood->nutritionalproblems = $data['nutritionalproblems'];
         $earlychildhood->dresserChronic = $data['dresserChronic'];
         $earlychildhood->tripZonesEndemic = $data['tripZonesEndemic'];
-        $earlychildhood->useriduserid = $data['userid'];
+        $earlychildhood->userid = $data['userid'];
         $earlychildhood->personaid = $data['personaid'];
         $earlychildhood->viviendaid = $data['viviendaid'];
 
@@ -111,8 +111,6 @@ class earlychildhoodController extends Controller
         $userid = $data['userid'];
         // $fecha1 = $data['fecha1'];
         // $fecha2 = $data['fecha2'];
-
-
         $earlychildhood = earlychildhood::where('userid', $userid)
                          ->where(function($query) use ( $data) {
                             if (isset($data['id'])) {
@@ -124,13 +122,7 @@ class earlychildhoodController extends Controller
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
                          ->get();
-
-
-
-        $dataArray = array($earlychildhood);                 
-        return $dataArray;
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -154,7 +146,7 @@ class earlychildhoodController extends Controller
     {
         $data = $request->json()->all();
         //var_dump($data);exit();
-        $id = $data['id'];
+        $id = $data['userid'];
         earlychildhood::where('id', $id)->where('id', $id)->delete();   
         return response()->json(['message' => 'Dato borrado correctamente']);
 
