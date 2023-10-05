@@ -63,7 +63,7 @@ class childhoodController extends Controller
         $childhood = new childhood();
         $childhood->weight = $data['weight'];
         $childhood->size = $data['size'];
-        $childhood->headCircunference = $data['headcircunference'];
+        $childhood->headCircunference = $data['headCircunference'];
         $childhood->gillPerimeter = $data['gillperimeter'];
         $childhood->perimeterWaist = $data['perimeterwaist'];
         $childhood->perimeterHip = $data['perimeterHip'];
