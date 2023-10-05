@@ -309,9 +309,7 @@ class livingplaceController extends Controller
         $userid= $data['userid'];
         
 
-        $tabla = livingplace::where('id', $id)
-                   
-                   ->firstOrFail();
+        $tabla = livingplace::where('id', $id)->firstOrFail();
 
         $tabla->division_geografica = $division_geografica;
         $tabla->save();

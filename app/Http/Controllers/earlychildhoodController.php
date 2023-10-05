@@ -66,7 +66,7 @@ class earlychildhoodController extends Controller
         $earlychildhood->headcircunference = $data['headcircunference'];
         $earlychildhood->gillperimeter = $data['gillperimeter'];
         $earlychildhood->perimeterwaist = $data['perimeterwaist'];
-        $earlychildhood->perimeterHip = $data['siperimeterHipze'];
+        $earlychildhood->perimeterHip= $data['perimeterHip'];
         $earlychildhood->systolicPressure = $data['systolicPressure'];
         $earlychildhood->diastolicPressure = $data['diastolicPressure'];
         $earlychildhood->antecedentprematurity = $data['antecedentprematurity'];
@@ -168,7 +168,6 @@ class earlychildhoodController extends Controller
             'updated_at' => 'date',
         ]);
         
-
         // Buscar el registro por ID
         $registro = Registro::find($id);
 
