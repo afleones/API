@@ -64,11 +64,11 @@ class childhoodController extends Controller
         $childhood->weight = $data['weight'];
         $childhood->size = $data['size'];
         $childhood->headCircunference = $data['headCircunference'];
-        $childhood->gillPerimeter = $data['gillperimeter'];
-        $childhood->perimeterWaist = $data['perimeterwaist'];
+        $childhood->gillPerimeter = $data['gillPerimeter'];
+        $childhood->perimeterWaist = $data['perimeterWaist'];
         $childhood->perimeterHip = $data['perimeterHip'];
-        $childhood->systolicPressure = $data['systolicpressure'];
-        $childhood->diastolicPressure = $data['diastolicpressure'];
+        $childhood->systolicPressure = $data['systolicPressure'];
+        $childhood->diastolicPressure = $data['diastolicpdiastolicPressureressure'];
         $childhood->congenitalAnomaly = $data['congenitalAnomaly'];
         $childhood->consumptionSubstances = $data['consumptionSubstances'];
         $childhood->chronicConditions = $data['chronicConditions'];
@@ -83,14 +83,16 @@ class childhoodController extends Controller
         $childhood->signsEra = $data['signsEra'];
         $childhood->nutritionalProblems = $data['nutritionalProblems'];
         $childhood->malnutrition = $data['malnutrition'];
-        $childhood->overweightObesity = $data['overweightobesity'];
+        $childhood->overweightObesity = $data['overweightObesity'];
         $childhood->dangerDeath = $data['dangerDeath'];
         $childhood->victimization = $data['victimization'];
         $childhood->unschooling = $data['unschooling'];
         $childhood->schoolPerformance = $data['schoolPerformance'];
         $childhood->dresserChronic = $data['dresserChronic'];
         $childhood->tripZonesEndemic = $data['tripZonesEndemic'];
-        $childhood->userId = $data['userid'];  
+        $childhood->userId = $data['userId'];  
+        $childhood->userId = $data['personId'];  
+        $childhood->userId = $data['viviendaId'];  
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Datos insertados correctamente']);
 
