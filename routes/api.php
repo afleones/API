@@ -127,7 +127,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveEarlyChildHood', [earlychildhoodController::class, 'store']);
     Route::get('earlyChildHoods', [earlychildhoodController::class, 'index']);
     Route::post('earlyChildHood', [earlychildhoodController::class, 'show']);
-    Route::post('updateEarlychildHood', [earlychildhoodController::class, 'update']);
+    Route::put('updateEarlychildHood', [earlychildhoodController::class, 'update']);
     Route::post('deleteEarlychildHood', [earlychildhoodController::class, 'destroy']);
     /* End */
 
