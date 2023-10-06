@@ -173,7 +173,7 @@ class adultController extends Controller
         $adult->unschooling = $data['unschooling'];
         $adult->schoolPerformance = $data['schoolPerformance'];
         $adult->tripZonesEndemic = $data['tripZonesEndemic'];
-        $adult->personaId = $data['personaid'];
+        $adult->personaId = $data['personaId'];
         $adult->userId = $data['userid'];
         $adult->viviendaId = $data['viviendaId'];        
         $tabla = adult::where('id', $id)->firstOrFail();
