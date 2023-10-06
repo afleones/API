@@ -99,7 +99,8 @@ class communicablediseasesController extends Controller
 
        
 
-        $dataArray = array($communicablediseases);                 
+        //$dataArray = array($communicablediseases);         
+        $dataArray = ($communicablediseases);             
         return $dataArray;
     }
 
