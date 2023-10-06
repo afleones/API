@@ -77,8 +77,10 @@ class womenhealthController extends Controller
         $womenhealth->violenciaGenero = $data['violenciaGenero'] ?? '';
         $womenhealth->tocedorCronico = $data['tocedorCronico'] ?? '';
         $womenhealth->zonasEndemicasViaje = $data['zonasEndemicasViaje'] ?? '';
+        $womenhealth->userId = $data['userId'];
+        $womenhealth->personaId = $data['personaId'];
+        $womenhealth->viviendaId = $data['viviendaId'];
                 
-
         // Guardamos el objeto en la base de datos
         $womenhealth->save();
     
