@@ -20,6 +20,7 @@ class companyController extends Controller
         telephone,
         email,
         responsible,
+        logo,
         userId,
         created_at, 
         updated_at")->get();
@@ -45,6 +46,7 @@ class companyController extends Controller
         $company->telephone = $data['telephone'];
         $company->email = $data['email'];
         $company->responsible = $data['responsible'];
+        $company->responsible = $data['logo'];
         $company->userId = $data['userId'];
 
         // Guardamos el objeto en la base de datos
@@ -78,9 +80,8 @@ class companyController extends Controller
         $company->telephone = $data['telephone'];
         $company->email = $data['email'];
         $company->responsible = $data['responsible'];
+        $company->logo = $data['logo'];
         $company->userId = $data['userId'];
-        $company->personaId = $data['personaId'];
-        $company->viviendaId = $data['viviendaId'];
 
         $table = weight::where('id', $id)->firstOrFail();
 
@@ -91,6 +92,7 @@ class companyController extends Controller
         $table->telephone = $data['telephone'];
         $table->email = $data['email'];
         $table->responsible = $data['responsible'];
+        $table->logo = $data['logo'];
         $table->userId = $data['userId'];
         $table->save();
 
