@@ -50,7 +50,8 @@ class communicablediseasesController extends Controller
         $communicablediseases = new communicablediseases();
 
         $communicablediseases->fullName = $data['fullName'];
-        $communicablediseases->gender = $data['gender'];
+        $communicablediseases->sex = $data['sex'];
+        $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
         $communicablediseases->age = $data['age'];
         $communicablediseases->relationship = $data['relationship'];
         $communicablediseases->occupation = $data['occupation'];
@@ -64,8 +65,8 @@ class communicablediseasesController extends Controller
         $communicablediseases->substanceUse = $data['substanceUse'];
         $communicablediseases->substanceType = $data['substanceType'];
         $communicablediseases->userId = $data['userId'];
-        $communicablediseases->userId = $data['personaId'];
-        $communicablediseases->userId = $data['viviendaId'];
+        $communicablediseases->personaId = $data['personaId'];
+        $communicablediseases->viviendaId = $data['viviendaId'];
         
         // Guardamos el objeto en la base de datos
         $communicablediseases->save();
@@ -116,7 +117,8 @@ class communicablediseasesController extends Controller
 
         $id = $data['id'];
         $communicablediseases->fullName = $data['fullName'];
-        $communicablediseases->gender = $data['gender'];
+        $communicablediseases->sex = $data['sex'];
+        $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
         $communicablediseases->age = $data['age'];
         $communicablediseases->relationship = $data['relationship'];
         $communicablediseases->occupation = $data['occupation'];
@@ -130,30 +132,30 @@ class communicablediseasesController extends Controller
         $communicablediseases->substanceUse = $data['substanceUse'];
         $communicablediseases->substanceType = $data['substanceType'];
         $communicablediseases->userId = $data['userId'];
-        $communicablediseases->userId = $data['personaId'];
-        $communicablediseases->userId = $data['viviendaId'];
-    
-        $tabla = communicablediseases::where('id', $id)->firstOrFail();
+        $communicablediseases->personaId = $data['personaId'];
+        $communicablediseases->viviendaId = $data['viviendaId'];
+        $table = communicablediseases::where('id', $id)->firstOrFail();
 
-        $tabla->fullName = $data['fullName'];
-        $tabla->gender = $data['gender'];
-        $tabla->age = $data['age'];
-        $tabla->relationship = $data['relationship'];
-        $tabla->occupation = $data['occupation'];
-        $tabla->incomeContribution = $data['incomeContribution'];
-        $tabla->educationLevel = $data['educationLevel'];
-        $tabla->affiliationType = $data['affiliationType'];
-        $tabla->specialCareGroup = $data['specialCareGroup'];
-        $tabla->speaksCreole = $data['speaksCreole'];
-        $tabla->covidVaccine = $data['covidVaccine'];
-        $tabla->vaccineDoses = $data['vaccineDoses'];
-        $tabla->substanceUse = $data['substanceUse'];
-        $tabla->substanceType = $data['substanceType'];
-        $tabla->userId = $data['userId'];
-        $tabla->userId = $data['personaId'];
-        $tabla->userId = $data['viviendaId'];
+        $table->fullName = $data['fullName'];
+        $table->sex = $data['sex'];
+        $table->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
+        $table->age = $data['age'];
+        $table->relationship = $data['relationship'];
+        $table->occupation = $data['occupation'];
+        $table->incomeContribution = $data['incomeContribution'];
+        $table->educationLevel = $data['educationLevel'];
+        $table->affiliationType = $data['affiliationType'];
+        $table->specialCareGroup = $data['specialCareGroup'];
+        $table->speaksCreole = $data['speaksCreole'];
+        $table->covidVaccine = $data['covidVaccine'];
+        $table->vaccineDoses = $data['vaccineDoses'];
+        $table->substanceUse = $data['substanceUse'];
+        $table->substanceType = $data['substanceType'];
+        $table->userId = $data['userId'];
+        $table->personaId = $data['personaId'];
+        $table->viviendaId = $data['viviendaId'];
         
-        $tabla->save();
+        $table->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
         return response()->json(['message' => 'Datos Actualizado correctamente']);
