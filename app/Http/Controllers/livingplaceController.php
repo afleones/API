@@ -267,11 +267,14 @@ class livingplaceController extends Controller
                             // }
                             $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
-                         ->get();
+                         ->get();     
 
+        //$dataArray = array($livingplace);
+        $dataArray = $livingplace;   //CORRECCION DE MOSTREO DE VIVIENDA 2023-10-06                              
        
 
         $dataArray = array$livingplace;                 
+      
         return $dataArray;
     }
 
