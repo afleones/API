@@ -188,7 +188,7 @@ class personController extends Controller
        
 
         //$dataArray = array($person);     
-        $dataArray = ($person);             
+        $dataArray = $person;             
         return $dataArray;
     }
 
