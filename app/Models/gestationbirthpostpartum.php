@@ -10,6 +10,5 @@ class gestationbirthpostpartum extends Model
     use HasFactory;
 
     protected $connection = 'maite';
-    protected $table = 'gestationbirthpostpartumheader';
-    protected $tabla = 'gestationbirthpostpartumdetails';
+    protected $table = 'gestationbirthpostpartum';
 }
