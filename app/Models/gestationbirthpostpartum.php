@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class earlychildhood extends Model
+class gestationbirthpostpartum extends Model
 {
     use HasFactory;
 
     protected $connection = 'maite';
-    protected $table = 'earlyChildHood';
+    protected $table = 'gestationbirthpostpartumheader';
+    protected $tabla = 'gestationbirthpostpartumdetails';
 }
