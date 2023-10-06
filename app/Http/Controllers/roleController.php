@@ -27,7 +27,8 @@ class roleController extends Controller
         $role = new role();
 
         // Asignamos los datos a las propiedades del objeto
-        $role->namerole= $data['namerole'];
+        $role->namerole= $data['nameRole'];
+        $role->userId= $data['userId'];
         // Guardamos el objeto en la base de datos
         $role->save();
     
@@ -52,12 +53,9 @@ class roleController extends Controller
     {
         $data = $request->json()->all();
 
-        $id = $data['id'];
-        
-        $namerole = $data['namerole'];
-        
+        $id = $data['id'];  
+        $namerole = $data['nameRole'];
         $tabla = role::where('id', $id)->firstOrFail();
-
         $tabla->namerole = $namerole;
         $tabla->save();
 
