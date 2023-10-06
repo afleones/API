@@ -13,16 +13,18 @@ class companyController extends Controller
     public function index()
     {
         $company = company::selectRaw("id,
-        nitcode,
+        nitcode, 
         businessname,
         address,
-        telephonetype,
+        telephoneType,
         telephone,
         email,
-        responsible,  
-        created_at,
-        updated_at
-        ")->get();
+        responsible,
+        userId,
+        personaId,
+        viviendaId,
+        created_at, 
+        updated_at")->get();
         return $company;
     }
 
@@ -38,7 +40,16 @@ class companyController extends Controller
         $company = new company();
 
         // Asignamos los datos a las propiedades del objeto
-        $company->nitcode= $data['nitcode'];
+        $company->nitCode = $data['nitCode'];
+        $company->businessName = $data['businessName'];
+        $company->address = $data['address'];
+        $company->telephoneType = $data['telephoneType'];
+        $company->telephone = $data['telephone'];
+        $company->email = $data['email'];
+        $company->responsible = $data['responsible'];
+        $company->userId = $data['userId'];
+        $company->personaId = $data['personaId'];
+        $company->viviendaId = $data['viviendaId'];
 
         // Guardamos el objeto en la base de datos
         $company->save();
@@ -64,15 +75,30 @@ class companyController extends Controller
         $data = $request->json()->all();
 
         $id = $data['id'];
-        
-        $nitcode = $data['nitcode'];
-        
-        $tabla = weight::where('id', $id)
-                   
-                   ->firstOrFail();
+        $company->nitCode = $data['nitCode'];
+        $company->businessName = $data['businessName'];
+        $company->address = $data['address'];
+        $company->telephoneType = $data['telephoneType'];
+        $company->telephone = $data['telephone'];
+        $company->email = $data['email'];
+        $company->responsible = $data['responsible'];
+        $company->userId = $data['userId'];
+        $company->personaId = $data['personaId'];
+        $company->viviendaId = $data['viviendaId'];
 
-        $tabla->nitcode = $nitcode;
-        $tabla->save();
+        $table = weight::where('id', $id)->firstOrFail();
+
+        $table->nitCode = $data['nitCode'];
+        $table->businessName = $data['businessName'];
+        $table->address = $data['address'];
+        $table->telephoneType = $data['telephoneType'];
+        $table->telephone = $data['telephone'];
+        $table->email = $data['email'];
+        $table->responsible = $data['responsible'];
+        $table->userId = $data['userId'];
+        $table->personaId = $data['personaId'];
+        $table->viviendaId = $data['viviendaId'];
+        $table->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
         return response()->json(['message' => 'Datos Actualizado correctamente']);
