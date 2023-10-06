@@ -13,29 +13,34 @@ class womenhealthController extends Controller
     public function index()
     {
         //
-        $womenhealth = womenhealth::selectRaw("id,
-        peso,
-        talla,
+        $womenhealth = womenhealth::selectRaw("
+        id,
+        weight,
+        size,
         imc,
-        tensionArterial,
-        citologiaCervicoUterina,
-        mamografiaUltimos5Anios,
-        usoMetodosAnticonceptivos,
-        adolecenteConAntecedenteEmbarazo,
-        antecedentesMalformacionesFamiliares,
-        antecedentesAbortosEspontaneos,
-        antecedenteCirugiaGinecologica,
-        enfermedadesCronicas,
-        periodoIntergenesico,
-        antecedenteVIHITS,
-        antecedenteRecienNacidoMacrosomicoOBajoPeso,
-        antecedenteEmbarazoMultiple,
-        mujerEnPuerperioSinMetodo,
-        violenciaGeneroFeminicidio,
-        tocedorCronicoMas14Dias2,
-        viajeZonasEndemicasUltimos15Dias2,
-        userid
-        ")->get();
+        systolicPressure,
+        diastolicPressure,
+        cytologyCervical,
+        mammographyLast,
+        useMethods,
+        teenagerWithHistory,
+        backgroundMal,
+        backgroundAbortions,
+        backgroundGynecological,
+        chronicDiseases,
+        intergenicPeriod,
+        backgroundVIHITS,
+        backgroundNewborn,
+        antecedentPregnancy,
+        womanInPuerperio,
+        violenceGender,
+        tocedorChronic,
+        tripEndemicZones,
+        userId,
+        personaId,
+        viviendaId,
+        created_at,
+        updated_at")->get();
         return $womenhealth;
     }
 
@@ -52,28 +57,27 @@ class womenhealthController extends Controller
         $womenhealth = new womenhealth();
 
         $womenhealth->peso = $data['peso'] ?? '';
-        $womenhealth->talla= $data['talla'] ?? '';
-        $womenhealth->imc= $data['imc'] ?? '';
-        $womenhealth->tensionArterial= $data['tensionArterial'] ?? '';
-        $womenhealth->citologiaCervicoUterina= $data['citologiaCervicoUterina'] ?? '';
-        $womenhealth->mamografiaUltimos5Anios= $data['mamografiaUltimos5Anios'] ?? '';
-        $womenhealth->usoMetodosAnticonceptivos= $data['usoMetodosAnticonceptivos'] ?? '';
-        $womenhealth->adolecenteConAntecedenteEmbarazo= $data['adolecenteConAntecedenteEmbarazo'] ?? '';
-        $womenhealth->antecedentesMalformacionesFamiliares= $data['antecedentesMalformacionesFamiliares'] ?? '';
-        $womenhealth->antecedentesAbortosEspontaneos= $data['antecedentesAbortosEspontaneos'] ?? '';
-        $womenhealth->antecedenteCirugiaGinecologica= $data['antecedenteCirugiaGinecologica'] ?? '';
-        $womenhealth->enfermedadesCronicas= $data['enfermedadesCronicas'] ?? '';
-        $womenhealth->periodoIntergenesico= $data['periodoIntergenesico'] ?? '';
-        $womenhealth->antecedenteVIHITS= $data['antecedenteVIHITS'] ?? '';
-        $womenhealth->antecedenteRecienNacidoMacrosomicoOBajoPeso= $data['antecedenteRecienNacidoMacrosomicoOBajoPeso'] ?? '';
-        $womenhealth->antecedenteEmbarazoMultiple= $data['antecedenteEmbarazoMultiple'] ?? '';
-        $womenhealth->mujerEnPuerperioSinMetodo= $data['mujerEnPuerperioSinMetodo'] ?? '';
-        $womenhealth->violenciaGeneroFeminicidio= $data['violenciaGeneroFeminicidio'] ?? '';
-        $womenhealth->tocedorCronicoMas14Dias2= $data['tocedorCronicoMas14Dias2'] ?? '';
-        $womenhealth->viajeZonasEndemicasUltimos15Dias2= $data['viajeZonasEndemicasUltimos15Dias2'] ?? '';
-        $womenhealth->userid= $data['userid'] ?? '';
-        $womenhealth->personaid= $data['personaid'] ?? '';
-        
+        $womenhealth->talla = $data['talla'] ?? '';
+        $womenhealth->imc = $data['imc'] ?? '';
+        $womenhealth->presionSistolica = $data['presionSistolica'] ?? '';
+        $womenhealth->presionDiastolica = $data['presionDiastolica'] ?? '';
+        $womenhealth->citologiaCervical = $data['citologiaCervical'] ?? '';
+        $womenhealth->mamografiaReciente = $data['mamografiaReciente'] ?? '';
+        $womenhealth->metodosAnticonceptivos = $data['metodosAnticonceptivos'] ?? '';
+        $womenhealth->adolescenteConAntecedentes = $data['adolescenteConAntecedentes'] ?? '';
+        $womenhealth->antecedentesMal = $data['antecedentesMal'] ?? '';
+        $womenhealth->antecedentesAbortos = $data['antecedentesAbortos'] ?? '';
+        $womenhealth->antecedentesGinecologicos = $data['antecedentesGinecologicos'] ?? '';
+        $womenhealth->enfermedadesCronicas = $data['enfermedadesCronicas'] ?? '';
+        $womenhealth->periodoIntergenico = $data['periodoIntergenico'] ?? '';
+        $womenhealth->antecedentesVIHITS = $data['antecedentesVIHITS'] ?? '';
+        $womenhealth->antecedentesRecienNacido = $data['antecedentesRecienNacido'] ?? '';
+        $womenhealth->antecedentesEmbarazo = $data['antecedentesEmbarazo'] ?? '';
+        $womenhealth->mujerEnPuerperio = $data['mujerEnPuerperio'] ?? '';
+        $womenhealth->violenciaGenero = $data['violenciaGenero'] ?? '';
+        $womenhealth->tocedorCronico = $data['tocedorCronico'] ?? '';
+        $womenhealth->zonasEndemicasViaje = $data['zonasEndemicasViaje'] ?? '';
+                
 
         // Guardamos el objeto en la base de datos
         $womenhealth->save();
@@ -91,18 +95,18 @@ class womenhealthController extends Controller
         //$data = $request->json()->all();
         $data = $request->all(); 
         //var_dump($data);exit();
-        $userid = $data['userid'];
+        $userid = $data['userId'];
         //$fecha1 = $data['fecha1'];
         //$fecha2 = $data['fecha2'];
         
 
-        $womenhealth = womenhealth::where('userid', $userid)
+        $womenhealth = womenhealth::where('userId', $userid)
                          ->where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->orWhere('id', $data['id']);
                             }
-                            if (isset($data['personaid'])) {
-                                $query->orWhere('personaid', $data['personaid']);
+                            if (isset($data['personaId'])) {
+                                $query->orWhere('personaId', $data['personaId']);
                             }
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
@@ -122,9 +126,8 @@ class womenhealthController extends Controller
         
         $data = $request->json()->all();
         $id = $data['id'];
-        $userid = $data['userid'];
-        $personid = $data['personid'];
-        
+        $userid = $data['userId'];
+        $personid = $data['personaId'];
         $peso= $data['peso'] ?? '';
         $talla= $data['talla'] ?? '';
         $imc= $data['imc'] ?? '';
@@ -184,11 +187,11 @@ class womenhealthController extends Controller
         $data = $request->json()->all();
         //var_dump($data);exit();
         $id = $data['id'];
-        $userid = $data['userid'];
-        $personaid = $data['personaid'];
+        $userid = $data['userId'];
+        $personaid = $data['personaId'];
         womenhealth::where('id', $id)->where('id', $id)
-                                     ->where('userid', $userid)
-                                     ->where('personaid', $personaid)
+                                     ->where('userId', $userid)
+                                     ->where('personaId', $personaid)
                                      ->delete();
     
         return response()->json(['message' => 'Dato borrado correctamente']);
