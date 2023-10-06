@@ -96,8 +96,8 @@ class adultController extends Controller
         $adult->unschooling = $data['unschooling'];
         $adult->schoolPerformance = $data['schoolPerformance'];
         $adult->tripZonesEndemic = $data['tripZonesEndemic'];
-        $adult->personaId = $data['personaid'];
-        $adult->userId = $data['userid'];
+        $adult->personaId = $data['personaId'];
+        $adult->userId = $data['userId'];
         $adult->viviendaId = $data['viviendaId'];
 
                 // Guardamos el objeto en la base de datos
