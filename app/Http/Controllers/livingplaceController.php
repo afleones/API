@@ -270,11 +270,8 @@ class livingplaceController extends Controller
                          ->get();     
 
         //$dataArray = array($livingplace);
-        $dataArray = $livingplace;   //CORRECCION DE MOSTREO DE VIVIENDA 2023-10-06                              
-       
-
-        $dataArray = array $livingplace;                 
-      
+        $dataArray = $livingplace;   //CORRECCION DE MOSTREO DE VIVIENDA 2023-10-06                                         
+        
         return $dataArray;
     }
 
