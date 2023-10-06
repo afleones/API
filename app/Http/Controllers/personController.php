@@ -173,13 +173,10 @@ class personController extends Controller
         $person = person::where('userid', $userid)
                          ->where(function($query) use ($data) {  
                             if (isset($data['id'])) {
-                                $query->Where('id', $data['id']);
-                            }
-                            if (isset($data['userid'])) {
-                                $query->Where('userid', $data['userid']);
+                                $query->orWhere('id', $data['id']);
                             }
                             if (isset($data['viviendaid'])) {
-                                $query->Where('viviendaid', $data['viviendaid']);
+                                $query->orWhere('viviendaid', $data['viviendaid']);
                             }
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })

@@ -16,8 +16,8 @@ class adultController extends Controller
         weight,
         size,
         imc,
-        systolicpressure,
-        diastolicpressure,
+        systolicPressure,
+        diastolicPressure,
         medicalHistory,
         completeVaccination,
         chronicConditions,
@@ -45,6 +45,9 @@ class adultController extends Controller
         unschooling,
         schoolPerformance,
         tripZonesEndemic,
+        userId,
+        personaId,
+        viviendaId,
         created_at,
 		updated_at")->get();
         return $adult;
@@ -62,43 +65,42 @@ class adultController extends Controller
         $adult = new adult();
 
         $adult->weight = $data['weight'];
-        
-        $adult->size= $data['size'];
-        $adult->imc= $data['imc'];
-        $adult->systolicpressure= $data['systolicpressure'];
-        $adult->diastolicpressure= $data['diastolicpressure'];
-        $adult->medicalHistory= $data['medicalHistory'];
-        $adult->completeVaccination= $data['completeVaccination'];
-        $adult->chronicConditions= $data['chronicConditions'];
-        $adult->disability= $data['disability'];
-        $adult->promotionHealth= $data['promotionHealth'];
-        $adult->oralHygiene= $data['oralHygiene'];
-        $adult->referralOptometry= $data['referralOptometry'];
-        $adult->periodoIntergeconsumptionTobacconesico= $data['consumptionTobacco'];
-        $adult->consumptionAlcohol= $data['consumptionAlcohol'];
-        $adult->psychoactiveSubstances= $data['psychoactiveSubstances'];
-        $adult->developmentPubertal= $data['developmentPubertal'];
-        $adult->homeLifeSexual= $data['homeLifeSexual'];
-        $adult->its= $data['its'];
-        $adult->chronicCough= $data['chronicCough'];
-        $adult->identitySexual= $data['identitySexual'];
-        $adult->psychosocialDevelopment= $data['psychosocialDevelopment'];
-        $adult->suicidalBehavior= $data['suicidalBehavior'];
-        $adult->ethnicGroups= $data['ethnicGroups'];
-        $adult->nutritionalProblems= $data['nutritionalProblems'];
-        $adult->malnutrition= $data['malnutrition'];
-        $adult->overweightObesity= $data['overweightObesity'];
-        $adult->signsDanger= $data['signsDanger'];
-        $adult->rapePhysicalPsychological= $data['rapePhysicalPsychological'];
-        $adult->rapeSexual= $data['rapeSexual'];
-        $adult->unschooling= $data['unschooling'];
-        $adult->schoolPerformance= $data['schoolPerformance'];
-        $adult->tripZonesEndemic= $data['tripZonesEndemic'];
-        $adult->personaid= $data['personaid'];
-        
-        $adult->userid= $data['userid'];
-    
-        // Guardamos el objeto en la base de datos
+        $adult->size = $data['size'];
+        $adult->imc = $data['imc'];
+        $adult->systolicPressure = $data['systolicPressure'];
+        $adult->diastolicPressure = $data['diastolicPressure'];
+        $adult->medicalHistory = $data['medicalHistory'];
+        $adult->completeVaccination = $data['completeVaccination'];
+        $adult->chronicConditions = $data['chronicConditions'];
+        $adult->disability = $data['disability'];
+        $adult->promotionHealth = $data['promotionHealth'];
+        $adult->oralHygiene = $data['oralHygiene'];
+        $adult->referralOptometry = $data['referralOptometry'];
+        $adult->consumptionTobacco = $data['consumptionTobacco'];
+        $adult->consumptionAlcohol = $data['consumptionAlcohol'];
+        $adult->psychoactiveSubstances = $data['psychoactiveSubstances'];
+        $adult->developmentPubertal = $data['developmentPubertal'];
+        $adult->homeLifeSexual = $data['homeLifeSexual'];
+        $adult->its = $data['its'];
+        $adult->chronicCough = $data['chronicCough'];
+        $adult->identitySexual = $data['identitySexual'];
+        $adult->psychosocialDevelopment = $data['psychosocialDevelopment'];
+        $adult->suicidalBehavior = $data['suicidalBehavior'];
+        $adult->ethnicGroups = $data['ethnicGroups'];
+        $adult->nutritionalProblems = $data['nutritionalProblems'];
+        $adult->malnutrition = $data['malnutrition'];
+        $adult->overweightObesity = $data['overweightObesity'];
+        $adult->signsDanger = $data['signsDanger'];
+        $adult->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
+        $adult->rapeSexual = $data['rapeSexual'];
+        $adult->unschooling = $data['unschooling'];
+        $adult->schoolPerformance = $data['schoolPerformance'];
+        $adult->tripZonesEndemic = $data['tripZonesEndemic'];
+        $adult->personaId = $data['personaId'];
+        $adult->userId = $data['userId'];
+        $adult->viviendaId = $data['viviendaId'];
+
+                // Guardamos el objeto en la base de datos
         $adult->save();
     
         // Retornamos una respuesta de éxito
@@ -112,22 +114,19 @@ class adultController extends Controller
     {
         $data = $request->json()->all();
         //var_dump($data);exit();
-        $userid = $data['userid'];
+        $userid = $data['userId'];
         // $fecha1 = $data['fecha1'];
         // $fecha2 = $data['fecha2'];
         
 
-        $adult = adult::where('userid', $userid)
-                         ->where(function($query) use ( $data) {
-                            if (isset($data['id'])) {
-                                $query->orWhere('id', $data['id']);
-                            }
-                            if (isset($data['personaid'])) {
-                                $query->orWhere('personaid', $data['personaid']);
-                            }
-                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-                         })
-                         ->get();
+        $adult = adult::where('userId', $userid)->where(function($query) use ( $data) {
+            if (isset($data['id'])) {
+            $query->orWhere('id', $data['id']);
+            } if (isset($data['personaId'])) {
+                $query->orWhere('personaId', $data['personaId']);
+            }
+                //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+        })->get();
 
        
 
@@ -142,78 +141,43 @@ class adultController extends Controller
     {
         $data = $request->json()->all();
         $id = $data['id'];
-        $weight = $data['weight'];
-        
-        $adult->size= $data['size'];
-        $adult->imc= $data['imc'];
-        $adult->systolicpressure= $data['systolicpressure'];
-        $adult->diastolicpressure= $data['diastolicpressure'];
-        $adult->medicalHistory= $data['medicalHistory'];
-        $adult->completeVaccination= $data['completeVaccination'];
-        $adult->chronicConditions= $data['chronicConditions'];
-        $adult->disability= $data['disability'];
-        $adult->promotionHealth= $data['promotionHealth'];
-        $adult->oralHygiene= $data['oralHygiene'];
-        $adult->referralOptometry= $data['referralOptometry'];
-        $adult->periodoIntergeconsumptionTobacconesico= $data['consumptionTobacco'];
-        $adult->consumptionAlcohol= $data['consumptionAlcohol'];
-        $adult->psychoactiveSubstances= $data['psychoactiveSubstances'];
-        $adult->developmentPubertal= $data['developmentPubertal'];
-        $adult->homeLifeSexual= $data['homeLifeSexual'];
-        $adult->its= $data['its'];
-        $adult->chronicCough= $data['chronicCough'];
-        $adult->identitySexual= $data['identitySexual'];
-        $adult->psychosocialDevelopment= $data['psychosocialDevelopment'];
-        $adult->suicidalBehavior= $data['suicidalBehavior'];
-        $adult->ethnicGroups= $data['ethnicGroups'];
-        $adult->nutritionalProblems= $data['nutritionalProblems'];
-        $adult->malnutrition= $data['malnutrition'];
-        $adult->overweightObesity= $data['overweightObesity'];
-        $adult->signsDanger= $data['signsDanger'];
-        $adult->rapePhysicalPsychological= $data['rapePhysicalPsychological'];
-        $adult->rapeSexual= $data['rapeSexual'];
-        $adult->unschooling= $data['unschooling'];
-        $adult->schoolPerformance= $data['schoolPerformance'];
-        $adult->tripZonesEndemic= $data['tripZonesEndemic'];
-        $adult->personaid= $data['personaid'];
-        $adult->userid= $data['userid'];
-        
+        $adult->weight = $data['weight'];
+        $adult->size = $data['size'];
+        $adult->imc = $data['imc'];
+        $adult->systolicPressure = $data['systolicPressure'];
+        $adult->diastolicPressure = $data['diastolicPressure'];
+        $adult->medicalHistory = $data['medicalHistory'];
+        $adult->completeVaccination = $data['completeVaccination'];
+        $adult->chronicConditions = $data['chronicConditions'];
+        $adult->disability = $data['disability'];
+        $adult->promotionHealth = $data['promotionHealth'];
+        $adult->oralHygiene = $data['oralHygiene'];
+        $adult->referralOptometry = $data['referralOptometry'];
+        $adult->consumptionTobacco = $data['consumptionTobacco'];
+        $adult->consumptionAlcohol = $data['consumptionAlcohol'];
+        $adult->psychoactiveSubstances = $data['psychoactiveSubstances'];
+        $adult->developmentPubertal = $data['developmentPubertal'];
+        $adult->homeLifeSexual = $data['homeLifeSexual'];
+        $adult->its = $data['its'];
+        $adult->chronicCough = $data['chronicCough'];
+        $adult->identitySexual = $data['identitySexual'];
+        $adult->psychosocialDevelopment = $data['psychosocialDevelopment'];
+        $adult->suicidalBehavior = $data['suicidalBehavior'];
+        $adult->ethnicGroups = $data['ethnicGroups'];
+        $adult->nutritionalProblems = $data['nutritionalProblems'];
+        $adult->malnutrition = $data['malnutrition'];
+        $adult->overweightObesity = $data['overweightObesity'];
+        $adult->signsDanger = $data['signsDanger'];
+        $adult->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
+        $adult->rapeSexual = $data['rapeSexual'];
+        $adult->unschooling = $data['unschooling'];
+        $adult->schoolPerformance = $data['schoolPerformance'];
+        $adult->tripZonesEndemic = $data['tripZonesEndemic'];
+        $adult->personaId = $data['personaId'];
+        $adult->userId = $data['userid'];
+        $adult->viviendaId = $data['viviendaId'];        
         $tabla = adult::where('id', $id)->firstOrFail();
         $tabla->weight = $weight;
-
-        $table->size= $size;
-        $table->imc= $imc;
-        $table->systolicpressure= $systolicpressure;
-        $table->diastolicpressure= $diastolicpressure;
-        $table->medicalHistory= $medicalHistory;
-        $table->completeVaccination= $completeVaccination;
-        $table->chronicConditions= $chronicConditions;
-        $table->disability= $disability;
-        $table->promotionHealth= $promotionHealth;
-        $table->oralHygiene= $oralHygiene;
-        $table->referralOptometry= $referralOptometry;
-        $table->periodoIntergeconsumptionTobacconesico= $consumptionTobacco;
-        $table->consumptionAlcohol= $consumptionAlcohol;
-        $table->psychoactiveSubstances= $psychoactiveSubstances;
-        $table->developmentPubertal= $developmentPubertal;
-        $table->homeLifeSexual= $homeLifeSexual;
-        $table->its= $its;
-        $table->chronicCough= $chronicCough;
-        $table->identitySexual= $identitySexual;
-        $table->psychosocialDevelopment= $psychosocialDevelopment;
-        $table->suicidalBehavior= $suicidalBehavior;
-        $table->ethnicGroups= $ethnicGroups;
-        $table->nutritionalProblems= $nutritionalProblems;
-        $table->malnutrition= $malnutrition;
-        $table->overweightObesity= $overweightObesity;
-        $table->signsDanger= $signsDanger;
-        $table->rapePhysicalPsychological= $rapePhysicalPsychological;
-        $table->rapeSexual= $rapeSexual;
-        $table->unschooling= $unschooling;
-        $table->schoolPerformance= $schoolPerformance;
-        $table->tripZonesEndemic= $tripZonesEndemic;
-        $table->personaid= $personaid;
-        $table->userid= $userid;
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página

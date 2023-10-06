@@ -10,5 +10,5 @@ class womenhealth extends Model
     use HasFactory;
 
     protected $connection = 'maite';
-    protected $table = 'womenhealth';
+    protected $table = 'womenHealth';
 }
