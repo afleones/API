@@ -85,6 +85,10 @@ use App\Http\Controllers\oldController;
 use App\Http\Controllers\youthController;
 /*  */
 
+/* controlador de Adulto Mayor */
+use App\Http\Controllers\gestationbirthpostpartumController;
+
+
 //Api Controllers GenomaX_Documents End
 
 
@@ -197,6 +201,14 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('youth', [youthController::class, 'show']);
     Route::post('updateYouth', [youthController::class, 'update']);
     Route::post('deleteYouth', [youthController::class, 'destroy']);
+    /* End */
+
+    /*Rutas de Viviendas*/
+    Route::post('saveGestation', [gestationbirthpostpartumController::class, 'store']);
+    Route::get('gestations', [gestationbirthpostpartumController::class, 'index']);
+    Route::post('gestation', [gestationbirthpostpartumController::class, 'show']);
+    Route::post('updateGestation', [gestationbirthpostpartumController::class, 'update']);
+    Route::post('deleteGestation', [gestationbirthpostpartumController::class, 'destroy']);
     /* End */
 
     //Api Routes GenomaX_Documents End
