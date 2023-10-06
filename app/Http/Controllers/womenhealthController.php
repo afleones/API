@@ -115,7 +115,8 @@ class womenhealthController extends Controller
 
        
 
-        $dataArray = array($womenhealth);                 
+        //$dataArray = array($womenhealth);  
+        $dataArray = ($womenhealth);                
         return $dataArray;
     }
 
