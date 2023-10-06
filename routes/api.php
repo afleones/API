@@ -141,7 +141,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     /* Rutas de Enfermedades Transmisibles */
     Route::post('saveCommunicableDiseases', [communicablediseasesController::class, 'store']);
-    Route::get('CommunicableDiseases', [communicablediseasesController::class, 'index']);
+    Route::get('communicableDiseases', [communicablediseasesController::class, 'index']);
     Route::post('communicableDisease', [womenhealthController::class, 'show']);
     Route::post('updateCommunicableDiseases', [communicablediseasesController::class, 'update']);
     Route::post('deleteCommunicableDiseases', [communicablediseasesController::class, 'destroy']);

@@ -12,25 +12,28 @@ class communicablediseasesController extends Controller
      */
     public function index()
     {
-        $communicablediseases = communicablediseases::selectRaw("id,
-        nombreCompleto,
-        sexo,
-        edad,
-        parentezco,
-        ocupacion,
-        aportaIngresos,
-        nivelEscolaridad,
-        tipoAfiliacion,
-        grupoAtencionEspecial,
-        hablaCreole,
-        vacunaCovid,
-        dosisVacuna,
-        consumoSustancias,
-        sustanciasConsumidas,
-        userid,
-        created_at,
-        updated_at
-        ")->get();
+        $communicablediseases = communicablediseases::selectRaw("
+        id,
+        fullName, 
+        sex,
+        otherSex, 
+        age, 
+        relationship, 
+        occupation, 
+        incomeContribution, 
+        educationLevel, 
+        affiliationType, 
+        specialCareGroup, 
+        speaksCreole, 
+        covidVaccine, 
+        vaccineDoses, 
+        substanceUse, 
+        substanceType, 
+        userId, 
+        personaId,
+        viviendaId,
+        created_at, 
+        updated_at")->get();
         return $communicablediseases;
     }
 
@@ -46,24 +49,25 @@ class communicablediseasesController extends Controller
         // Creamos un nuevo objeto del modelo
         $communicablediseases = new communicablediseases();
 
-        $communicablediseases->nombreCompleto = $data['nombreCompleto'];
+        $communicablediseases->fullName = $data['fullName'];
+        $communicablediseases->sex = $data['sex'];
+        $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
+        $communicablediseases->age = $data['age'];
+        $communicablediseases->relationship = $data['relationship'];
+        $communicablediseases->occupation = $data['occupation'];
+        $communicablediseases->incomeContribution = $data['incomeContribution'];
+        $communicablediseases->educationLevel = $data['educationLevel'];
+        $communicablediseases->affiliationType = $data['affiliationType'];
+        $communicablediseases->specialCareGroup = $data['specialCareGroup'];
+        $communicablediseases->speaksCreole = $data['speaksCreole'];
+        $communicablediseases->covidVaccine = $data['covidVaccine'];
+        $communicablediseases->vaccineDoses = $data['vaccineDoses'];
+        $communicablediseases->substanceUse = $data['substanceUse'];
+        $communicablediseases->substanceType = $data['substanceType'];
+        $communicablediseases->userId = $data['userId'];
+        $communicablediseases->personaId = $data['personaId'];
+        $communicablediseases->viviendaId = $data['viviendaId'];
         
-        $communicablediseases->sexo = $data['sexo'];
-        $communicablediseases->edad = $data['edad'];
-        $communicablediseases->parentezco = $data['parentezco'];
-        $communicablediseases->ocupacion = $data['ocupacion'];
-        $communicablediseases->aportaIngresos = $data['aportaIngresos'];
-        $communicablediseases->nivelEscolaridad = $data['nivelEscolaridad'];
-        $communicablediseases->tipoAfiliacion = $data['tipoAfiliacion'];
-        $communicablediseases->grupoAtencionEspecial = $data['grupoAtencionEspecial'];
-        $communicablediseases->hablaCreole = $data['hablaCreole'];
-        $communicablediseases->vacunaCovid = $data['vacunaCovid'];
-        $communicablediseases->dosisVacuna = $data['dosisVacuna'];
-        $communicablediseases->consumoSustancias = $data['consumoSustancias'];
-        $communicablediseases->sustanciasConsumidas = $data['sustanciasConsumidas'];
-        $communicablediseases->userid = $data['userid'];
-
-
         // Guardamos el objeto en la base de datos
         $communicablediseases->save();
     
@@ -80,18 +84,18 @@ class communicablediseasesController extends Controller
         //$data = $request->json()->all();
         $data = $request->all(); 
         //var_dump($data);exit();
-        $userid = $data['userid'];
+        $userid = $data['userId'];
         //$fecha1 = $data['fecha1'];
         //$fecha2 = $data['fecha2'];
         
 
-        $communicablediseases = communicablediseases::where('userid', $userid)
+        $communicablediseases = communicablediseases::where('userId', $userid)
                          ->where(function($query) use ( $data) {
                             if (isset($data['id'])) {
                                 $query->orWhere('id', $data['id']);
                             }
-                            if (isset($data['personaid'])) {
-                                $query->orWhere('personaid', $data['personaid']);
+                            if (isset($data['personaId'])) {
+                                $query->orWhere('personaId', $data['personaId']);
                             }
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
@@ -112,31 +116,46 @@ class communicablediseasesController extends Controller
         $data = $request->json()->all();
 
         $id = $data['id'];
-        $nombreCompleto = $data['nombreCompleto'];
+        $communicablediseases->fullName = $data['fullName'];
+        $communicablediseases->sex = $data['sex'];
+        $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
+        $communicablediseases->age = $data['age'];
+        $communicablediseases->relationship = $data['relationship'];
+        $communicablediseases->occupation = $data['occupation'];
+        $communicablediseases->incomeContribution = $data['incomeContribution'];
+        $communicablediseases->educationLevel = $data['educationLevel'];
+        $communicablediseases->affiliationType = $data['affiliationType'];
+        $communicablediseases->specialCareGroup = $data['specialCareGroup'];
+        $communicablediseases->speaksCreole = $data['speaksCreole'];
+        $communicablediseases->covidVaccine = $data['covidVaccine'];
+        $communicablediseases->vaccineDoses = $data['vaccineDoses'];
+        $communicablediseases->substanceUse = $data['substanceUse'];
+        $communicablediseases->substanceType = $data['substanceType'];
+        $communicablediseases->userId = $data['userId'];
+        $communicablediseases->personaId = $data['personaId'];
+        $communicablediseases->viviendaId = $data['viviendaId'];
+        $table = communicablediseases::where('id', $id)->firstOrFail();
+
+        $table->fullName = $data['fullName'];
+        $table->sex = $data['sex'];
+        $table->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
+        $table->age = $data['age'];
+        $table->relationship = $data['relationship'];
+        $table->occupation = $data['occupation'];
+        $table->incomeContribution = $data['incomeContribution'];
+        $table->educationLevel = $data['educationLevel'];
+        $table->affiliationType = $data['affiliationType'];
+        $table->specialCareGroup = $data['specialCareGroup'];
+        $table->speaksCreole = $data['speaksCreole'];
+        $table->covidVaccine = $data['covidVaccine'];
+        $table->vaccineDoses = $data['vaccineDoses'];
+        $table->substanceUse = $data['substanceUse'];
+        $table->substanceType = $data['substanceType'];
+        $table->userId = $data['userId'];
+        $table->personaId = $data['personaId'];
+        $table->viviendaId = $data['viviendaId'];
         
-        $sexo = $data['sexo'];
-        $edad = $data['edad'];
-        $parentezco = $data['parentezco'];
-        $ocupacion = $data['ocupacion'];
-        $aportaIngresos = $data['aportaIngresos'];
-        $nivelEscolaridad = $data['nivelEscolaridad'];
-        $tipoAfiliacion = $data['tipoAfiliacion'];
-        $grupoAtencionEspecial = $data['grupoAtencionEspecial'];
-        $hablaCreole = $data['hablaCreole'];
-        $vacunaCovid = $data['vacunaCovid'];
-        $dosisVacuna = $data['dosisVacuna'];
-        $consumoSustancias = $data['consumoSustancias'];
-        $sustanciasConsumidas = $data['sustanciasConsumidas'];
-        $userid = $data['userid'];
-
-
-        
-        $tabla = communicablediseases::where('id', $id)
-                   
-        ->firstOrFail();
-
-        $tabla->nombreCompleto = $nombreCompleto;
-        $tabla->save();
+        $table->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
         return response()->json(['message' => 'Datos Actualizado correctamente']);
