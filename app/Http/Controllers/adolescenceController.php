@@ -16,8 +16,8 @@ class adolescenceController extends Controller
         weight,
         size,
         imc,
-        systolicpressure,
-        diastolicpressure,
+        systolicPressure,
+        diastolicPressure,
         medicalHistory,
         completeVaccination,
         chronicConditions,
@@ -45,6 +45,9 @@ class adolescenceController extends Controller
         unschooling,
         schoolPerformance,
         tripZonesEndemic,
+        userId,
+        personaId,
+        viviendaId,
         created_at,
 		updated_at")->get();
         return $adolescence;
@@ -60,40 +63,41 @@ class adolescenceController extends Controller
         // Creamos un nuevo objeto del modelo
         $adolescence = new adolescence();
         $adolescence->weight = $data['weight'];
-        $adolescence->size= $data['size'];
-        $adolescence->imc= $data['imc'];
-        $adolescence->systolicpressure= $data['systolicpressure'];
-        $adolescence->diastolicpressure= $data['diastolicpressure'];
-        $adolescence->medicalHistory= $data['medicalHistory'];
-        $adolescence->completeVaccination= $data['completeVaccination'];
-        $adolescence->chronicConditions= $data['chronicConditions'];
-        $adolescence->disability= $data['disability'];
-        $adolescence->promotionHealth= $data['promotionHealth'];
-        $adolescence->oralHygiene= $data['oralHygiene'];
-        $adolescence->referralOptometry= $data['referralOptometry'];
-        $adolescence->periodoIntergeconsumptionTobacconesico= $data['consumptionTobacco'];
-        $adolescence->consumptionAlcohol= $data['consumptionAlcohol'];
-        $adolescence->psychoactiveSubstances= $data['psychoactiveSubstances'];
-        $adolescence->developmentPubertal= $data['developmentPubertal'];
-        $adolescence->homeLifeSexual= $data['homeLifeSexual'];
-        $adolescence->its= $data['its'];
-        $adolescence->chronicCough= $data['chronicCough'];
-        $adolescence->identitySexual= $data['identitySexual'];
-        $adolescence->psychosocialDevelopment= $data['psychosocialDevelopment'];
-        $adolescence->suicidalBehavior= $data['suicidalBehavior'];
-        $adolescence->ethnicGroups= $data['ethnicGroups'];
-        $adolescence->nutritionalProblems= $data['nutritionalProblems'];
-        $adolescence->malnutrition= $data['malnutrition'];
-        $adolescence->overweightObesity= $data['overweightObesity'];
-        $adolescence->signsDanger= $data['signsDanger'];
-        $adolescence->rapePhysicalPsychological= $data['rapePhysicalPsychological'];
-        $adolescence->rapeSexual= $data['rapeSexual'];
-        $adolescence->unschooling= $data['unschooling'];
-        $adolescence->schoolPerformance= $data['schoolPerformance'];
-        $adolescence->tripZonesEndemic= $data['tripZonesEndemic'];
-        $adolescence->personaid= $data['personaid'];
-        $adolescence->userid= $data['userid'];
-
+        $adolescence->size = $data['size'];
+        $adolescence->imc = $data['imc'];
+        $adolescence->systolicPressure = $data['systolicPressure'];
+        $adolescence->diastolicPressure = $data['diastolicPressure'];
+        $adolescence->medicalHistory = $data['medicalHistory'];
+        $adolescence->completeVaccination = $data['completeVaccination'];
+        $adolescence->chronicConditions = $data['chronicConditions'];
+        $adolescence->disability = $data['disability'];
+        $adolescence->promotionHealth = $data['promotionHealth'];
+        $adolescence->oralHygiene = $data['oralHygiene'];
+        $adolescence->referralOptometry = $data['referralOptometry'];
+        $adolescence->consumptionTobacco = $data['consumptionTobacco'];
+        $adolescence->consumptionAlcohol = $data['consumptionAlcohol'];
+        $adolescence->psychoactiveSubstances = $data['psychoactiveSubstances'];
+        $adolescence->developmentPubertal = $data['developmentPubertal'];
+        $adolescence->homeLifeSexual = $data['homeLifeSexual'];
+        $adolescence->its = $data['its'];
+        $adolescence->chronicCough = $data['chronicCough'];
+        $adolescence->identitySexual = $data['identitySexual'];
+        $adolescence->psychosocialDevelopment = $data['psychosocialDevelopment'];
+        $adolescence->suicidalBehavior = $data['suicidalBehavior'];
+        $adolescence->ethnicGroups = $data['ethnicGroups'];
+        $adolescence->nutritionalProblems = $data['nutritionalProblems'];
+        $adolescence->malnutrition = $data['malnutrition'];
+        $adolescence->overweightObesity = $data['overweightObesity'];
+        $adolescence->signsDanger = $data['signsDanger'];
+        $adolescence->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
+        $adolescence->rapeSexual = $data['rapeSexual'];
+        $adolescence->unschooling = $data['unschooling'];
+        $adolescence->schoolPerformance = $data['schoolPerformance'];
+        $adolescence->tripZonesEndemic = $data['tripZonesEndemic'];
+        $adolescence->userId = $data['userId'];
+        $adolescence->personaId = $data['personaId'];
+        $adolescence->viviendaId = $data['viviendaId'];
+        
         // Guardamos el objeto en la base de datos
         $adolescence->save();
 
