@@ -55,34 +55,34 @@ class womenhealthController extends Controller
         // Creamos un nuevo objeto del modelo
         $womenhealth = new womenhealth();
 
-        $womenhealth->weight = $data['weight'] ?? '';
-        $womenhealth->size = $data['size'] ?? '';
-        $womenhealth->imc = $data['imc'] ?? '';
-        $womenhealth->systolicPressure = $data['systolicPressure'] ?? '';
-        $womenhealth->diastolicPressure = $data['diastolicPressure'] ?? '';
-        $womenhealth->cervicalCytology = $data['cervicalCytology'] ?? '';
-        $womenhealth->lastMammography = $data['lastMammography'] ?? '';
-        $womenhealth->contraceptiveMethods = $data['contraceptiveMethods'] ?? '';
-        $womenhealth->teenagerWithHistory = $data['teenagerWithHistory'] ?? '';
-        $womenhealth->malBackground = $data['malBackground'] ?? '';
-        $womenhealth->abortionBackground = $data['abortionBackground'] ?? '';
-        $womenhealth->gynecologicalBackground = $data['gynecologicalBackground'] ?? '';
-        $womenhealth->chronicDiseases = $data['chronicDiseases'] ?? '';
-        $womenhealth->intergenicPeriod = $data['intergenicPeriod'] ?? '';
-        $womenhealth->vihItsBackground = $data['vihItsBackground'] ?? '';
-        $womenhealth->newbornBackground = $data['newbornBackground'] ?? '';
-        $womenhealth->pregnancyHistory = $data['pregnancyHistory'] ?? '';
-        $womenhealth->womanInPuerperium = $data['womanInPuerperium'] ?? '';
-        $womenhealth->genderViolence = $data['genderViolence'] ?? '';
-        $womenhealth->chronicCough = $data['chronicCough'] ?? '';
-        $womenhealth->endemicZonesTravel = $data['endemicZonesTravel'] ?? '';
+        $womenhealth->weight = $data['weight'];
+        $womenhealth->size = $data['size'];
+        $womenhealth->imc = $data['imc'];
+        $womenhealth->systolicPressure = $data['systolicPressure'];
+        $womenhealth->diastolicPressure = $data['diastolicPressure'];
+        $womenhealth->cervicalCytology = $data['cervicalCytology'];
+        $womenhealth->lastMammography = $data['lastMammography'];
+        $womenhealth->contraceptiveMethods = $data['contraceptiveMethods'];
+        $womenhealth->teenagerWithHistory = $data['teenagerWithHistory'];
+        $womenhealth->malBackground = $data['malBackground'];
+        $womenhealth->abortionBackground = $data['abortionBackground'];
+        $womenhealth->gynecologicalBackground = $data['gynecologicalBackground'];
+        $womenhealth->chronicDiseases = $data['chronicDiseases'];
+        $womenhealth->intergenicPeriod = $data['intergenicPeriod'];
+        $womenhealth->vihItsBackground = $data['vihItsBackground'];
+        $womenhealth->newbornBackground = $data['newbornBackground'];
+        $womenhealth->pregnancyHistory = $data['pregnancyHistory'];
+        $womenhealth->womanInPuerperium = $data['womanInPuerperium'];
+        $womenhealth->genderViolence = $data['genderViolence'];
+        $womenhealth->chronicCough = $data['chronicCough'];
+        $womenhealth->endemicZonesTravel = $data['endemicZonesTravel'];
         $womenhealth->userId = $data['userId'];
         $womenhealth->personaId = $data['personaId'];
         $womenhealth->viviendaId = $data['viviendaId'];
                 
         // Guardamos el objeto en la base de datos
         $womenhealth->save();
-    
+
     
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Datos insertados correctamente']);
@@ -130,26 +130,26 @@ class womenhealthController extends Controller
         $id = $data['id'];
         $userid = $data['userId'];
         $personid = $data['personaId'];
-        $peso= $data['peso'] ?? '';
-        $talla= $data['talla'] ?? '';
-        $imc= $data['imc'] ?? '';
-        $tensionArterial= $data['tensionArterial'] ?? '';
-        $citologiaCervicoUterina= $data['citologiaCervicoUterina'] ?? '';
-        $mamografiaUltimos5Anios= $data['mamografiaUltimos5Anios'] ?? '';
-        $usoMetodosAnticonceptivos= $data['usoMetodosAnticonceptivos'] ?? '';
-        $adolecenteConAntecedenteEmbarazo= $data['adolecenteConAntecedenteEmbarazo'] ?? '';
-        $antecedentesMalformacionesFamiliares= $data['antecedentesMalformacionesFamiliares'] ?? '';
-        $antecedentesAbortosEspontaneos= $data['antecedentesAbortosEspontaneos'] ?? '';
-        $antecedenteCirugiaGinecologica= $data['antecedenteCirugiaGinecologica'] ?? '';
-        $enfermedadesCronicas= $data['enfermedadesCronicas'] ?? '';
-        $periodoIntergenesico= $data['periodoIntergenesico'] ?? '';
-        $antecedenteVIHITS= $data['antecedenteVIHITS'] ?? '';
-        $antecedenteRecienNacidoMacrosomicoOBajoPeso= $data['antecedenteRecienNacidoMacrosomicoOBajoPeso'] ?? '';
-        $antecedenteEmbarazoMultiple= $data['antecedenteEmbarazoMultiple'] ?? '';
-        $mujerEnPuerperioSinMetodo= $data['mujerEnPuerperioSinMetodo'] ?? '';
-        $violenciaGeneroFeminicidio= $data['violenciaGeneroFeminicidio'] ?? '';
-        $tocedorCronicoMas14Dias2= $data['tocedorCronicoMas14Dias2'] ?? '';
-        $viajeZonasEndemicasUltimos15Dias2= $data['viajeZonasEndemicasUltimos15Dias2'] ?? '';
+        $peso= $data['peso'];
+        $talla= $data['talla'];
+        $imc= $data['imc'];
+        $tensionArterial= $data['tensionArterial'];
+        $citologiaCervicoUterina= $data['citologiaCervicoUterina'];
+        $mamografiaUltimos5Anios= $data['mamografiaUltimos5Anios'];
+        $usoMetodosAnticonceptivos= $data['usoMetodosAnticonceptivos'];
+        $adolecenteConAntecedenteEmbarazo= $data['adolecenteConAntecedenteEmbarazo'];
+        $antecedentesMalformacionesFamiliares= $data['antecedentesMalformacionesFamiliares'];
+        $antecedentesAbortosEspontaneos= $data['antecedentesAbortosEspontaneos'];
+        $antecedenteCirugiaGinecologica= $data['antecedenteCirugiaGinecologica'];
+        $enfermedadesCronicas= $data['enfermedadesCronicas'];
+        $periodoIntergenesico= $data['periodoIntergenesico'];
+        $antecedenteVIHITS= $data['antecedenteVIHITS'];
+        $antecedenteRecienNacidoMacrosomicoOBajoPeso= $data['antecedenteRecienNacidoMacrosomicoOBajoPeso'];
+        $antecedenteEmbarazoMultiple= $data['antecedenteEmbarazoMultiple'];
+        $mujerEnPuerperioSinMetodo= $data['mujerEnPuerperioSinMetodo'];
+        $violenciaGeneroFeminicidio= $data['violenciaGeneroFeminicidio'];
+        $tocedorCronicoMas14Dias2= $data['tocedorCronicoMas14Dias2'];
+        $viajeZonasEndemicasUltimos15Dias2= $data['viajeZonasEndemicasUltimos15Dias2'];
         
         $tabla = womenhealth::where('id', $id)
                    
