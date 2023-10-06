@@ -171,7 +171,7 @@ class personController extends Controller
         
 
         $person = person::where('userid', $userid)
-                         ->where(function($query) use ($data) {
+                         ->where(function($query) use ($data) {  
                             if (isset($data['id'])) {
                                 $query->Where('id', $data['id']);
                             }
