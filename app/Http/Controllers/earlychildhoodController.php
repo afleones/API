@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\earlychildhood;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class earlychildhoodController extends Controller
 {
@@ -15,37 +16,37 @@ class earlychildhoodController extends Controller
         $earlychildhood = earlychildhood::selectRaw("id,
         weight,
         size,
-        headcircunference,
-        gillperimeter,
-        perimeterwaist,
+        headCircunference,
+        gillPerimeter,
+        perimeterWaist,
         perimeterHip,
         systolicPressure,
         diastolicPressure,
-        antecedentprematurity,
-        congenitalanomaly,
-        consumptionsubstances,
+        antecedentPrematurity,
+        congenitalAnomaly,
+        consumptionSubstances,
         breastfeeding,
-        chroniccondition,
+        chronicCondition,
         disability,
-        promotionhealth,
-        Completevaccination,
+        promotionHealth,
+        completeVaccination,
         deworming,
-        oralhygiene,
-        childdevelopment,
-        signsera,
-        Ancestralmedicine,
-        signsera2,
+        oralHygiene,
+        childDevelopment,
+        signSera,
+        ancestralMedicine,
+        signSera2,
         victimization,
         malnutrition,
-        overweightobesity,
-        dangerdeath,
-        nutritionalproblems,
+        overweightObesity,
+        dangerDeath,
+        nutritionalProblems,
         dresserChronic,
         tripZonesEndemic,
-        userid,
-        personaid,
-        viviendaid,
-        created_at,
+        userId,
+        personaId,
+        viviendaId,
+        created_at
         updated_at")->get();
         return $earlychildhood;
 
@@ -63,37 +64,37 @@ class earlychildhoodController extends Controller
         $earlychildhood = new earlychildhood();
         $earlychildhood->weight = $data['weight'];
         $earlychildhood->size = $data['size'];
-        $earlychildhood->headcircunference = $data['headcircunference'];
-        $earlychildhood->gillperimeter = $data['gillperimeter'];
-        $earlychildhood->perimeterwaist = $data['perimeterwaist'];
-        $earlychildhood->perimeterHip = $data['siperimeterHipze'];
+        $earlychildhood->headCircunference = $data['headCircunference'];
+        $earlychildhood->gillPerimeter = $data['gillPerimeter'];
+        $earlychildhood->perimeterWaist = $data['perimeterWaist'];
+        $earlychildhood->perimeterHip = $data['perimeterHip'];
         $earlychildhood->systolicPressure = $data['systolicPressure'];
         $earlychildhood->diastolicPressure = $data['diastolicPressure'];
-        $earlychildhood->antecedentprematurity = $data['antecedentprematurity'];
-        $earlychildhood->congenitalanomaly = $data['congenitalanomaly'];
-        $earlychildhood->consumptionsubstances = $data['consumptionsubstances'];
+        $earlychildhood->antecedentPrematurity = $data['antecedentPrematurity'];
+        $earlychildhood->congenitalAnomaly = $data['congenitalAnomaly'];
+        $earlychildhood->consumptionSubstances = $data['consumptionSubstances'];
         $earlychildhood->breastfeeding = $data['breastfeeding'];
-        $earlychildhood->chroniccondition = $data['chroniccondition'];
+        $earlychildhood->chronicCondition = $data['chronicCondition'];
         $earlychildhood->disability = $data['disability'];
-        $earlychildhood->promotionhealth = $data['promotionhealth'];
-        $earlychildhood->Completevaccination = $data['Completevaccination'];
+        $earlychildhood->promotionHealth = $data['promotionHealth'];
+        $earlychildhood->completeVaccination = $data['completeVaccination'];
         $earlychildhood->deworming = $data['deworming'];
-        $earlychildhood->oralhygiene = $data['oralhygiene'];
-        $earlychildhood->childdevelopment = $data['childdevelopment'];
-        $earlychildhood->signsera = $data['signsera'];
-        $earlychildhood->Ancestralmedicine = $data['Ancestralmedicine'];
-        $earlychildhood->signsera2 = $data['signsera2'];
+        $earlychildhood->oralHygiene = $data['oralHygiene'];
+        $earlychildhood->childDevelopment = $data['childDevelopment'];
+        $earlychildhood->signSera = $data['signSera'];
+        $earlychildhood->ancestralMedicine = $data['ancestralMedicine'];
+        $earlychildhood->signSera2 = $data['signSera2'];
         $earlychildhood->victimization = $data['victimization'];
         $earlychildhood->malnutrition = $data['malnutrition'];
-        $earlychildhood->overweightobesity = $data['overweightobesity'];
-        $earlychildhood->dangerdeath = $data['dangerdeath'];
-        $earlychildhood->nutritionalproblems = $data['nutritionalproblems'];
+        $earlychildhood->overweightObesity = $data['overweightObesity'];
+        $earlychildhood->dangerDeath = $data['dangerDeath'];
+        $earlychildhood->nutritionalProblems = $data['nutritionalProblems'];
         $earlychildhood->dresserChronic = $data['dresserChronic'];
         $earlychildhood->tripZonesEndemic = $data['tripZonesEndemic'];
-        $earlychildhood->useriduserid = $data['userid'];
-        $earlychildhood->personaid = $data['personaid'];
-        $earlychildhood->viviendaid = $data['viviendaid'];
-
+        $earlychildhood->userId = $data['userId'];
+        $earlychildhood->personaId = $data['personaId'];
+        $earlychildhood->viviendaId = $data['viviendaId'];
+                
         //Guardamos el objeto en la base de datos
         $earlychildhood->save();
     
@@ -104,49 +105,81 @@ class earlychildhoodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(earlychildhood $earlychildhood)
+    public function show(Request $request, earlychildhood $earlychildhood)
     {
-        $data = $request->json()->all();
+       //$data = $request->json()->all();  recibe por raw
+       $data = $request->all();   //recibe por json
         //var_dump($data);exit();
-        $userid = $data['userid'];
+        $userid = $data['userId'];
         // $fecha1 = $data['fecha1'];
         // $fecha2 = $data['fecha2'];
-
-
-        $earlychildhood = earlychildhood::where('userid', $userid)
-                         ->where(function($query) use ( $data) {
+        $earlychildhood = earlychildhood::where('userId', $userid)
+                         ->where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->orWhere('id', $data['id']);
                             }
-                            if (isset($data['personaid'])) {
-                                $query->orWhere('personaid', $data['personaid']);
-                            }
+                            // if (isset($data['personaid'])) {
+                            //     $query->orWhere('personaid', $data['personaid']);
+                            // }
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
                          ->get();
-
-
-
         $dataArray = array($earlychildhood);                 
         return $dataArray;
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $data = $request->json()->all();
-        $id = $data['id']; 
-        $weight = $data['weight'];    
-        $tabla = earlychildhood::where('id', $id)->firstOrFail();
-        $tabla->size = $size;
-        $tabla->save();
-
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
-    }
-
+            // Validación de datos
+            $request->validate([
+                'weight' => 'numeric',
+                'size' => 'numeric',
+                'headCircunference' => 'numeric',
+                'gillPerimeter' => 'numeric',
+                'perimeterWaist' => 'numeric',
+                'perimeterHip' => 'numeric',
+                'systolicPressure' => 'numeric',
+                'diastolicPressure' => 'numeric',
+                'antecedentPrematurity' => Rule::in([2, 1]), // 0 o 1 para TINYINT
+                'congenitalAnomaly' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'consumptionSubstances' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'breastfeeding' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'chronicCondition' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'disability' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'promotionHealth' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'completeVaccination' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'deworming' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'oralHygiene' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'childDevelopment' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'signSera' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'ancestralMedicine' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'signSera2' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'victimization' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'malnutrition' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'overweightObesity' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'dangerDeath' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'nutritionalProblems' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'dresserChronic' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'tripZonesEndemic' => Rule::in([2, 1]), // 2 o 1 para TINYINT
+                'userId' => 'numeric',
+                'personaId' => 'numeric',
+                'viviendaId' => 'numeric',
+            ]);
+        
+            // Buscar el registro por ID
+            $registro = earlychildhood::find($id);
+        
+            if (!$registro) {
+                return response()->json(['message' => 'Registro no encontrado'], 404);
+            }
+        
+            // Actualizar los campos
+            $registro->update($request->all());
+        
+            return response()->json(['message' => 'Registro actualizado con éxito']);
+        }
     /**
      * Remove the specified resource from storage.
      */
@@ -154,8 +187,8 @@ class earlychildhoodController extends Controller
     {
         $data = $request->json()->all();
         //var_dump($data);exit();
-        $id = $data['id'];
-        earlychildhood::where('id', $id)->where('id', $id)->delete();   
+        $id = $data['personid'];
+        earlychildhood::where('', $id)->where('personid', $id)->delete();   
         return response()->json(['message' => 'Dato borrado correctamente']);
 
     }

@@ -10,5 +10,5 @@ class earlychildhood extends Model
     use HasFactory;
 
     protected $connection = 'maite';
-    protected $table = 'earlychildhood';
+    protected $table = 'earlyChildHood';
 }
