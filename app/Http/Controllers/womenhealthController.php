@@ -58,7 +58,7 @@ class womenhealthController extends Controller
 
         $womenhealth->weight = $data['weight'] ?? '';
         $womenhealth->size = $data['size'] ?? '';
-        $womenhealth->bmi = $data['bmi'] ?? '';
+        $womenhealth->imc = $data['imc'] ?? '';
         $womenhealth->systolicPressure = $data['systolicPressure'] ?? '';
         $womenhealth->diastolicPressure = $data['diastolicPressure'] ?? '';
         $womenhealth->cervicalCytology = $data['cervicalCytology'] ?? '';
