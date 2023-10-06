@@ -15,8 +15,8 @@ class womenhealthController extends Controller
         //
         $womenhealth = womenhealth::selectRaw("
         id,
-        weight
-        size
+        weight,
+        size,
         imc,
         systolicPressure,
         diastolicPressure,
