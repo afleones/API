@@ -13,16 +13,14 @@ class companyController extends Controller
     public function index()
     {
         $company = company::selectRaw("id,
-        nitcode, 
-        businessname,
+        nitCode, 
+        businessName,
         address,
         telephoneType,
         telephone,
         email,
         responsible,
         userId,
-        personaId,
-        viviendaId,
         created_at, 
         updated_at")->get();
         return $company;
@@ -48,8 +46,6 @@ class companyController extends Controller
         $company->email = $data['email'];
         $company->responsible = $data['responsible'];
         $company->userId = $data['userId'];
-        $company->personaId = $data['personaId'];
-        $company->viviendaId = $data['viviendaId'];
 
         // Guardamos el objeto en la base de datos
         $company->save();
@@ -96,8 +92,6 @@ class companyController extends Controller
         $table->email = $data['email'];
         $table->responsible = $data['responsible'];
         $table->userId = $data['userId'];
-        $table->personaId = $data['personaId'];
-        $table->viviendaId = $data['viviendaId'];
         $table->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
