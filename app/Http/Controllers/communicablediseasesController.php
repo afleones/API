@@ -15,7 +15,8 @@ class communicablediseasesController extends Controller
         $communicablediseases = communicablediseases::selectRaw("
         id,
         fullName, 
-        gender, 
+        sex,
+        otherSex, 
         age, 
         relationship, 
         occupation, 
