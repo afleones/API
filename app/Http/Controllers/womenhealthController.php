@@ -22,7 +22,7 @@ class womenhealthController extends Controller
         diastolicPressure,
         cervicalCytology,
         lastMammography,
-        ontraceptiveMethods,
+        contraceptiveMethods,
         teenagerWithHistory,
         malBackground,
         abortionBackground,
