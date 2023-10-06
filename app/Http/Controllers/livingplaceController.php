@@ -87,6 +87,32 @@ class livingplaceController extends Controller
         sobrecarga_cuidador,
         mapa_relaciones_recursos,
         cuidador_principal_nombre,
+        imagen_vivienda,
+        otro_tipo_vivienda,
+        otro_tenencia_vivienda,
+        otro_material_paredes,
+        otro_material_piso,
+        otro_material_techo,
+        otro_cerca_vivienda,
+        otro_acceso_vivienda,
+        otro_desplazamiento_familia,
+        otro_fuente_agua,
+        otro_tratamiento_agua,
+        otro_frecuencia_lavado_tanque,
+        otro_sistema_excretas,
+        otro_sistema_aguas_residuales,
+        otro_disposicion_residuos,
+        otro_implementos_disposicion,
+        otro_fuente_energia,
+        otro_animales_conviven,
+        otro_vectores_presentes,
+        otro_animales_venenosos_presentes,
+        otro_disposicion_residuos_aseo,
+        otro_disposicion_residuos_peligrosos,
+        otro_sintomas_menores_5,
+        otro_sintomas_mayores_5,
+        latitud,
+        longitud,
         userid
         ")->get();
         return $livingplace;
@@ -180,6 +206,32 @@ class livingplaceController extends Controller
         $livingplace->sobrecarga_cuidador= $data['sobrecarga_cuidador'];
         $livingplace->mapa_relaciones_recursos= $data['mapa_relaciones_recursos'];
         $livingplace->cuidador_principal_nombre= $data['cuidador_principal_nombre'];
+        $livingplace->imagen_vivienda= $data['imagen_vivienda'];
+        $livingplace->otro_tipo_vivienda= $data['otro_tipo_vivienda'];
+        $livingplace->otro_tenencia_vivienda= $data['otro_tenencia_vivienda'];
+        $livingplace->otro_material_paredes= $data['otro_material_paredes'];
+        $livingplace->otro_material_piso= $data['otro_material_piso'];
+        $livingplace->otro_material_techo= $data['otro_material_techo'];
+        $livingplace->otro_cerca_vivienda= $data['otro_cerca_vivienda'];
+        $livingplace->otro_acceso_vivienda= $data['otro_acceso_vivienda'];
+        $livingplace->otro_desplazamiento_familia= $data['otro_desplazamiento_familia'];
+        $livingplace->otro_fuente_agua= $data['otro_fuente_agua'];
+        $livingplace->otro_tratamiento_agua= $data['otro_tratamiento_agua'];
+        $livingplace->otro_frecuencia_lavado_tanque= $data['otro_frecuencia_lavado_tanque'];
+        $livingplace->otro_sistema_excretas= $data['otro_sistema_excretas'];
+        $livingplace->otro_sistema_aguas_residuales= $data['otro_sistema_aguas_residuales'];
+        $livingplace->otro_disposicion_residuos= $data['otro_disposicion_residuos'];
+        $livingplace->otro_implementos_disposicion= $data['otro_implementos_disposicion'];
+        $livingplace->otro_fuente_energia= $data['otro_fuente_energia'];
+        $livingplace->otro_animales_conviven= $data['otro_animales_conviven'];
+        $livingplace->otro_vectores_presentes= $data['otro_vectores_presentes'];
+        $livingplace->otro_animales_venenosos_presentes= $data['otro_animales_venenosos_presentes'];
+        $livingplace->otro_disposicion_residuos_aseo= $data['otro_disposicion_residuos_aseo'];
+        $livingplace->otro_disposicion_residuos_peligrosos= $data['otro_disposicion_residuos_peligrosos'];
+        $livingplace->otro_sintomas_menores_5= $data['otro_sintomas_menores_5'];
+        $livingplace->otro_sintomas_mayores_5= $data['otro_sintomas_mayores_5'];
+        $livingplace->latitud= $data['latitud'];
+        $livingplace->longitud= $data['longitud'];
         $livingplace->userid= $data['userid'];
 
         
@@ -307,6 +359,33 @@ class livingplaceController extends Controller
         $sobrecarga_cuidador= $data['sobrecarga_cuidador'];
         $mapa_relaciones_recursos= $data['mapa_relaciones_recursos'];
         $cuidador_principal_nombre= $data['cuidador_principal_nombre'];
+        $imagen_vivienda= $data['imagen_vivienda'];
+        $otro_tipo_vivienda= $data['otro_tipo_vivienda'];
+        $otro_tenencia_vivienda= $data['otro_tenencia_vivienda'];
+        $otro_material_paredes= $data['otro_material_paredes'];
+        $otro_material_piso= $data['otro_material_piso'];
+        $otro_material_techo= $data['otro_material_techo'];
+        $otro_cerca_vivienda= $data['otro_cerca_vivienda'];
+        $otro_acceso_vivienda= $data['otro_acceso_vivienda'];
+        $otro_desplazamiento_familia= $data['otro_desplazamiento_familia'];
+        $otro_fuente_agua= $data['otro_fuente_agua'];
+        $otro_tratamiento_agua= $data['otro_tratamiento_agua'];
+        $otro_frecuencia_lavado_tanque= $data['otro_frecuencia_lavado_tanque'];
+        $otro_sistema_excretas= $data['otro_sistema_excretas'];
+        $otro_sistema_aguas_residuales= $data['otro_sistema_aguas_residuales'];
+        $otro_disposicion_residuos= $data['otro_disposicion_residuos'];
+        $otro_implementos_disposicion= $data['otro_implementos_disposicion'];
+        $otro_fuente_energia= $data['otro_fuente_energia'];
+        $otro_animales_conviven= $data['otro_animales_conviven'];
+        $otro_vectores_presentes= $data['otro_vectores_presentes'];
+        $otro_animales_venenosos_presentes= $data['otro_animales_venenosos_presentes'];
+        $otro_disposicion_residuos_aseo= $data['otro_disposicion_residuos_aseo'];
+        $otro_disposicion_residuos_peligrosos= $data['otro_disposicion_residuos_peligrosos'];
+        $otro_sintomas_menores_5= $data['otro_sintomas_menores_5'];
+        $otro_sintomas_mayores_5= $data['otro_sintomas_mayores_5'];
+        $latitud= $data['latitud'];
+        $longitud= $data['longitud'];
+
         $userid= $data['userid'];
         
 
