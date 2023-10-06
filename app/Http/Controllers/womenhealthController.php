@@ -34,7 +34,7 @@ class womenhealthController extends Controller
         pregnancyHistory,
         womanInPuerperium,
         genderViolence,
-         endemicZonesTravel,
+        endemicZonesTravel,
         userId,
         personaId,
         viviendaId,
