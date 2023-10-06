@@ -192,11 +192,11 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* End */
 
     /*Rutas de Viviendas*/
-    Route::post('saveYouth', [youthceController::class, 'store']);
-    Route::get('youths', [youthceController::class, 'index']);
-    Route::post('youth', [youthceController::class, 'show']);
-    Route::post('updateYouthce', [youthceController::class, 'update']);
-    Route::post('deleteYouthce', [youthceController::class, 'destroy']);
+    Route::post('saveYouth', [youthController::class, 'store']);
+    Route::get('youths', [youthController::class, 'index']);
+    Route::post('youth', [youthController::class, 'show']);
+    Route::post('updateYouth', [youthController::class, 'update']);
+    Route::post('deleteYouth', [youthController::class, 'destroy']);
     /* End */
 
     //Api Routes GenomaX_Documents End
