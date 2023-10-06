@@ -12,7 +12,7 @@ class gestationbirthpostpartumController extends Controller
      */
     public function index()
     {
-        $adolescence = adolescence::selectRaw("
+        $gestationbirthpostpartum = gestationbirthpostpartum::selectRaw("
         id,
         weight,
         size,
@@ -31,7 +31,7 @@ class gestationbirthpostpartumController extends Controller
         userId,
         personaId,
         viviendaId")->get();
-        return $adolescence;
+        return $gestationbirthpostpartum;
     }
 
     /**
