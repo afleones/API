@@ -81,6 +81,10 @@ use App\Http\Controllers\adultController;
 use App\Http\Controllers\oldController;
 /*  */
 
+/* controlador de Adulto Mayor */
+use App\Http\Controllers\youthController;
+/*  */
+
 //Api Controllers GenomaX_Documents End
 
 
@@ -185,6 +189,14 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('old', [oldController::class, 'show']);
     Route::post('updateOld', [oldController::class, 'update']);
     Route::post('deleteOld', [oldController::class, 'destroy']);
+    /* End */
+
+    /*Rutas de Viviendas*/
+    Route::post('saveYouth', [youthceController::class, 'store']);
+    Route::get('youths', [youthceController::class, 'index']);
+    Route::post('youth', [youthceController::class, 'show']);
+    Route::post('updateYouthce', [youthceController::class, 'update']);
+    Route::post('deleteYouthce', [youthceController::class, 'destroy']);
     /* End */
 
     //Api Routes GenomaX_Documents End

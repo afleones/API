@@ -219,8 +219,7 @@ class livingplaceController extends Controller
 
        
 
-        //$dataArray = array($livingplace);
-        $dataArray = ($livingplace);                 
+        $dataArray = array($livingplace);                 
         return $dataArray;
     }
 
