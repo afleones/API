@@ -80,7 +80,7 @@ class communicablediseasesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, communicableiseases $communicablediseases)
+    public function show(Request $request)
     {
         // Accede a los datos de la solicitud POST
         $communicablediseases = $request->all();
