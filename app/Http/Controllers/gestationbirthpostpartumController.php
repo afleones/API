@@ -79,34 +79,36 @@ class gestationbirthpostpartumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, gestationbirthpostpartum $gestationbirthpostpartum)
+    public function show(Request $request)
     {
+        // Accede a los datos de la solicitud POST
         $data = $request->all();
-        $userid = $data['userId'];
-        $viviendaid = $data['viviendaId'];
-        $personaid = $data['personaId'];
-        //$fecha1 = $data['fecha1'];
-        //$fecha2 = $data['fecha2'];
-        
-
-        $gestationbirthpostpartum = gestationbirthpostpartum::where('userId', $userid)->where(function($query) use ($data) {  
-            if (isset($data['id'])) {
-            $query->Where('id', $data['id']);
+    
+        // Valida que los parámetros requeridos estén presentes en la solicitud
+        if (
+            isset($data['userId']) &&
+            isset($data['personaId']) &&
+            isset($data['viviendaId'])
+        ) {
+            // Realiza una consulta en la base de datos para encontrar una coincidencia
+            $result = DB::table('maite000003.gestationBirthPostpartum')
+                ->where([
+                    ['userId', '=', $data['userId']],
+                    ['personaId', '=', $data['personaId']],
+                    ['viviendaId', '=', $data['viviendaId']]
+                ]) ->first(); // Obtén la primera coincidencia
+    
+            if ($result) {
+                // Envía la respuesta en un arreglo
+                return response()->json(['data' => [$result]], 200);
+            } else {
+                // Si no se encuentra una coincidencia, devuelve una respuesta de error
+                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
             }
-            if (isset($data['viviendaId'])) {
-                $query->Where('viviendaId', $data['viviendaId']);
+            } else {
+                // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+                return response()->json(['message' => 'Parámetros faltantes'], 400);
             }
-            if (isset($data['personaId'])) {
-                $query->Where('personaId', $data['personaId']);
-            }
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-             })->get();
-
-       
-
-        //$dataArray = array($gestationbirthpostpartum);     
-        $dataArray = $gestationbirthpostpartum;             
-        return $dataArray;
     }
 
     /**
@@ -134,7 +136,27 @@ class gestationbirthpostpartumController extends Controller
         $gestationbirthpostpartum->userId = $data['userId'];
         $gestationbirthpostpartum->personaId = $data['personaId'];
         $gestationbirthpostpartum->viviendaId = $data['viviendaId'];
+
         $tabla = gestationbirthpostpartum::where('id', $id) ->firstOrFail();
+
+        $tabla->weight = $data['weight'];
+        $tabla->size = $data['size'];
+        $tabla->imc = $data['imc'];
+        $tabla->systolicPressure = $data['systolicPressure'];
+        $tabla->diastolicPressure = $data['diastolicPressure'];
+        $tabla->pregnantControlled = $data['pregnantControlled'];
+        $tabla->pregnantWeekControl = $data['pregnantWeekControl'];
+        $tabla->pregnantExam = $data['pregnantExam'];
+        $tabla->pregnantDisease = $data['pregnantDisease'];
+        $tabla->pregnantScheme = $data['pregnantScheme'];
+        $tabla->pregnantNon = $data['pregnantNon'];
+        $tabla->pregnantEthnic = $data['pregnantEthnic'];
+        $tabla->tocedorChronic = $data['tocedorChronic'];
+        $tabla->tripEndemic = $data['tripEndemic'];
+        $tabla->userId = $data['userId'];
+        $tabla->personaId = $data['personaId'];
+        $tabla->viviendaId = $data['viviendaId'];
+
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página

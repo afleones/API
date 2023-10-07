@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\earlychildhood;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class earlychildhoodController extends Controller
 {
@@ -105,88 +106,116 @@ class earlychildhoodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, earlychildhood $earlychildhood)
+    public function show(Request $request)
     {
+        // Accede a los datos de la solicitud POST
         $data = $request->all();
-        $userid = $data['userId'];
-        $viviendaid = $data['viviendaId'];
-        $personaid = $data['personaId'];
-        //$fecha1 = $data['fecha1'];
-        //$fecha2 = $data['fecha2'];
-        
-
-        $earlychildhood = earlychildhood::where('userId', $userid)->where(function($query) use ($data) {  
-            if (isset($data['id'])) {
-            $query->Where('id', $data['id']);
+    
+        // Valida que los parámetros requeridos estén presentes en la solicitud
+        if (
+            isset($data['userId']) &&
+            isset($data['personaId']) &&
+            isset($data['viviendaId'])
+        ) {
+            // Realiza una consulta en la base de datos para encontrar una coincidencia
+            $result = DB::table('maite000003.earlyChildHood')
+                ->where([
+                    ['userId', '=', $data['userId']],
+                    ['personaId', '=', $data['personaId']],
+                    ['viviendaId', '=', $data['viviendaId']]
+                ]) ->first(); // Obtén la primera coincidencia
+    
+            if ($result) {
+                // Envía la respuesta en un arreglo
+                return response()->json(['data' => [$result]], 200);
+            } else {
+                // Si no se encuentra una coincidencia, devuelve una respuesta de error
+                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
             }
-            if (isset($data['viviendaId'])) {
-                $query->Where('viviendaId', $data['viviendaId']);
+            } else {
+                // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+                return response()->json(['message' => 'Parámetros faltantes'], 400);
             }
-            if (isset($data['personaId'])) {
-                $query->Where('personaId', $data['personaId']);
-            }
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-             })->get();
-
-       
-
-        //$dataArray = array($earlychildhood);     
-        $dataArray = $earlychildhood;             
-        return $dataArray;
     }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-            // Validación de datos
-            $request->validate([
-                'weight' => 'numeric',
-                'size' => 'numeric',
-                'headCircunference' => 'numeric',
-                'gillPerimeter' => 'numeric',
-                'perimeterWaist' => 'numeric',
-                'perimeterHip' => 'numeric',
-                'systolicPressure' => 'numeric',
-                'diastolicPressure' => 'numeric',
-                'antecedentPrematurity' => Rule::in([2, 1]), // 0 o 1 para TINYINT
-                'congenitalAnomaly' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'consumptionSubstances' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'breastfeeding' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'chronicCondition' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'disability' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'promotionHealth' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'completeVaccination' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'deworming' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'oralHygiene' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'childDevelopment' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'signSera' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'ancestralMedicine' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'signSera2' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'victimization' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'malnutrition' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'overweightObesity' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'dangerDeath' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'nutritionalProblems' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'dresserChronic' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'tripZonesEndemic' => Rule::in([2, 1]), // 2 o 1 para TINYINT
-                'userId' => 'numeric',
-                'personaId' => 'numeric',
-                'viviendaId' => 'numeric',
-            ]);
-        
-            // Buscar el registro por ID
-            $registro = earlychildhood::find($id);
-        
-            if (!$registro) {
-                return response()->json(['message' => 'Registro no encontrado'], 404);
-            }
-        
-            // Actualizar los campos
-            $registro->update($request->all());
-        
-            return response()->json(['message' => 'Registro actualizado con éxito']);
-        }
+        $earlychildhood->id = $data['id'];
+        $earlychildhood->weight = $data['weight'];
+        $earlychildhood->size = $data['size'];
+        $earlychildhood->headCircunference = $data['headCircunference'];
+        $earlychildhood->gillPerimeter = $data['gillPerimeter'];
+        $earlychildhood->perimeterWaist = $data['perimeterWaist'];
+        $earlychildhood->perimeterHip = $data['perimeterHip'];
+        $earlychildhood->systolicPressure = $data['systolicPressure'];
+        $earlychildhood->diastolicPressure = $data['diastolicPressure'];
+        $earlychildhood->antecedentPrematurity = $data['antecedentPrematurity'];
+        $earlychildhood->congenitalAnomaly = $data['congenitalAnomaly'];
+        $earlychildhood->consumptionSubstances = $data['consumptionSubstances'];
+        $earlychildhood->breastfeeding = $data['breastfeeding'];
+        $earlychildhood->chronicCondition = $data['chronicCondition'];
+        $earlychildhood->disability = $data['disability'];
+        $earlychildhood->promotionHealth = $data['promotionHealth'];
+        $earlychildhood->completeVaccination = $data['completeVaccination'];
+        $earlychildhood->deworming = $data['deworming'];
+        $earlychildhood->oralHygiene = $data['oralHygiene'];
+        $earlychildhood->childDevelopment = $data['childDevelopment'];
+        $earlychildhood->signSera = $data['signSera'];
+        $earlychildhood->ancestralMedicine = $data['ancestralMedicine'];
+        $earlychildhood->signSera2 = $data['signSera2'];
+        $earlychildhood->victimization = $data['victimization'];
+        $earlychildhood->malnutrition = $data['malnutrition'];
+        $earlychildhood->overweightObesity = $data['overweightObesity'];
+        $earlychildhood->dangerDeath = $data['dangerDeath'];
+        $earlychildhood->nutritionalProblems = $data['nutritionalProblems'];
+        $earlychildhood->dresserChronic = $data['dresserChronic'];
+        $earlychildhood->tripZonesEndemic = $data['tripZonesEndemic'];
+        $earlychildhood->userId = $data['userId'];
+        $earlychildhood->personaId = $data['personaId'];
+        $earlychildhood->viviendaId = $data['viviendaId'];
+
+        $tabla = earlyChildHood::where('id', $id)->firstOrFail();
+
+
+        $tabla->weight = $data['weight'];
+        $tabla->size = $data['size'];
+        $tabla->headCircunference = $data['headCircunference'];
+        $tabla->gillPerimeter = $data['gillPerimeter'];
+        $tabla->perimeterWaist = $data['perimeterWaist'];
+        $tabla->perimeterHip = $data['perimeterHip'];
+        $tabla->systolicPressure = $data['systolicPressure'];
+        $tabla->diastolicPressure = $data['diastolicPressure'];
+        $tabla->antecedentPrematurity = $data['antecedentPrematurity'];
+        $tabla->congenitalAnomaly = $data['congenitalAnomaly'];
+        $tabla->consumptionSubstances = $data['consumptionSubstances'];
+        $tabla->breastfeeding = $data['breastfeeding'];
+        $tabla->chronicCondition = $data['chronicCondition'];
+        $tabla->disability = $data['disability'];
+        $tabla->promotionHealth = $data['promotionHealth'];
+        $tabla->completeVaccination = $data['completeVaccination'];
+        $tabla->deworming = $data['deworming'];
+        $tabla->oralHygiene = $data['oralHygiene'];
+        $tabla->childDevelopment = $data['childDevelopment'];
+        $tabla->signSera = $data['signSera'];
+        $tabla->ancestralMedicine = $data['ancestralMedicine'];
+        $tabla->signSera2 = $data['signSera2'];
+        $tabla->victimization = $data['victimization'];
+        $tabla->malnutrition = $data['malnutrition'];
+        $tabla->overweightObesity = $data['overweightObesity'];
+        $tabla->dangerDeath = $data['dangerDeath'];
+        $tabla->nutritionalProblems = $data['nutritionalProblems'];
+        $tabla->dresserChronic = $data['dresserChronic'];
+        $tabla->tripZonesEndemic = $data['tripZonesEndemic'];
+        $tabla->userId = $data['userId'];
+        $tabla->personaId = $data['personaId'];
+        $tabla->viviendaId = $data['viviendaId'];
+
+        $table->save();
+
+        return response()->json(['message' => 'Registro actualizado con éxito']);
+    }
     /**
      * Remove the specified resource from storage.
      */

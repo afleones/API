@@ -101,7 +101,7 @@ class adultController extends Controller
         $adult->userId = $data['userId'];
         $adult->viviendaId = $data['viviendaId'];
 
-                // Guardamos el objeto en la base de datos
+        // Guardamos el objeto en la base de datos
         $adult->save();
     
         // Retornamos una respuesta de éxito
@@ -137,9 +137,9 @@ class adultController extends Controller
                 // Si no se encuentra una coincidencia, devuelve una respuesta de error
                 return response()->json(['message' => 'No se encontraron coincidencias'], 404);
             }
-        } else {
-            // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
-            return response()->json(['message' => 'Parámetros faltantes'], 400);
+            } else {
+                // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+                return response()->json(['message' => 'Parámetros faltantes'], 400);
         }
     }
 
@@ -149,7 +149,8 @@ class adultController extends Controller
     public function update(Request $request)
     {
         $data = $request->json()->all();
-        $id = $data['id'];
+        
+        $adult->id['id'];
         $adult->weight = $data['weight'];
         $adult->size = $data['size'];
         $adult->imc = $data['imc'];
@@ -184,9 +185,46 @@ class adultController extends Controller
         $adult->tripZonesEndemic = $data['tripZonesEndemic'];
         $adult->personaId = $data['personaId'];
         $adult->userId = $data['userid'];
-        $adult->viviendaId = $data['viviendaId'];        
+        $adult->viviendaId = $data['viviendaId']; 
+
         $tabla = adult::where('id', $id)->firstOrFail();
-        $tabla->weight = $weight;
+
+        $tabla->weight = $data['weight'];
+        $tabla->size = $data['size'];
+        $tabla->imc = $data['imc'];
+        $tabla->systolicPressure = $data['systolicPressure'];
+        $tabla->diastolicPressure = $data['diastolicPressure'];
+        $tabla->medicalHistory = $data['medicalHistory'];
+        $tabla->completeVaccination = $data['completeVaccination'];
+        $tabla->chronicConditions = $data['chronicConditions'];
+        $tabla->disability = $data['disability'];
+        $tabla->promotionHealth = $data['promotionHealth'];
+        $tabla->oralHygiene = $data['oralHygiene'];
+        $tabla->referralOptometry = $data['referralOptometry'];
+        $tabla->consumptionTobacco = $data['consumptionTobacco'];
+        $tabla->consumptionAlcohol = $data['consumptionAlcohol'];
+        $tabla->psychoactiveSubstances = $data['psychoactiveSubstances'];
+        $tabla->developmentPubertal = $data['developmentPubertal'];
+        $tabla->homeLifeSexual = $data['homeLifeSexual'];
+        $tabla->its = $data['its'];
+        $tabla->chronicCough = $data['chronicCough'];
+        $tabla->identitySexual = $data['identitySexual'];
+        $tabla->psychosocialDevelopment = $data['psychosocialDevelopment'];
+        $tabla->suicidalBehavior = $data['suicidalBehavior'];
+        $tabla->ethnicGroups = $data['ethnicGroups'];
+        $tabla->nutritionalProblems = $data['nutritionalProblems'];
+        $tabla->malnutrition = $data['malnutrition'];
+        $tabla->overweightObesity = $data['overweightObesity'];
+        $tabla->signsDanger = $data['signsDanger'];
+        $tabla->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
+        $tabla->rapeSexual = $data['rapeSexual'];
+        $tabla->unschooling = $data['unschooling'];
+        $tabla->schoolPerformance = $data['schoolPerformance'];
+        $tabla->tripZonesEndemic = $data['tripZonesEndemic'];
+        $tabla->personaId = $data['personaId'];
+        $tabla->userId = $data['userId'];
+        $tabla->viviendaId = $data['viviendaId'];
+
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página

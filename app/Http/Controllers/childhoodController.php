@@ -102,34 +102,36 @@ class childhoodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, childhood $childhood)
+    public function show(Request $request)
     {
+        // Accede a los datos de la solicitud POST
         $data = $request->all();
-        $userid = $data['userId'];
-        $viviendaid = $data['viviendaId'];
-        $personaid = $data['personaId'];
-        //$fecha1 = $data['fecha1'];
-        //$fecha2 = $data['fecha2'];
-        
-
-        $childhood = childhood::where('userId', $userid)->where(function($query) use ($data) {  
-            if (isset($data['id'])) {
-            $query->Where('id', $data['id']);
+    
+        // Valida que los parámetros requeridos estén presentes en la solicitud
+        if (
+            isset($data['userId']) &&
+            isset($data['personaId']) &&
+            isset($data['viviendaId'])
+        ) {
+            // Realiza una consulta en la base de datos para encontrar una coincidencia
+            $result = DB::table('maite000003.childHood')
+                ->where([
+                    ['userId', '=', $data['userId']],
+                    ['personaId', '=', $data['personaId']],
+                    ['viviendaId', '=', $data['viviendaId']]
+                ]) ->first(); // Obtén la primera coincidencia
+    
+            if ($result) {
+                // Envía la respuesta en un arreglo
+                return response()->json(['data' => [$result]], 200);
+            } else {
+                // Si no se encuentra una coincidencia, devuelve una respuesta de error
+                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
             }
-            if (isset($data['viviendaId'])) {
-                $query->Where('viviendaId', $data['viviendaId']);
+            } else {
+                // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+                return response()->json(['message' => 'Parámetros faltantes'], 400);
             }
-            if (isset($data['personaId'])) {
-                $query->Where('personaId', $data['personaId']);
-            }
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-             })->get();
-
-       
-
-        //$dataArray = array($childhood);     
-        $dataArray = $childhood;             
-        return $dataArray;
     }
 
     /**
@@ -139,7 +141,7 @@ class childhoodController extends Controller
     {
         $data = $request->json()->all();
 
-        $id = $data['id'];
+        $childhood->id = $data['id'];
         $childhood->weight = $data['weight'];
         $childhood->size = $data['size'];
         $childhood->headCircunference = $data['headcircunference'];
@@ -174,12 +176,41 @@ class childhoodController extends Controller
         $childhood->userId = $data['viviendaId'];  
 
 
-        $tabla = childhood::where('id', $id)
-                   ->where('userid', $userid)
-                   ->where('childhoodid', $childhoodid)
-                   ->firstOrFail();
+        $tabla = childhood::where('id', $id)->firstOrFail();
 
-        $tabla->rol_familiar = $rol_familiar;
+        $tabla->weight = $data['weight'];
+        $tabla->size = $data['size'];
+        $tabla->headCircunference = $data['headCircunference'];
+        $tabla->gillPerimeter = $data['gillPerimeter'];
+        $tabla->perimeterWaist = $data['perimeterWaist'];
+        $tabla->perimeterHip = $data['perimeterHip'];
+        $tabla->systolicPressure = $data['systolicPressure'];
+        $tabla->diastolicPressure = $data['diastolicPressure'];
+        $tabla->congenitalAnomaly = $data['congenitalAnomaly'];
+        $tabla->consumptionSubstances = $data['consumptionSubstances'];
+        $tabla->chronicConditions = $data['chronicConditions'];
+        $tabla->disability = $data['disability'];
+        $tabla->promotionHealth = $data['promotionHealth'];
+        $tabla->completeVaccination = $data['completeVaccination'];
+        $tabla->deworming = $data['deworming'];
+        $tabla->oralHygiene = $data['oralHygiene'];
+        $tabla->optometryPending = $data['optometryPending'];
+        $tabla->problemsDevelopment = $data['problemsDevelopment'];
+        $tabla->signsEda = $data['signsEda'];
+        $tabla->signsEra = $data['signsEra'];
+        $tabla->nutritionalProblems = $data['nutritionalProblems'];
+        $tabla->malnutrition = $data['malnutrition'];
+        $tabla->overweightObesity = $data['overweightObesity'];
+        $tabla->dangerDeath = $data['dangerDeath'];
+        $tabla->victimization = $data['victimization'];
+        $tabla->unschooling = $data['unschooling'];
+        $tabla->schoolPerformance = $data['schoolPerformance'];
+        $tabla->dresserChronic = $data['dresserChronic'];
+        $tabla->tripZonesEndemic = $data['tripZonesEndemic'];
+        $tabla->userId = $data['userId'];  
+        $tabla->personaId = $data['personaId'];  
+        $tabla->viviendaId = $data['viviendaId'];  
+           
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página

@@ -105,12 +105,12 @@ class communicablediseasesController extends Controller
                  // Si no se encuentra una coincidencia, devuelve una respuesta de error
                  return response()->json(['message' => 'No se encontraron coincidencias'], 404);
              }
-         } else {
-             // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
-             return response()->json(['message' => 'Parámetros faltantes'], 400);
-         }
+             } else {
+                 // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+                 return response()->json(['message' => 'Parámetros faltantes'], 400);
+             }
      }
-                 
+                  
     /**
      * Update the specified resource in storage.
      */
@@ -118,7 +118,7 @@ class communicablediseasesController extends Controller
     {
         $data = $request->json()->all();
 
-        $id = $data['id'];
+        $communicablediseases->id = $data['id'];
         $communicablediseases->fullName = $data['fullName'];
         $communicablediseases->sex = $data['sex'];
         $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
@@ -137,6 +137,7 @@ class communicablediseasesController extends Controller
         $communicablediseases->userId = $data['userId'];
         $communicablediseases->personaId = $data['personaId'];
         $communicablediseases->viviendaId = $data['viviendaId'];
+
         $table = communicablediseases::where('id', $id)->firstOrFail();
 
         $table->fullName = $data['fullName'];

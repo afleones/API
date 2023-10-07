@@ -92,34 +92,36 @@ class womenhealthController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, womenhealth $womenhealth)
+    public function show(Request $request)
     {
+        // Accede a los datos de la solicitud POST
         $data = $request->all();
-        $userid = $data['userId'];
-        $viviendaid = $data['viviendaId'];
-        $personaid = $data['personaId'];
-        //$fecha1 = $data['fecha1'];
-        //$fecha2 = $data['fecha2'];
-        
-
-        $womenhealth = womenhealth::where('userId', $userid)->where(function($query) use ($data) {  
-            if (isset($data['id'])) {
-            $query->Where('id', $data['id']);
+    
+        // Valida que los parámetros requeridos estén presentes en la solicitud
+        if (
+            isset($data['userId']) &&
+            isset($data['personaId']) &&
+            isset($data['viviendaId'])
+        ) {
+            // Realiza una consulta en la base de datos para encontrar una coincidencia
+            $result = DB::table('maite000003.womenHealth')
+                ->where([
+                    ['userId', '=', $data['userId']],
+                    ['personaId', '=', $data['personaId']],
+                    ['viviendaId', '=', $data['viviendaId']]
+                ]) ->first(); // Obtén la primera coincidencia
+    
+            if ($result) {
+                // Envía la respuesta en un arreglo
+                return response()->json(['data' => [$result]], 200);
+            } else {
+                // Si no se encuentra una coincidencia, devuelve una respuesta de error
+                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
             }
-            if (isset($data['viviendaId'])) {
-                $query->Where('viviendaId', $data['viviendaId']);
+            } else {
+                // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+                return response()->json(['message' => 'Parámetros faltantes'], 400);
             }
-            if (isset($data['personaId'])) {
-                $query->Where('personaId', $data['personaId']);
-            }
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-             })->get();
-
-       
-
-        //$dataArray = array($womenhealth);     
-        $dataArray = $womenhealth;             
-        return $dataArray;
     }
 
     /**

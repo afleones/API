@@ -146,8 +146,8 @@ class adolescenceController extends Controller
     public function update(Request $request)
     {
         $data = $request->json()->all();
-        $id = $data['id'];
         
+        $id = $data['id'];
         $adolescence->weight= $data['weight'] ?? '';
         $adolescence->size= $data['size'] ?? '';
         $adolescence->imc= $data['imc'] ?? '';
@@ -184,7 +184,43 @@ class adolescenceController extends Controller
         $adolescence->userid= $data['userId']  ?? 0;
         
         $tabla = adolescence::where('id', $id)->firstOrFail();
-        $tabla->weight = $weight;
+
+        $tabla->weight = $data['weight'];
+        $tabla->size = $data['size'];
+        $tabla->imc = $data['imc'];
+        $tabla->systolicPressure = $data['systolicPressure'];
+        $tabla->diastolicPressure = $data['diastolicPressure'];
+        $tabla->medicalHistory = $data['medicalHistory'];
+        $tabla->completeVaccination = $data['completeVaccination'];
+        $tabla->chronicConditions = $data['chronicConditions'];
+        $tabla->disability = $data['disability'];
+        $tabla->promotionHealth = $data['promotionHealth'];
+        $tabla->oralHygiene = $data['oralHygiene'];
+        $tabla->referralOptometry = $data['referralOptometry'];
+        $tabla->consumptionTobacco = $data['consumptionTobacco'];
+        $tabla->consumptionAlcohol = $data['consumptionAlcohol'];
+        $tabla->psychoactiveSubstances = $data['psychoactiveSubstances'];
+        $tabla->developmentPubertal = $data['developmentPubertal'];
+        $tabla->homeLifeSexual = $data['homeLifeSexual'];
+        $tabla->its = $data['its'];
+        $tabla->chronicCough = $data['chronicCough'];
+        $tabla->identitySexual = $data['identitySexual'];
+        $tabla->psychosocialDevelopment = $data['psychosocialDevelopment'];
+        $tabla->suicidalBehavior = $data['suicidalBehavior'];
+        $tabla->ethnicGroups = $data['ethnicGroups'];
+        $tabla->nutritionalProblems = $data['nutritionalProblems'];
+        $tabla->malnutrition = $data['malnutrition'];
+        $tabla->overweightObesity = $data['overweightObesity'];
+        $tabla->signsDanger = $data['signsDanger'];
+        $tabla->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
+        $tabla->rapeSexual = $data['rapeSexual'];
+        $tabla->unschooling = $data['unschooling'];
+        $tabla->schoolPerformance = $data['schoolPerformance'];
+        $tabla->tripZonesEndemic = $data['tripZonesEndemic'];
+        $tabla->userId = $data['userId'];
+        $tabla->personaId = $data['personaId'];
+        $tabla->viviendaId = $data['viviendaId'];
+
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
