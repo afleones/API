@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\communicableDiseases;
+use App\Models\communicablediseases;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -80,7 +80,7 @@ class communicablediseasesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, communicablediseases $communicablediseases)
+    public function show(Request $request, communicableiseases $communicablediseases)
     {
         // Accede a los datos de la solicitud POST
         $communicablediseases = $request->all();
