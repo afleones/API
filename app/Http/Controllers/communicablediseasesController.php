@@ -91,7 +91,7 @@ class communicablediseasesController extends Controller
              isset($data['viviendaId'])
          ) {
              // Realiza una consulta en la base de datos para encontrar una coincidencia
-             $result = DB::table('tu_tabla')
+             $result = DB::table('maite000003.communicableDiseases')
                  ->where([
                      ['userId', '=', $data['userId']],
                      ['personaId', '=', $data['personaId']],
