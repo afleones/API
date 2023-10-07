@@ -83,6 +83,7 @@ class communicablediseasesController extends Controller
     public function show(Request $request)
     {
         // Accede a los datos de la solicitud POST
+        var_dump($request);
         $communicablediseases = $request->all();
     
         // Valida que los parámetros requeridos estén presentes en la solicitud
