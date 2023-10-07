@@ -92,9 +92,9 @@ class communicablediseasesController extends Controller
         ) {
             // Realiza una consulta en la base de datos para encontrar una coincidencia
             $data = DB::table('communicableDiseases')
-                ->where('userId', $communicablediseases['userId'])
-                ->where('personaId', $communicablediseases['personaId'])
-                ->where('viviendaId', $communicablediseases['viviendaId'])
+                ->where('userId', '=', $communicablediseases['userId'])
+                ->where('personaId', '=', $communicablediseases['personaId'])
+                ->where('viviendaId', '=', $communicablediseases['viviendaId'])
                 ->first();
             if ($data) {
                 // Envía la respuesta en un arreglo
@@ -106,7 +106,7 @@ class communicablediseasesController extends Controller
             } else {
                 // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
                 return response()->json(['message' => 'Parámetros faltantes'], 400);
-            } 
+            }
             var_dump($communicablediseases);
     }
     
