@@ -90,23 +90,23 @@ class communicablediseasesController extends Controller
             isset($communicablediseases['viviendaId'])
         ) {
             // Realiza una consulta en la base de datos para encontrar una coincidencia
-            $data = DB::table('maite000003.communicableDiseases')
-                ->where('userId', '=', $communicablediseases['userId'])
-                ->where('personaId', '=', $communicablediseases['personaId'])
-                ->where('viviendaId', '=', $communicablediseases['viviendaId'])
-                ->first();
-            if ($data) {
-                // Envía la respuesta en un arreglo
-                return response()->json(['data' => [$data]], 200);
-            } else {
-                // Si no se encuentra una coincidencia, devuelve una respuesta de error
-                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
+            $data = Person::where('userId', $communicablediseases['userId'])
+                    ->where('personaId', $communicablediseases['personaId'])
+                    ->where('viviendaId', $communicablediseases['viviendaId'])
+                    ->first(); // Obtiene la primera coincidencia o null si no se encuentra
+
+                if ($data) {
+                    // Envía la respuesta en un arreglo
+                    return response()->json(['data' => [$data]], 200);
+                } else {
+                    // Si no se encuentra una coincidencia, devuelve una respuesta de error
+                    return response()->json(['message' => 'No se encontraron coincidencias'], 404);
+                }
+                } else {
+                    // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+                    return response()->json(['message' => 'Parámetros faltantes'], 400);
+                }
             }
-            } else {
-                // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
-                return response()->json(['message' => 'Parámetros faltantes'], 400);
-            }
-            var_dump($data);
 
     }
     

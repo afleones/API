@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\gestationbirthpostpartum;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class gestationbirthpostpartumController extends Controller
 {
