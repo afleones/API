@@ -45,6 +45,9 @@ class personController extends Controller
             'percepcion_funcionalidad',
             'cuidador_principal',
             'escala_zarit',
+            'otro_tipo_documento',
+            'gestante',
+            'otro_tipo_sustancias',
             'userid',
             'viviendaid'
         )->get();
@@ -85,6 +88,9 @@ class personController extends Controller
                 'percepcionFuncionalidad' => $person->percepcion_funcionalidad,
                 'cuidadorPrincipal' => $person->cuidador_principal,
                 'escalaZarit' => $person->escala_zarit,
+                'otro_tipo_documento' => $otro_tipo_documento,
+                'gestante' => $gestante,
+                'otro_tipo_sustancias' => $gestante,
                 'userId' => $person->userid,
                 'viviendaId' => $person->viviendaid,
             ];
@@ -139,6 +145,9 @@ class personController extends Controller
         $person->percepcion_funcionalidad = $data['percepcion_funcionalidad'] ?? '';
         $person->cuidador_principal = $data['cuidador_principal: false,'] ?? '';
         $person->escala_zarit = $data['escala_zarit'] ?? '';
+        $person->otro_tipo_documento = $data['otro_tipo_documento'] ?? '';
+        $person->gestante = $data['gestante'] ?? '';
+        $person->otro_tipo_sustancias = $data['otro_tipo_sustancias'] ?? '';
         $person->userid = $data['userid'] ?? '';
         $person->viviendaid = $data['viviendaid'] ?? '';
         
@@ -229,6 +238,9 @@ class personController extends Controller
         $percepcion_funcionalidad = $data['percepcion_funcionalidad'];
         $cuidador_principal = $data['cuidador_principal: false,'];
         $escala_zarit = $data['escala_zarit'];
+        $otro_tipo_documento = $data['otro_tipo_documento'];
+        $gestante = $data['gestante'];
+        $otro_tipo_sustancias = $data['otro_tipo_sustancias'];
         $userid = $data['userid'];
         $personid = $data['personid'];
 
