@@ -103,21 +103,23 @@ class childhoodController extends Controller
      */
     public function show(Request $request, childhood $childhood)
     {
-        //$data = $request->json()->all();
-        $data = $request->all(); 
-        //var_dump($data);exit();
+        $data = $request->all();
         $userid = $data['userId'];
+        $viviendaid = $data['viviendaId'];
+        $personaid = $data['personaId'];
         //$fecha1 = $data['fecha1'];
         //$fecha2 = $data['fecha2'];
-        //$viviendaid = $data['viviendaid'];
         
 
         $childhood = childhood::where('userId', $userid)->where(function($query) use ($data) {  
             if (isset($data['id'])) {
-            $query->orWhere('id', $data['id']);
+            $query->Where('id', $data['id']);
             }
             if (isset($data['viviendaId'])) {
-                $query->orWhere('viviendaId', $data['viviendaId']);
+                $query->Where('viviendaId', $data['viviendaId']);
+            }
+            if (isset($data['personaId'])) {
+                $query->Where('personaId', $data['personaId']);
             }
             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
              })->get();

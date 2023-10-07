@@ -109,29 +109,33 @@ class youthController extends Controller
      */
     public function show(Request $request, youth $youth)
     {
-        //$data = $request->json()->all();  recibe por raw
-        $data = $request->all();   //recibe por json
-        //var_dump($data);exit();
+        $data = $request->all();
         $userid = $data['userId'];
-        $fecha1 = $data['fecha1'];
-        $fecha2 = $data['fecha2'];
-                
+        $viviendaid = $data['viviendaId'];
+        $personaid = $data['personaId'];
+        //$fecha1 = $data['fecha1'];
+        //$fecha2 = $data['fecha2'];
         
-        $youth = youth::where('userId', $userid)->where(function($query) use ($fecha1, $fecha2, $data) {
+
+        $youth = youth::where('userId', $userid)->where(function($query) use ($data) {  
             if (isset($data['id'])) {
-                $query->orWhere('id', $data['id']);
+            $query->Where('id', $data['id']);
             }
-            // if (isset($data['territorio'])) {
-            // $query->orWhere('territorio', $data['territorio']);
-            // }
-            $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-            })->get();     
-        
-        //$dataArray = array($youth);
-        $dataArray = ($youth);   //CORRECCION DE MOSTREO DE EMPRESA 2023-10-06      OTRA VEZ                                                 
+            if (isset($data['viviendaId'])) {
+                $query->Where('viviendaId', $data['viviendaId']);
+            }
+            if (isset($data['personaId'])) {
+                $query->Where('personaId', $data['personaId']);
+            }
+            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+             })->get();
+
+       
+
+        //$dataArray = array($youth);     
+        $dataArray = $youth;             
         return $dataArray;
     }
-
     /**
      * Update the specified resource in storage.
      */
