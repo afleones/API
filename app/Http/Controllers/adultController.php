@@ -114,33 +114,33 @@ class adultController extends Controller
     public function show(Request $request)
     {
         // Accede a los datos de la solicitud POST
-        $adult = $request->all();
+        $data = $request->all();
     
         // Valida que los parámetros requeridos estén presentes en la solicitud
         if (
-            isset($adult['userId']) &&
-            isset($adult['personaId']) &&
-            isset($adult['viviendaId'])
+            isset($data['userId']) &&
+            isset($data['personaId']) &&
+            isset($data['viviendaId'])
         ) {
             // Realiza una consulta en la base de datos para encontrar una coincidencia
-            $data = DB::table('maite000003.adult')
-                ->where('userId', '=', $adult['userId'])
-                ->where('personaId', '=', $adult['personaId'])
-                ->where('viviendaId', '=', $adult['viviendaId'])
-                ->first();
-            if ($data) {
+            $result = DB::table('maite000003.adult')
+                ->where([
+                    ['userId', '=', $data['userId']],
+                    ['personaId', '=', $data['personaId']],
+                    ['viviendaId', '=', $data['viviendaId']]
+                ]) ->first(); // Obtén la primera coincidencia
+    
+            if ($result) {
                 // Envía la respuesta en un arreglo
-                return response()->json(['data' => [$data]], 200);
+                return response()->json(['data' => [$result]], 200);
             } else {
                 // Si no se encuentra una coincidencia, devuelve una respuesta de error
                 return response()->json(['message' => 'No se encontraron coincidencias'], 404);
             }
-            } else {
-                // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
-                return response()->json(['message' => 'Parámetros faltantes'], 400);
-            }
-            var_dump($data);
-
+        } else {
+            // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+            return response()->json(['message' => 'Parámetros faltantes'], 400);
+        }
     }
 
     /**
