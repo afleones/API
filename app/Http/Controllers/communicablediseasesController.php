@@ -78,38 +78,38 @@ class communicablediseasesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+
+    public function show(Request $request, $tableName)
     {
         // Accede a los datos de la solicitud POST
-        $communicablediseases = $request->all();
+        $data = $request->all();
     
         // Valida que los parámetros requeridos estén presentes en la solicitud
         if (
-            isset($communicablediseases['userId']) &&
-            isset($communicablediseases['personaId']) &&
-            isset($communicablediseases['viviendaId'])
+            isset($data['userId']) &&
+            isset($data['personaId']) &&
+            isset($data['viviendaId'])
         ) {
-            // Realiza una consulta en la base de datos para encontrar una coincidencia
-            $data = Person::where('userId', $communicablediseases['userId'])
-                    ->where('personaId', $communicablediseases['personaId'])
-                    ->where('viviendaId', $communicablediseases['viviendaId'])
-                    ->first(); // Obtiene la primera coincidencia o null si no se encuentra
-
-                if ($data) {
-                    // Envía la respuesta en un arreglo
-                    return response()->json(['data' => [$data]], 200);
-                } else {
-                    // Si no se encuentra una coincidencia, devuelve una respuesta de error
-                    return response()->json(['message' => 'No se encontraron coincidencias'], 404);
-                }
-                } else {
-                    // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
-                    return response()->json(['message' => 'Parámetros faltantes'], 400);
-                }
-            }
-
-    }
+            // Utiliza el modelo Eloquent correspondiente a la tabla
+            $result = MyModel::where([
+                ['userId', '=', $data['userId']],
+                ['personaId', '=', $data['personaId']],
+                ['viviendaId', '=', $data['viviendaId']]
+            ])->first(); // Obtén la primera coincidencia
     
+            if ($result) {
+                // Envía la respuesta en un arreglo
+                return response()->json(['data' => [$result]], 200);
+            } else {
+                // Si no se encuentra una coincidencia, devuelve una respuesta de error
+                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
+            }
+        } else {
+            // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+            return response()->json(['message' => 'Parámetros faltantes'], 400);
+        }
+    }
+            
     /**
      * Update the specified resource in storage.
      */
