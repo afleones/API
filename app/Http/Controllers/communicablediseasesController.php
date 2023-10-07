@@ -107,6 +107,7 @@ class communicablediseasesController extends Controller
                 // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
                 return response()->json(['message' => 'Parámetros faltantes'], 400);
             } 
+            var_dump($communicablediseases);
     }
     
     /**
