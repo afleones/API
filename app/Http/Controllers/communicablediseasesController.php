@@ -43,10 +43,8 @@ class communicablediseasesController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $data = $request->all();
-
-        
+ 
         // Creamos un nuevo objeto del modelo
         $communicablediseases = new communicablediseases();
 
@@ -83,7 +81,6 @@ class communicablediseasesController extends Controller
     public function show(Request $request)
     {
         // Accede a los datos de la solicitud POST
-        var_dump($request);
         $communicablediseases = $request->all();
     
         // Valida que los parámetros requeridos estén presentes en la solicitud
@@ -109,6 +106,8 @@ class communicablediseasesController extends Controller
                 // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
                 return response()->json(['message' => 'Parámetros faltantes'], 400);
             }
+            var_dump($data);
+
     }
     
     /**
