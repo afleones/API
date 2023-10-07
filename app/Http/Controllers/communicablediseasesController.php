@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\communicablediseases;
+use App\Models\communicableDiseases;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
