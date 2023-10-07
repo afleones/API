@@ -107,24 +107,26 @@ class earlychildhoodController extends Controller
      */
     public function show(Request $request, earlychildhood $earlychildhood)
     {
-       //$data = $request->json()->all();  recibe por raw
-       $data = $request->all();   //recibe por json
+        //$data = $request->json()->all();  recibe por raw
+        $data = $request->all();   //recibe por json
         //var_dump($data);exit();
         $userid = $data['userId'];
-        // $fecha1 = $data['fecha1'];
-        // $fecha2 = $data['fecha2'];
-        $earlychildhood = earlychildhood::where('userId', $userid)
-                         ->where(function($query) use ($data) {
-                            if (isset($data['id'])) {
-                                $query->orWhere('id', $data['id']);
-                            }
-                            // if (isset($data['personaid'])) {
-                            //     $query->orWhere('personaid', $data['personaid']);
-                            // }
-                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-                         })
-                         ->get();
-        $dataArray = array($earlychildhood);                 
+        $fecha1 = $data['fecha1'];
+        $fecha2 = $data['fecha2'];
+                
+        
+        $earlychildhood = earlychildhood::where('userId', $userid)->where(function($query) use ($fecha1, $fecha2, $data) {
+            if (isset($data['id'])) {
+                $query->orWhere('id', $data['id']);
+            }
+            // if (isset($data['territorio'])) {
+            // $query->orWhere('territorio', $data['territorio']);
+            // }
+            $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+            })->get();     
+        
+        //$dataArray = array($earlychildhood);
+        $dataArray = ($earlychildhood);   //CORRECCION DE MOSTREO DE EMPRESA 2023-10-06      OTRA VEZ                                                 
         return $dataArray;
     }
     /**

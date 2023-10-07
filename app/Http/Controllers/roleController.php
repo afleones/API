@@ -41,9 +41,29 @@ class roleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, role $role)
     {
-        //
+        //$data = $request->json()->all();  recibe por raw
+        $data = $request->all();   //recibe por json
+        //var_dump($data);exit();
+        $userid = $data['userId'];
+        $fecha1 = $data['fecha1'];
+        $fecha2 = $data['fecha2'];
+                
+        
+        $role = role::where('userId', $userid)->where(function($query) use ($fecha1, $fecha2, $data) {
+            if (isset($data['id'])) {
+                $query->orWhere('id', $data['id']);
+            }
+            // if (isset($data['territorio'])) {
+            // $query->orWhere('territorio', $data['territorio']);
+            // }
+            $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+            })->get();     
+        
+        //$dataArray = array($role);
+        $dataArray = ($role);   //CORRECCION DE MOSTREO DE EMPRESA 2023-10-06      OTRA VEZ                                                 
+        return $dataArray;
     }
 
     /**

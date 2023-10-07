@@ -10,5 +10,5 @@ class company extends Model
     use HasFactory;
 
     protected $connection = 'maite';
-    protected $table = 'Company';
+    protected $table = 'company';
 }

@@ -103,35 +103,27 @@ class childhoodController extends Controller
      */
     public function show(Request $request, childhood $childhood)
     {
-        //$data = $request->json()->all();
-        $data = $request->all(); 
-
+        //$data = $request->json()->all();  recibe por raw
+        $data = $request->all();   //recibe por json
         //var_dump($data);exit();
         $userid = $data['userId'];
-        //$fecha1 = $data['fecha1'];
-        //$fecha2 = $data['fecha2'];
-        //$viviendaid = $data['viviendaid'];
+        $fecha1 = $data['fecha1'];
+        $fecha2 = $data['fecha2'];
+                
         
-
-        $childhood = childhood::where('userId', $userid)
-                         ->where(function($query) use ($data) {
-                            if (isset($data['id'])) {
-                                $query->Where('id', $data['id']);
-                            }
-                            if (isset($data['userId'])) {
-                                $query->Where('userId', $data['userId']);
-                            }
-                            if (isset($data['viviendaId'])) {
-                                $query->Where('viviendaId', $data['viviendaId']);
-                            }
-                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-                         })
-                         ->get();
-
-       
-
-        $dataArray = array($childhood);                 
-        return $dataArray;
+        $childhood = childhood::where('userId', $userid)->where(function($query) use ($fecha1, $fecha2, $data) {
+            if (isset($data['id'])) {
+                $query->orWhere('id', $data['id']);
+            }
+            // if (isset($data['territorio'])) {
+            // $query->orWhere('territorio', $data['territorio']);
+            // }
+            $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+            })->get();     
+        
+        //$dataArray = array($childhood);
+        $dataArray = ($childhood);   //CORRECCION DE MOSTREO DE EMPRESA 2023-10-06      OTRA VEZ                                                 
+        return $dataArray;   
     }
 
     /**
