@@ -92,9 +92,9 @@ class communicablediseasesController extends Controller
         ) {
             // Realiza una consulta en la base de datos para encontrar una coincidencia
             $data = DB::table('communicableDiseases')
-                ->where('userId', $postData['userId'])
-                ->where('personaId', $postData['personaId'])
-                ->where('viviendaId', $postData['viviendaId'])
+                ->where('userId', $communicablediseases['userId'])
+                ->where('personaId', $communicablediseases['personaId'])
+                ->where('viviendaId', $communicablediseases['viviendaId'])
                 ->first();
             if ($data) {
                 // Envía la respuesta en un arreglo
