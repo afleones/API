@@ -6,7 +6,7 @@ use App\Models\communicablediseases;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CommunicableDiseasesController extends Controller
+class communicablediseasesController extends Controller
 {
     /**
      * Display a listing of the resource.

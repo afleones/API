@@ -58,7 +58,7 @@ use App\Http\Controllers\earlychildhoodController;
 /*  */
 
 /* controlador de Enfermedades Transmisibles */
-use App\Http\Controllers\CommunicableDiseasesController;
+use App\Http\Controllers\communicablediseasesController;
 /*  */
 
 /* controlador de Salud de la Mujer */
@@ -141,11 +141,11 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* End */
 
     /* Rutas de Enfermedades Transmisibles */
-    Route::post('saveCommunicableDiseases', [CommunicableDiseasesController::class, 'store']);
-    Route::get('communicableDiseases', [CommunicableDiseasesController::class, 'index']);
-    Route::post('communicableDisease', [CommunicableDiseasesController::class, 'show']);
-    Route::post('updateCommunicableDiseases', [CommunicableDiseasesController::class, 'update']);
-    Route::post('deleteCommunicableDiseases', [CommunicableDiseasesController::class, 'destroy']);
+    Route::post('saveCommunicableDiseases', [communicablediseasesController::class, 'store']);
+    Route::get('communicableDiseases', [communicablediseasesController::class, 'index']);
+    Route::post('communicableDisease', [communicablediseasesController::class, 'show']);
+    Route::post('updateCommunicableDiseases', [communicablediseasesController::class, 'update']);
+    Route::post('deleteCommunicableDiseases', [communicablediseasesController::class, 'destroy']);
     /* End */
 
     /* Rutas de Salud de la Mujer */
