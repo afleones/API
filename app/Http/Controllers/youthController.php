@@ -107,7 +107,7 @@ class youthController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, womenhealth $womenhealth)
+    public function show(Request $request, youth $youth)
     {
         //$data = $request->json()->all();  recibe por raw
         $data = $request->all();   //recibe por json
@@ -117,7 +117,7 @@ class youthController extends Controller
         $fecha2 = $data['fecha2'];
                 
         
-        $womenhealth = womenhealth::where('userId', $userid)->where(function($query) use ($fecha1, $fecha2, $data) {
+        $youth = youth::where('userId', $userid)->where(function($query) use ($fecha1, $fecha2, $data) {
             if (isset($data['id'])) {
                 $query->orWhere('id', $data['id']);
             }
@@ -127,8 +127,8 @@ class youthController extends Controller
             $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
             })->get();     
         
-        //$dataArray = array($womenhealth);
-        $dataArray = ($womenhealth);   //CORRECCION DE MOSTREO DE EMPRESA 2023-10-06      OTRA VEZ                                                 
+        //$dataArray = array($youth);
+        $dataArray = ($youth);   //CORRECCION DE MOSTREO DE EMPRESA 2023-10-06      OTRA VEZ                                                 
         return $dataArray;
     }
 

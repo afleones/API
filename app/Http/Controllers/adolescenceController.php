@@ -109,27 +109,31 @@ class adolescenceController extends Controller
      */
     public function show(Request $request, adolescence $adolescence)
     {
-        //$data = $request->json()->all();  recibe por raw
-        $data = $request->all();   //recibe por json
+        //$data = $request->json()->all();
+        $data = $request->all(); 
+
         //var_dump($data);exit();
         $userid = $data['userId'];
-        $fecha1 = $data['fecha1'];
-        $fecha2 = $data['fecha2'];
-                
+        //$fecha1 = $data['fecha1'];
+        //$fecha2 = $data['fecha2'];
+        //$viviendaid = $data['viviendaid'];
         
-        $adolescence = adolescence::where('userId', $userid)->where(function($query) use ($fecha1, $fecha2, $data) {
+
+        $adolescence = adolescence::where('userId', $userid)->where(function($query) use ($data) {  
             if (isset($data['id'])) {
-                $query->orWhere('id', $data['id']);
+            $query->orWhere('id', $data['id']);
             }
-            // if (isset($data['territorio'])) {
-            // $query->orWhere('territorio', $data['territorio']);
-            // }
-            $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-            })->get();     
-        
-        //$dataArray = array($adolescence);
-        $dataArray = ($adolescence);   //CORRECCION DE MOSTREO DE EMPRESA 2023-10-06      OTRA VEZ                                                 
-        return $dataArray;   
+            if (isset($data['viviendaId'])) {
+                $query->orWhere('viviendaId', $data['viviendaId']);
+            }
+            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+             })->get();
+
+       
+
+        //$dataArray = array($adolescence);     
+        $dataArray = $adolescence;             
+        return $dataArray;
     }
 
     /**
@@ -172,8 +176,8 @@ class adolescenceController extends Controller
         $adolescence->unschooling= $data['unschooling']  ?? 0;
         $adolescence->schoolPerformance= $data['schoolPerformance']  ?? 0;
         $adolescence->tripZonesEndemic= $data['tripZonesEndemic']  ?? 0;
-        $adolescence->personaid= $data['personaid']  ?? 0;
-        $adolescence->userid= $data['userid']  ?? 0;
+        $adolescence->personaid= $data['personaId']  ?? 0;
+        $adolescence->userid= $data['userId']  ?? 0;
         
         $tabla = adolescence::where('id', $id)->firstOrFail();
         $tabla->weight = $weight;

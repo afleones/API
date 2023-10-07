@@ -103,27 +103,30 @@ class childhoodController extends Controller
      */
     public function show(Request $request, childhood $childhood)
     {
-        //$data = $request->json()->all();  recibe por raw
-        $data = $request->all();   //recibe por json
+        //$data = $request->json()->all();
+        $data = $request->all(); 
         //var_dump($data);exit();
         $userid = $data['userId'];
-        $fecha1 = $data['fecha1'];
-        $fecha2 = $data['fecha2'];
-                
+        //$fecha1 = $data['fecha1'];
+        //$fecha2 = $data['fecha2'];
+        //$viviendaid = $data['viviendaid'];
         
-        $childhood = childhood::where('userId', $userid)->where(function($query) use ($fecha1, $fecha2, $data) {
+
+        $childhood = childhood::where('userId', $userid)->where(function($query) use ($data) {  
             if (isset($data['id'])) {
-                $query->orWhere('id', $data['id']);
+            $query->orWhere('id', $data['id']);
             }
-            // if (isset($data['territorio'])) {
-            // $query->orWhere('territorio', $data['territorio']);
-            // }
-            $query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-            })->get();     
-        
-        //$dataArray = array($childhood);
-        $dataArray = ($childhood);   //CORRECCION DE MOSTREO DE EMPRESA 2023-10-06      OTRA VEZ                                                 
-        return $dataArray;   
+            if (isset($data['viviendaId'])) {
+                $query->orWhere('viviendaId', $data['viviendaId']);
+            }
+            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+             })->get();
+
+       
+
+        //$dataArray = array($childhood);     
+        $dataArray = $childhood;             
+        return $dataArray;
     }
 
     /**
