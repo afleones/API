@@ -110,34 +110,36 @@ class adultController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, adult $adult)
+    public function show(Request $request)
     {
-        $data = $request->all();
-        $userid = $data['userId'];
-        $viviendaid = $data['viviendaId'];
-        $personaid = $data['personaId'];
-        //$fecha1 = $data['fecha1'];
-        //$fecha2 = $data['fecha2'];
-        
-
-        $adult = adult::where('userId', $userid)->where(function($query) use ($data) {  
-            if (isset($data['id'])) {
-            $query->Where('id', $data['id']);
+        // Accede a los datos de la solicitud POST
+        $adult = $request->all();
+    
+        // Valida que los parámetros requeridos estén presentes en la solicitud
+        if (
+            isset($adult['userId']) &&
+            isset($adult['personaId']) &&
+            isset($adult['viviendaId'])
+        ) {
+            // Realiza una consulta en la base de datos para encontrar una coincidencia
+            $data = DB::table('maite000003.adult')
+                ->where('userId', '=', $adult['userId'])
+                ->where('personaId', '=', $adult['personaId'])
+                ->where('viviendaId', '=', $adult['viviendaId'])
+                ->first();
+            if ($data) {
+                // Envía la respuesta en un arreglo
+                return response()->json(['data' => [$data]], 200);
+            } else {
+                // Si no se encuentra una coincidencia, devuelve una respuesta de error
+                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
             }
-            if (isset($data['viviendaId'])) {
-                $query->Where('viviendaId', $data['viviendaId']);
+            } else {
+                // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
+                return response()->json(['message' => 'Parámetros faltantes'], 400);
             }
-            if (isset($data['personaId'])) {
-                $query->Where('personaId', $data['personaId']);
-            }
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-             })->get();
+            var_dump($data);
 
-       
-
-        //$dataArray = array($adult);     
-        $dataArray = $adult;             
-        return $dataArray;
     }
 
     /**
