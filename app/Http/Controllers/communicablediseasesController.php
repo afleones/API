@@ -79,7 +79,7 @@ class communicablediseasesController extends Controller
      * Display the specified resource.
      */
 
-    public function show(Request $request, $tableName)
+    public function show(Request $request, $communicableDiseases)
     {
         // Accede a los datos de la solicitud POST
         $data = $request->all();
@@ -91,7 +91,7 @@ class communicablediseasesController extends Controller
             isset($data['viviendaId'])
         ) {
             // Utiliza el modelo Eloquent correspondiente a la tabla
-            $result = MyModel::where([
+            $result = communicableDiseases::where([
                 ['userId', '=', $data['userId']],
                 ['personaId', '=', $data['personaId']],
                 ['viviendaId', '=', $data['viviendaId']]
