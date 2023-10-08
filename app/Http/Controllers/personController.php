@@ -201,23 +201,21 @@ class personController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $userId, $personaId, $viviendaId)
+    public function update(Request $request, $userid, $viviendaid)
     {
         $data = $request->all();
     
         // Encuentra el registro que deseas actualizar basado en los criterios de consulta
-        $adolescence = adolescence::where('userId', $userId)
-            ->where('personaId', $personaId)
-            ->where('viviendaId', $viviendaId)
+        $person = person::where('userid', $userid)
+            ->where('viviendaid', $viviendaid)
             ->first();
     
         // Verifica si se encontró el registro
-        if (!$adolescence) {
+        if (!$person) {
             return response()->json(['message' => 'Registro no encontrado'], 404);
         }
 
         $person->rol_familiar = $data['rol_familiar'];
-        
         $person->primer_nombre = $data['primer_nombre'];
         $person->segundo_nombre = $data['segundo_nombre'];
         $person->primer_apellido = $data['primer_apellido'];
