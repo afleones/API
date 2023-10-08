@@ -247,8 +247,6 @@ class personController extends Controller
                    ->where('userid', $userid)
                    ->where('personid', $personid)
                    ->firstOrFail();
-
-        $tabla->rol_familiar = $rol_familiar;
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
