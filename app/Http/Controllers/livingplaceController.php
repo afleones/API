@@ -113,6 +113,7 @@ class livingplaceController extends Controller
         otro_sintomas_mayores_5,
         latitud,
         longitud,
+        nombre_nucleo,
         userid
         ")->get();
         return $livingplace;
@@ -232,6 +233,8 @@ class livingplaceController extends Controller
         $livingplace->otro_sintomas_mayores_5= $data['otro_sintomas_mayores_5'];
         $livingplace->latitud= $data['latitud'];
         $livingplace->longitud= $data['longitud'];
+        $livingplace->nombre_nucleo= $data['nombre_nucleo'];
+        
         $livingplace->userid= $data['userid'];
 
         
@@ -384,6 +387,8 @@ class livingplaceController extends Controller
         $otro_sintomas_mayores_5= $data['otro_sintomas_mayores_5'];
         $latitud= $data['latitud'];
         $longitud= $data['longitud'];
+        $nombre_nucleo= $data['nombre_nucleo'];
+        
 
         $userid= $data['userid'];
         
