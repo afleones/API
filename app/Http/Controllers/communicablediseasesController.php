@@ -50,7 +50,11 @@ class communicablediseasesController extends Controller
 
         $communicablediseases->fullName = $data['fullName'];
         $communicablediseases->sex = $data['sex'];
-        $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
+        if (isset($data['otherSex'])) {
+            $communicablediseases->otherSex = $data['otherSex'];
+        } else {
+            $communicablediseases->otherSex = null;
+        }
         $communicablediseases->age = $data['age'];
         $communicablediseases->relationship = $data['relationship'];
         $communicablediseases->occupation = $data['occupation'];
