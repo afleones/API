@@ -247,6 +247,44 @@ class personController extends Controller
                    ->where('userid', $userid)
                    ->where('personid', $personid)
                    ->firstOrFail();
+
+        $tabla->rol_familiar = $rol_familiar;
+        $$tabla->primer_nombre = $primer_nombre;
+        $tabla->segundo_nombre = $segundo_nombre;
+        $tabla->primer_apellido = $primer_apellido;
+        $tabla->segundo_apellido = $segundo_apellido;
+        $tabla->tipo_documento = $tipo_documento;
+        $tabla->numero_documento = $numero_documento;
+        $tabla->fecha_nacimiento = $fecha_nacimiento;
+        $tabla->edad = $edad;
+        $tabla->sexo = $sexo;
+        $tabla->identidad_genero = $identidad_genero;
+        $tabla->telefono_familiar = $telefono_familiar;
+        $tabla->nivel_escolaridad = $nivel_escolaridad;
+        $tabla->aporta_ingresos = $aporta_ingresos;
+        $tabla->tipo_afiliacion = $tipo_afiliacion;
+        $tabla->grupo_atencion_familiar = $grupo_atencion_familiar;
+        $tabla->habla_creole = $habla_creole;
+        $tabla->vacunas_covid = $vacunas_covid;
+        $tabla->dosis_vacuna = $dosis_vacuna;
+        $tabla->consumo_sustancias = $consumo_sustancias;
+        $tabla->tipo_sustancias = $tipo_sustancias;
+        $tabla->persona_recibe_visita = $persona_recibe_visita;
+        $tabla->cursos_vida_integrantes = $cursos_vida_integrantes;
+        $tabla->ocupacion_integrantes = $ocupacion_integrantes;
+        $tabla->situacion_discapacidad = $situacion_discapacidad;
+        $tabla->tipo_discapacidad = $tipo_discapacidad;
+        $tabla->atencion_integral = $atencion_integral;
+        $tabla->vinculacion_sgsss = $vinculacion_sgsss;
+        $tabla->percepcion_funcionalidad = $percepcion_funcionalidad;
+        $tabla->cuidador_principal = $cuidador_principal;
+        $tabla->escala_zarit = $escala_zarit;
+        $tabla->otro_tipo_documento = $otro_tipo_documento;
+        $tabla->gestante = $gestante;
+        $tabla->otro_tipo_sustancias = $otro_tipo_sustancias;
+        $tabla->userid = $userid;
+        $tabla->personid = $personid;
+
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
