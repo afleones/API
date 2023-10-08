@@ -140,9 +140,21 @@ class earlychildhoodController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $earlychildhood->id = $data['id'];
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $earlychildhood = earlyearlychildhood::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$earlychildhood) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+        
         $earlychildhood->weight = $data['weight'];
         $earlychildhood->size = $data['size'];
         $earlychildhood->headCircunference = $data['headCircunference'];
@@ -176,45 +188,6 @@ class earlychildhoodController extends Controller
         $earlychildhood->personaId = $data['personaId'];
         $earlychildhood->viviendaId = $data['viviendaId'];
 
-        $tabla = earlyChildHood::where('id', $id)->firstOrFail();
-
-
-        $tabla->weight = $data['weight'];
-        $tabla->size = $data['size'];
-        $tabla->headCircunference = $data['headCircunference'];
-        $tabla->gillPerimeter = $data['gillPerimeter'];
-        $tabla->perimeterWaist = $data['perimeterWaist'];
-        $tabla->perimeterHip = $data['perimeterHip'];
-        $tabla->systolicPressure = $data['systolicPressure'];
-        $tabla->diastolicPressure = $data['diastolicPressure'];
-        $tabla->antecedentPrematurity = $data['antecedentPrematurity'];
-        $tabla->congenitalAnomaly = $data['congenitalAnomaly'];
-        $tabla->consumptionSubstances = $data['consumptionSubstances'];
-        $tabla->breastfeeding = $data['breastfeeding'];
-        $tabla->chronicCondition = $data['chronicCondition'];
-        $tabla->disability = $data['disability'];
-        $tabla->promotionHealth = $data['promotionHealth'];
-        $tabla->completeVaccination = $data['completeVaccination'];
-        $tabla->deworming = $data['deworming'];
-        $tabla->oralHygiene = $data['oralHygiene'];
-        $tabla->childDevelopment = $data['childDevelopment'];
-        $tabla->signSera = $data['signSera'];
-        $tabla->ancestralMedicine = $data['ancestralMedicine'];
-        $tabla->signSera2 = $data['signSera2'];
-        $tabla->victimization = $data['victimization'];
-        $tabla->malnutrition = $data['malnutrition'];
-        $tabla->overweightObesity = $data['overweightObesity'];
-        $tabla->dangerDeath = $data['dangerDeath'];
-        $tabla->nutritionalProblems = $data['nutritionalProblems'];
-        $tabla->dresserChronic = $data['dresserChronic'];
-        $tabla->tripZonesEndemic = $data['tripZonesEndemic'];
-        $tabla->userId = $data['userId'];
-        $tabla->personaId = $data['personaId'];
-        $tabla->viviendaId = $data['viviendaId'];
-
-        $table->save();
-
-        return response()->json(['message' => 'Registro actualizado con éxito']);
     }
     /**
      * Remove the specified resource from storage.

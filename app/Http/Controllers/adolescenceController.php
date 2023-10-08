@@ -143,90 +143,64 @@ class adolescenceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $data = $request->json()->all();
-        
-        $id = $data['id'];
-        $adolescence->weight= $data['weight'] ?? '';
-        $adolescence->size= $data['size'] ?? '';
-        $adolescence->imc= $data['imc'] ?? '';
-        $adolescence->systolicpressure= $data['systolicpressure'] ?? '';
-        $adolescence->diastolicpressure= $data['diastolicpressure'] ?? '';
-        $adolescence->medicalHistory= $data['medicalHistory']  ?? 0;
-        $adolescence->completeVaccination= $data['completeVaccination']  ?? 0;
-        $adolescence->chronicConditions= $data['chronicConditions']  ?? 0;
-        $adolescence->disability= $data['disability']  ?? 0;
-        $adolescence->promotionHealth= $data['promotionHealth']  ?? 0;
-        $adolescence->oralHygiene= $data['oralHygiene']  ?? 0;
-        $adolescence->referralOptometry= $data['referralOptometry']  ?? 0;
-        $adolescence->consumptionTobacco= $data['consumptionTobacco']  ?? 0;
-        $adolescence->consumptionAlcohol= $data['consumptionAlcohol']  ?? 0;
-        $adolescence->psychoactiveSubstances= $data['psychoactiveSubstances']  ?? 0;
-        $adolescence->developmentPubertal= $data['developmentPubertal']  ?? 0;
-        $adolescence->homeLifeSexual= $data['homeLifeSexual']  ?? 0;
-        $adolescence->its= $data['its']  ?? 0;
-        $adolescence->chronicCough= $data['chronicCough']  ?? 0;
-        $adolescence->identitySexual= $data['identitySexual']  ?? 0;
-        $adolescence->psychosocialDevelopment= $data['psychosocialDevelopment']  ?? 0;
-        $adolescence->suicidalBehavior= $data['suicidalBehavior']  ?? 0;
-        $adolescence->ethnicGroups= $data['ethnicGroups']  ?? 0;
-        $adolescence->nutritionalProblems= $data['nutritionalProblems']  ?? 0;
-        $adolescence->malnutrition= $data['malnutrition']  ?? 0;
-        $adolescence->overweightObesity= $data['overweightObesity']  ?? 0;
-        $adolescence->signsDanger= $data['signsDanger']  ?? 0;
-        $adolescence->rapePhysicalPsychological= $data['rapePhysicalPsychological']  ?? 0;
-        $adolescence->rapeSexual= $data['rapeSexual']  ?? 0;
-        $adolescence->unschooling= $data['unschooling']  ?? 0;
-        $adolescence->schoolPerformance= $data['schoolPerformance']  ?? 0;
-        $adolescence->tripZonesEndemic= $data['tripZonesEndemic']  ?? 0;
-        $adolescence->personaid= $data['personaId']  ?? 0;
-        $adolescence->userid= $data['userId']  ?? 0;
-        
-        $tabla = adolescence::where('id', $id)->firstOrFail();
-
-        $tabla->weight = $data['weight'];
-        $tabla->size = $data['size'];
-        $tabla->imc = $data['imc'];
-        $tabla->systolicPressure = $data['systolicPressure'];
-        $tabla->diastolicPressure = $data['diastolicPressure'];
-        $tabla->medicalHistory = $data['medicalHistory'];
-        $tabla->completeVaccination = $data['completeVaccination'];
-        $tabla->chronicConditions = $data['chronicConditions'];
-        $tabla->disability = $data['disability'];
-        $tabla->promotionHealth = $data['promotionHealth'];
-        $tabla->oralHygiene = $data['oralHygiene'];
-        $tabla->referralOptometry = $data['referralOptometry'];
-        $tabla->consumptionTobacco = $data['consumptionTobacco'];
-        $tabla->consumptionAlcohol = $data['consumptionAlcohol'];
-        $tabla->psychoactiveSubstances = $data['psychoactiveSubstances'];
-        $tabla->developmentPubertal = $data['developmentPubertal'];
-        $tabla->homeLifeSexual = $data['homeLifeSexual'];
-        $tabla->its = $data['its'];
-        $tabla->chronicCough = $data['chronicCough'];
-        $tabla->identitySexual = $data['identitySexual'];
-        $tabla->psychosocialDevelopment = $data['psychosocialDevelopment'];
-        $tabla->suicidalBehavior = $data['suicidalBehavior'];
-        $tabla->ethnicGroups = $data['ethnicGroups'];
-        $tabla->nutritionalProblems = $data['nutritionalProblems'];
-        $tabla->malnutrition = $data['malnutrition'];
-        $tabla->overweightObesity = $data['overweightObesity'];
-        $tabla->signsDanger = $data['signsDanger'];
-        $tabla->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
-        $tabla->rapeSexual = $data['rapeSexual'];
-        $tabla->unschooling = $data['unschooling'];
-        $tabla->schoolPerformance = $data['schoolPerformance'];
-        $tabla->tripZonesEndemic = $data['tripZonesEndemic'];
-        $tabla->userId = $data['userId'];
-        $tabla->personaId = $data['personaId'];
-        $tabla->viviendaId = $data['viviendaId'];
-
-        $tabla->save();
-
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $adolescence = adolescence::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$adolescence) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+    
+        // Actualiza los campos con los valores proporcionados en los datos
+        $adolescence->weight = $data['weight'];
+        $adolescence->size = $data['size'];
+        $adolescence->imc = $data['imc'];
+        $adolescence->systolicPressure = $data['systolicPressure'];
+        $adolescence->diastolicPressure = $data['diastolicPressure'];
+        $adolescence->medicalHistory = $data['medicalHistory'];
+        $adolescence->completeVaccination = $data['completeVaccination'];
+        $adolescence->chronicConditions = $data['chronicConditions'];
+        $adolescence->disability = $data['disability'];
+        $adolescence->promotionHealth = $data['promotionHealth'];
+        $adolescence->oralHygiene = $data['oralHygiene'];
+        $adolescence->referralOptometry = $data['referralOptometry'];
+        $adolescence->consumptionTobacco = $data['consumptionTobacco'];
+        $adolescence->consumptionAlcohol = $data['consumptionAlcohol'];
+        $adolescence->psychoactiveSubstances = $data['psychoactiveSubstances'];
+        $adolescence->developmentPubertal = $data['developmentPubertal'];
+        $adolescence->homeLifeSexual = $data['homeLifeSexual'];
+        $adolescence->its = $data['its'];
+        $adolescence->chronicCough = $data['chronicCough'];
+        $adolescence->identitySexual = $data['identitySexual'];
+        $adolescence->psychosocialDevelopment = $data['psychosocialDevelopment'];
+        $adolescence->suicidalBehavior = $data['suicidalBehavior'];
+        $adolescence->ethnicGroups = $data['ethnicGroups'];
+        $adolescence->nutritionalProblems = $data['nutritionalProblems'];
+        $adolescence->malnutrition = $data['malnutrition'];
+        $adolescence->overweightObesity = $data['overweightObesity'];
+        $adolescence->signsDanger = $data['signsDanger'];
+        $adolescence->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
+        $adolescence->rapeSexual = $data['rapeSexual'];
+        $adolescence->unschooling = $data['unschooling'];
+        $adolescence->schoolPerformance = $data['schoolPerformance'];
+        $adolescence->tripZonesEndemic = $data['tripZonesEndemic'];
+        $adolescence->userId = $data['userId'];
+        $adolescence->personaId = $data['personaId'];
+        $adolescence->viviendaId = $data['viviendaId'];
+    
+        // Guarda los cambios en la base de datos
+        $adolescence->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */

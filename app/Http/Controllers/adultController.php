@@ -146,11 +146,22 @@ class adultController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $data = $request->json()->all();
-        
-        $adult->id['id'];
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $adult = adult::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$adult) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+    
+        // Actualiza los campos con los valores proporcionados en los datos
         $adult->weight = $data['weight'];
         $adult->size = $data['size'];
         $adult->imc = $data['imc'];
@@ -184,55 +195,15 @@ class adultController extends Controller
         $adult->schoolPerformance = $data['schoolPerformance'];
         $adult->tripZonesEndemic = $data['tripZonesEndemic'];
         $adult->personaId = $data['personaId'];
-        $adult->userId = $data['userid'];
-        $adult->viviendaId = $data['viviendaId']; 
-
-        $tabla = adult::where('id', $id)->firstOrFail();
-
-        $tabla->weight = $data['weight'];
-        $tabla->size = $data['size'];
-        $tabla->imc = $data['imc'];
-        $tabla->systolicPressure = $data['systolicPressure'];
-        $tabla->diastolicPressure = $data['diastolicPressure'];
-        $tabla->medicalHistory = $data['medicalHistory'];
-        $tabla->completeVaccination = $data['completeVaccination'];
-        $tabla->chronicConditions = $data['chronicConditions'];
-        $tabla->disability = $data['disability'];
-        $tabla->promotionHealth = $data['promotionHealth'];
-        $tabla->oralHygiene = $data['oralHygiene'];
-        $tabla->referralOptometry = $data['referralOptometry'];
-        $tabla->consumptionTobacco = $data['consumptionTobacco'];
-        $tabla->consumptionAlcohol = $data['consumptionAlcohol'];
-        $tabla->psychoactiveSubstances = $data['psychoactiveSubstances'];
-        $tabla->developmentPubertal = $data['developmentPubertal'];
-        $tabla->homeLifeSexual = $data['homeLifeSexual'];
-        $tabla->its = $data['its'];
-        $tabla->chronicCough = $data['chronicCough'];
-        $tabla->identitySexual = $data['identitySexual'];
-        $tabla->psychosocialDevelopment = $data['psychosocialDevelopment'];
-        $tabla->suicidalBehavior = $data['suicidalBehavior'];
-        $tabla->ethnicGroups = $data['ethnicGroups'];
-        $tabla->nutritionalProblems = $data['nutritionalProblems'];
-        $tabla->malnutrition = $data['malnutrition'];
-        $tabla->overweightObesity = $data['overweightObesity'];
-        $tabla->signsDanger = $data['signsDanger'];
-        $tabla->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
-        $tabla->rapeSexual = $data['rapeSexual'];
-        $tabla->unschooling = $data['unschooling'];
-        $tabla->schoolPerformance = $data['schoolPerformance'];
-        $tabla->tripZonesEndemic = $data['tripZonesEndemic'];
-        $tabla->personaId = $data['personaId'];
-        $tabla->userId = $data['userId'];
-        $tabla->viviendaId = $data['viviendaId'];
-
-        $tabla->save();
-
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
-
+        $adult->userId = $data['userId'];
+        $adult->viviendaId = $data['viviendaId'];
+    
+        // Guarda los cambios en la base de datos
+        $adult->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
     }
-
-    /**
+        /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)

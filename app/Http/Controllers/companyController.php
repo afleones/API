@@ -92,11 +92,21 @@ class companyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id, $userId)
     {
-        $data = $request->json()->all();
-
-        $id = $data['id'];
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los parámetros de consulta
+        $company = Company::where('id', $id)
+            ->where('userId', $userId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$company) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+    
+        // Actualiza los campos con los valores proporcionados en los datos
         $company->nitCode = $data['nitCode'];
         $company->businessName = $data['businessName'];
         $company->address = $data['address'];
@@ -105,26 +115,13 @@ class companyController extends Controller
         $company->email = $data['email'];
         $company->responsible = $data['responsible'];
         $company->logo = $data['logo'];
-        $company->userId = $data['userId'];
-
-        $tabla = company::where('id', $id)->firstOrFail();
-
-        $tabla->nitCode = $data['nitCode'];
-        $tabla->businessName = $data['businessName'];
-        $tabla->address = $data['address'];
-        $tabla->telephoneType = $data['telephoneType'];
-        $tabla->telephone = $data['telephone'];
-        $tabla->email = $data['email'];
-        $tabla->responsible = $data['responsible'];
-        $tabla->logo = $data['logo'];
-        $tabla->userId = $data['userId'];
-
-        $tabla->save();
-
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+    
+        // Guarda los cambios en la base de datos
+        $company->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
     }
-
+    
 
     /**
      * Remove the specified resource from storage.

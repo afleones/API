@@ -205,8 +205,6 @@ class personController extends Controller
     {
         $data = $request->json()->all();
 
-        $id = $data['id'];
-        
         $rol_familiar = $data['rol_familiar'];
         $primer_nombre = $data['primer_nombre'];
         $segundo_nombre = $data['segundo_nombre'];

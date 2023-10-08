@@ -118,12 +118,15 @@ class communicablediseasesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
         $data = $request->all();
     
-        // Encuentra el registro que deseas actualizar
-        $communicablediseases = Communicablediseases::find($id);
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $communicablediseases = Communicablediseases::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
     
         // Verifica si se encontró el registro
         if (!$communicablediseases) {
@@ -146,16 +149,13 @@ class communicablediseasesController extends Controller
         $communicablediseases->vaccineDoses = $data['vaccineDoses'];
         $communicablediseases->substanceUse = $data['substanceUse'];
         $communicablediseases->substanceType = $data['substanceType'];
-        $communicablediseases->userId = $data['userId'];
-        $communicablediseases->personaId = $data['personaId'];
-        $communicablediseases->viviendaId = $data['viviendaId'];
     
         // Guarda los cambios en la base de datos
         $communicablediseases->save();
     
         return response()->json(['message' => 'Registro actualizado con éxito']);
     }
-        /**
+            /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)
