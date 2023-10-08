@@ -73,18 +73,30 @@ class roleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $data = $request->json()->all();
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $old = old::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$old) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
 
-        $id = $data['id'];  
-        $namerole = $data['nameRole'];
-        $tabla = role::where('id', $id)->firstOrFail();
-        $tabla->namerole = $namerole;
-        $tabla->save();
+        $role->namerole= $data['nameRole'];
+        $role->userId= $data['userId'];
 
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+        // Guarda los cambios en la base de datos
+        $role->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
+        
+
     }
 
     /**

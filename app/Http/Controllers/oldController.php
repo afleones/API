@@ -66,7 +66,6 @@ class oldController extends Controller
         $old = new old();
 
         $old->weight = $data['weight'];
-        $old->weight = $data['weight'];
         $old->size = $data['size'];
         $old->imc = $data['imc'];
         $old->systolicPressure = $data['systolicPressure'];
@@ -146,9 +145,21 @@ class oldController extends Controller
    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $data = $request->json()->all();
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $old = old::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$old) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+
         $old->weight = $data['weight'];
         $old->size = $data['size'];
         $old->imc = $data['imc'];
@@ -185,12 +196,11 @@ class oldController extends Controller
         $old->userId = $data['userId'];
         $old->viviendaId = $data['viviendaId'];
 
-        $tabla = old::where('id', $id)->firstOrFail();
-        $tabla->peso = $peso;
-        $tabla->save();
-
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+        // Guarda los cambios en la base de datos
+        $old->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
+        
 
     }
 

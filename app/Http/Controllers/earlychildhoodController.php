@@ -188,6 +188,11 @@ class earlychildhoodController extends Controller
         $earlychildhood->personaId = $data['personaId'];
         $earlychildhood->viviendaId = $data['viviendaId'];
 
+        // Guarda los cambios en la base de datos
+        $earlychildhood->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
+
     }
     /**
      * Remove the specified resource from storage.

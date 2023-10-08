@@ -114,11 +114,21 @@ class gestationbirthpostpartumController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $data = $request->json()->all();
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $gestationbirthpostpartum = gestationbirthpostpartum::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$gestationbirthpostpartum) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
 
-        $id = $data['id'];
         $gestationbirthpostpartum->weight = $data['weight'];
         $gestationbirthpostpartum->size = $data['size'];
         $gestationbirthpostpartum->imc = $data['imc'];
@@ -137,30 +147,11 @@ class gestationbirthpostpartumController extends Controller
         $gestationbirthpostpartum->personaId = $data['personaId'];
         $gestationbirthpostpartum->viviendaId = $data['viviendaId'];
 
-        $tabla = gestationbirthpostpartum::where('id', $id) ->firstOrFail();
+        // Guarda los cambios en la base de datos
+        $gestationbirthpostpartum->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
 
-        $tabla->weight = $data['weight'];
-        $tabla->size = $data['size'];
-        $tabla->imc = $data['imc'];
-        $tabla->systolicPressure = $data['systolicPressure'];
-        $tabla->diastolicPressure = $data['diastolicPressure'];
-        $tabla->pregnantControlled = $data['pregnantControlled'];
-        $tabla->pregnantWeekControl = $data['pregnantWeekControl'];
-        $tabla->pregnantExam = $data['pregnantExam'];
-        $tabla->pregnantDisease = $data['pregnantDisease'];
-        $tabla->pregnantScheme = $data['pregnantScheme'];
-        $tabla->pregnantNon = $data['pregnantNon'];
-        $tabla->pregnantEthnic = $data['pregnantEthnic'];
-        $tabla->tocedorChronic = $data['tocedorChronic'];
-        $tabla->tripEndemic = $data['tripEndemic'];
-        $tabla->userId = $data['userId'];
-        $tabla->personaId = $data['personaId'];
-        $tabla->viviendaId = $data['viviendaId'];
-
-        $tabla->save();
-
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
     }
 
     /**

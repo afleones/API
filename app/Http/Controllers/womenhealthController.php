@@ -127,61 +127,51 @@ class womenhealthController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        
-        $data = $request->json()->all();
-        $id = $data['id'];
-        $userid = $data['userId'];
-        $personid = $data['personaId'];
-        $peso= $data['peso'];
-        $talla= $data['talla'];
-        $imc= $data['imc'];
-        $tensionArterial= $data['tensionArterial'];
-        $citologiaCervicoUterina= $data['citologiaCervicoUterina'];
-        $mamografiaUltimos5Anios= $data['mamografiaUltimos5Anios'];
-        $usoMetodosAnticonceptivos= $data['usoMetodosAnticonceptivos'];
-        $adolecenteConAntecedenteEmbarazo= $data['adolecenteConAntecedenteEmbarazo'];
-        $antecedentesMalformacionesFamiliares= $data['antecedentesMalformacionesFamiliares'];
-        $antecedentesAbortosEspontaneos= $data['antecedentesAbortosEspontaneos'];
-        $antecedenteCirugiaGinecologica= $data['antecedenteCirugiaGinecologica'];
-        $enfermedadesCronicas= $data['enfermedadesCronicas'];
-        $periodoIntergenesico= $data['periodoIntergenesico'];
-        $antecedenteVIHITS= $data['antecedenteVIHITS'];
-        $antecedenteRecienNacidoMacrosomicoOBajoPeso= $data['antecedenteRecienNacidoMacrosomicoOBajoPeso'];
-        $antecedenteEmbarazoMultiple= $data['antecedenteEmbarazoMultiple'];
-        $mujerEnPuerperioSinMetodo= $data['mujerEnPuerperioSinMetodo'];
-        $violenciaGeneroFeminicidio= $data['violenciaGeneroFeminicidio'];
-        $tocedorCronicoMas14Dias2= $data['tocedorCronicoMas14Dias2'];
-        $viajeZonasEndemicasUltimos15Dias2= $data['viajeZonasEndemicasUltimos15Dias2'];
-        
-        $tabla = womenhealth::where('id', $id)
-                   
-        ->firstOrFail();
-        $tabla->peso= $peso;
-        $tabla->talla= $talla;
-        $tabla->imc= $imc;
-        $tabla->tensionArterial= $tensionArterial;
-        $tabla->citologiaCervicoUterina= $citologiaCervicoUterina;
-        $tabla->mamografiaUltimos5Anios= $mamografiaUltimos5Anios;
-        $tabla->usoMetodosAnticonceptivos= $usoMetodosAnticonceptivos;
-        $tabla->adolecenteConAntecedenteEmbarazo= $adolecenteConAntecedenteEmbarazo;
-        $tabla->antecedentesMalformacionesFamiliares= $antecedentesMalformacionesFamiliares;
-        $tabla->antecedentesAbortosEspontaneos= $antecedentesAbortosEspontaneos;
-        $tabla->antecedenteCirugiaGinecologica= $antecedenteCirugiaGinecologica;
-        $tabla->enfermedadesCronicas= $enfermedadesCronicas;
-        $tabla->periodoIntergenesico= $periodoIntergenesico;
-        $tabla->antecedenteVIHITS= $antecedenteVIHITS;
-        $tabla->antecedenteRecienNacidoMacrosomicoOBajoPeso= $antecedenteRecienNacidoMacrosomicoOBajoPeso;
-        $tabla->antecedenteEmbarazoMultiple= $antecedenteEmbarazoMultiple;
-        $tabla->mujerEnPuerperioSinMetodo= $mujerEnPuerperioSinMetodo;
-        $tabla->violenciaGeneroFeminicidio= $violenciaGeneroFeminicidio;
-        $tabla->tocedorCronicoMas14Dias2= $tocedorCronicoMas14Dias2;
-        $tabla->viajeZonasEndemicasUltimos15Dias2= $viajeZonasEndemicasUltimos15Dias2;
-        $tabla->save();
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $womenhealth = womenhealth::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$womenhealth) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
 
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+        $womenhealth->weight = $data['weight'];
+        $womenhealth->size = $data['size'];
+        $womenhealth->imc = $data['imc'];
+        $womenhealth->systolicPressure = $data['systolicPressure'];
+        $womenhealth->diastolicPressure = $data['diastolicPressure'];
+        $womenhealth->cervicalCytology = $data['cervicalCytology'];
+        $womenhealth->lastMammography = $data['lastMammography'];
+        $womenhealth->contraceptiveMethods = $data['contraceptiveMethods'];
+        $womenhealth->teenagerWithHistory = $data['teenagerWithHistory'];
+        $womenhealth->malBackground = $data['malBackground'];
+        $womenhealth->abortionBackground = $data['abortionBackground'];
+        $womenhealth->gynecologicalBackground = $data['gynecologicalBackground'];
+        $womenhealth->chronicDiseases = $data['chronicDiseases'];
+        $womenhealth->intergenicPeriod = $data['intergenicPeriod'];
+        $womenhealth->vihItsBackground = $data['vihItsBackground'];
+        $womenhealth->newbornBackground = $data['newbornBackground'];
+        $womenhealth->pregnancyHistory = $data['pregnancyHistory'];
+        $womenhealth->womanInPuerperium = $data['womanInPuerperium'];
+        $womenhealth->genderViolence = $data['genderViolence'];
+        $womenhealth->chronicCough = $data['chronicCough'];
+        $womenhealth->endemicZonesTravel = $data['endemicZonesTravel'];
+        $womenhealth->userId = $data['userId'];
+        $womenhealth->personaId = $data['personaId'];
+        $womenhealth->viviendaId = $data['viviendaId'];
+
+        // Guarda los cambios en la base de datos
+        $womenhealth->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
+        
 
     }
 

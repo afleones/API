@@ -142,50 +142,65 @@ class youthController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $data = $request->json()->all();
-        $id = $data['id'];
-        $youth->size= $data['size'];
-        $youth->imc= $data['imc'];
-        $youth->systolicpressure= $data['systolicpressure'];
-        $youth->diastolicpressure= $data['diastolicpressure'];
-        $youth->medicalHistory= $data['medicalHistory'];
-        $youth->completeVaccination= $data['completeVaccination'];
-        $youth->chronicConditions= $data['chronicConditions'];
-        $youth->disability= $data['disability'];
-        $youth->promotionHealth= $data['promotionHealth'];
-        $youth->oralHygiene= $data['oralHygiene'];
-        $youth->referralOptometry= $data['referralOptometry'];
-        $youth->periodoIntergeconsumptionTobacconesico= $data['consumptionTobacco'];
-        $youth->consumptionAlcohol= $data['consumptionAlcohol'];
-        $youth->psychoactiveSubstances= $data['psychoactiveSubstances'];
-        $youth->developmentPubertal= $data['developmentPubertal'];
-        $youth->homeLifeSexual= $data['homeLifeSexual'];
-        $youth->its= $data['its'];
-        $youth->chronicCough= $data['chronicCough'];
-        $youth->identitySexual= $data['identitySexual'];
-        $youth->psychosocialDevelopment= $data['psychosocialDevelopment'];
-        $youth->suicidalBehavior= $data['suicidalBehavior'];
-        $youth->ethnicGroups= $data['ethnicGroups'];
-        $youth->nutritionalProblems= $data['nutritionalProblems'];
-        $youth->malnutrition= $data['malnutrition'];
-        $youth->overweightObesity= $data['overweightObesity'];
-        $youth->signsDanger= $data['signsDanger'];
-        $youth->rapePhysicalPsychological= $data['rapePhysicalPsychological'];
-        $youth->rapeSexual= $data['rapeSexual'];
-        $youth->unschooling= $data['unschooling'];
-        $youth->schoolPerformance= $data['schoolPerformance'];
-        $youth->tripZonesEndemic= $data['tripZonesEndemic'];
-        $youth->personaid= $data['personaid'];
-        $youth->userid= $data['userid'];
-        $tabla = youth::where('id', $id)->firstOrFail();
-        $tabla->peso = $peso;
-        $tabla->save();
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $youth = youth::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$youth) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
 
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+        $youth->weight = $data['weight'];
+        $youth->size = $data['size'];
+        $youth->imc = $data['imc'];
+        $youth->systolicPressure = $data['systolicPressure'];
+        $youth->diastolicPressure = $data['diastolicPressure'];
+        $youth->medicalHistory = $data['medicalHistory'];
+        $youth->completeVaccination = $data['completeVaccination'];
+        $youth->chronicConditions = $data['chronicConditions'];
+        $youth->disability = $data['disability'];
+        $youth->promotionHealth = $data['promotionHealth'];
+        $youth->oralHygiene = $data['oralHygiene'];
+        $youth->referralOptometry = $data['referralOptometry'];
+        $youth->consumptionTobacco = $data['consumptionTobacco'];
+        $youth->consumptionAlcohol = $data['consumptionAlcohol'];
+        $youth->psychoactiveSubstances = $data['psychoactiveSubstances'];
+        $youth->developmentPubertal = $data['developmentPubertal'];
+        $youth->homeLifeSexual = $data['homeLifeSexual'];
+        $youth->its = $data['its'];
+        $youth->chronicCough = $data['chronicCough'];
+        $youth->identitySexual = $data['identitySexual'];
+        $youth->psychosocialDevelopment = $data['psychosocialDevelopment'];
+        $youth->suicidalBehavior = $data['suicidalBehavior'];
+        $youth->ethnicGroups = $data['ethnicGroups'];
+        $youth->nutritionalProblems = $data['nutritionalProblems'];
+        $youth->malnutrition = $data['malnutrition'];
+        $youth->overweightObesity = $data['overweightObesity'];
+        $youth->signsDanger = $data['signsDanger'];
+        $youth->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
+        $youth->rapeSexual = $data['rapeSexual'];
+        $youth->unschooling = $data['unschooling'];
+        $youth->schoolPerformance = $data['schoolPerformance'];
+        $youth->tripZonesEndemic = $data['tripZonesEndemic'];
+        $youth->userId = $data['userId'];
+        $youth->personaId = $data['personaId'];
+        $youth->viviendaId = $data['viviendaId'];      
+
+        // Guarda los cambios en la base de datos
+        $youth->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
+        
+
     }
+
 
     /**
      * Remove the specified resource from storage.
