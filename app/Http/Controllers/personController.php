@@ -182,10 +182,10 @@ class personController extends Controller
         $person = person::where('userid', $userid)
                          ->where(function($query) use ($data) {  
                             if (isset($data['id'])) {
-                                $query->orWhere('id', $data['id']);
+                                $query->Where('id', $data['id']);
                             }
                             if (isset($data['viviendaid'])) {
-                                $query->orWhere('viviendaid', $data['viviendaid']);
+                                $query->Where('viviendaid', $data['viviendaid']);
                             }
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
@@ -201,10 +201,10 @@ class personController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request,  person $person)
     {
         $data = $request->all();
-        //var_dump($data);
+        //var_dump($data);exit();
 
         $id = $data['id'];
         
@@ -285,6 +285,7 @@ class personController extends Controller
         $tabla->otro_tipo_documento = $otro_tipo_documento;
         $tabla->gestante = $gestante;
         $tabla->otro_tipo_sustancias = $otro_tipo_sustancias;
+
         $tabla->save();
 
         // Puedes retornar una respuesta o redireccionar a otra página
