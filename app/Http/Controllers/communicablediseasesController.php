@@ -118,11 +118,19 @@ class communicablediseasesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $data = $request->json()->all();
-
-        $communicablediseases->id = $data['id'];
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar
+        $communicablediseases = Communicablediseases::find($id);
+    
+        // Verifica si se encontró el registro
+        if (!$communicablediseases) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+    
+        // Actualiza los campos con los valores proporcionados en los datos
         $communicablediseases->fullName = $data['fullName'];
         $communicablediseases->sex = $data['sex'];
         $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
@@ -141,35 +149,13 @@ class communicablediseasesController extends Controller
         $communicablediseases->userId = $data['userId'];
         $communicablediseases->personaId = $data['personaId'];
         $communicablediseases->viviendaId = $data['viviendaId'];
-
-        $table = communicablediseases::where('id', $id)->firstOrFail();
-
-        $table->fullName = $data['fullName'];
-        $table->sex = $data['sex'];
-        $table->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
-        $table->age = $data['age'];
-        $table->relationship = $data['relationship'];
-        $table->occupation = $data['occupation'];
-        $table->incomeContribution = $data['incomeContribution'];
-        $table->educationLevel = $data['educationLevel'];
-        $table->affiliationType = $data['affiliationType'];
-        $table->specialCareGroup = $data['specialCareGroup'];
-        $table->speaksCreole = $data['speaksCreole'];
-        $table->covidVaccine = $data['covidVaccine'];
-        $table->vaccineDoses = $data['vaccineDoses'];
-        $table->substanceUse = $data['substanceUse'];
-        $table->substanceType = $data['substanceType'];
-        $table->userId = $data['userId'];
-        $table->personaId = $data['personaId'];
-        $table->viviendaId = $data['viviendaId'];
-        
-        $table->save();
-
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+    
+        // Guarda los cambios en la base de datos
+        $communicablediseases->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
     }
-
-    /**
+        /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)

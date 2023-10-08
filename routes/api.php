@@ -104,7 +104,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveLivingPlace', [livingplaceController::class, 'store']);
     Route::get('livingPlaces', [livingplaceController::class, 'index']);
     Route::post('livingplace', [livingplaceController::class, 'show']);
-    Route::post('updateLivingPlace', [livingplaceController::class, 'update']);
+    Route::put('updateLivingPlace', [livingplaceController::class, 'update']);
     Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']);
     /* End */
 
@@ -112,7 +112,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('savePerson', [personController::class, 'store']);
     Route::get('People', [personController::class, 'index']);
     Route::post('Person', [personController::class, 'show']);
-    Route::post('updatePerson', [personController::class, 'update']);
+    Route::put('updatePerson', [personController::class, 'update']);
     Route::post('deletePerson', [personController::class, 'destroy']);
     /* End */
 
@@ -120,7 +120,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveCompany', [companyController::class, 'store']);
     Route::get('companies', [companyController::class, 'index']);
     Route::post('company', [companyController::class, 'show']);
-    Route::post('updateCompany', [companyController::class, 'update']);
+    Route::put('updateCompany', [companyController::class, 'update']);
     Route::post('deleteCompany', [companyController::class, 'destroy']);
     /* End */
 
@@ -128,7 +128,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveRole', [roleController::class, 'store']);
     Route::get('roles', [roleController::class, 'index']);
     Route::post('role', [roleController::class, 'show']);
-    Route::post('updateRole', [roleController::class, 'update']);
+    Route::put('updateRole', [roleController::class, 'update']);
     Route::post('deleteRole', [roleController::class, 'destroy']);
     /* End */
 
@@ -144,8 +144,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveCommunicableDiseases', [communicablediseasesController::class, 'store']);
     Route::get('communicableDiseases', [communicablediseasesController::class, 'index']);
     Route::post('communicableDisease',[communicablediseasesController::class, 'show']);
-    // Route::post('communicableDisease', [communicablediseasesController::class, 'show']);
-    Route::post('updateCommunicableDiseases', [communicablediseasesController::class, 'update']);
+    Route::put('updateCommunicableDiseases', [communicablediseasesController::class, 'update']);
     Route::post('deleteCommunicableDiseases', [communicablediseasesController::class, 'destroy']);
     /* End */
 
@@ -153,23 +152,15 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveWomenHealth', [womenhealthController::class, 'store']);
     Route::get('womenHealths', [womenhealthController::class, 'index']);
     Route::post('womenHealth', [womenhealthController::class, 'show']);
-    Route::post('updateWomenHealth', [womenhealthController::class, 'update']);
+    Route::put('updateWomenHealth', [womenhealthController::class, 'update']);
     Route::post('deleteWomenHealth', [womenhealthController::class, 'destroy']);
-    /* End */
-
-    /* Rutas de Prueba de EndPoints */
-    Route::post('savePrueba', [pruebaController::class, 'store']);
-    Route::get('pruebas', [pruebaController::class, 'index']);
-    Route::post('prueba', [pruebaController::class, 'show']);
-    Route::post('updatePrueba', [pruebaController::class, 'update']);
-    Route::post('deletePrueba', [pruebaController::class, 'destroy']);
     /* End */
 
     /* Rutas de Infancia */
     Route::post('saveChildHood', [childhoodController::class, 'store']);
     Route::get('childHoods', [childhoodController::class, 'index']);
     Route::post('childHood', [childhoodController::class, 'show']);
-    Route::post('updateChildHood', [childhoodController::class, 'update']);
+    Route::put('updateChildHood', [childhoodController::class, 'update']);
     Route::post('deleteChildHood', [childhoodController::class, 'destroy']);
     /* End */
 
@@ -177,7 +168,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveAdolescence', [adolescenceController::class, 'store']);
     Route::get('adolescences', [adolescenceController::class, 'index']);
     Route::post('adolescence', [adolescenceController::class, 'show']);
-    Route::post('updateAdolescence', [adolescenceController::class, 'update']);
+    Route::put('updateAdolescence', [adolescenceController::class, 'update']);
     Route::post('deleteAdolescence', [adolescenceController::class, 'destroy']);
     /* End */
 
@@ -185,7 +176,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveAdult', [adultController::class, 'store']);
     Route::get('adults', [adultController::class, 'index']);
     Route::post('adult', [adultController::class, 'show']);
-    Route::post('updateAdult', [adultController::class, 'update']);
+    Route::put('updateAdult', [adultController::class, 'update']);
     Route::post('deleteAdult', [adultController::class, 'destroy']);
     /* End */
 
@@ -193,7 +184,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveOld', [oldController::class, 'store']);
     Route::get('olds', [oldController::class, 'index']);
     Route::post('old', [oldController::class, 'show']);
-    Route::post('updateOld', [oldController::class, 'update']);
+    Route::put('updateOld', [oldController::class, 'update']);
     Route::post('deleteOld', [oldController::class, 'destroy']);
     /* End */
 
@@ -201,7 +192,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveYouth', [youthController::class, 'store']);
     Route::get('youths', [youthController::class, 'index']);
     Route::post('youth', [youthController::class, 'show']);
-    Route::post('updateYouth', [youthController::class, 'update']);
+    Route::put('updateYouth', [youthController::class, 'update']);
     Route::post('deleteYouth', [youthController::class, 'destroy']);
     /* End */
 
@@ -209,7 +200,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveGestation', [gestationbirthpostpartumController::class, 'store']);
     Route::get('gestations', [gestationbirthpostpartumController::class, 'index']);
     Route::post('gestation', [gestationbirthpostpartumController::class, 'show']);
-    Route::post('updateGestation', [gestationbirthpostpartumController::class, 'update']);
+    Route::put('updateGestation', [gestationbirthpostpartumController::class, 'update']);
     Route::post('deleteGestation', [gestationbirthpostpartumController::class, 'destroy']);
     /* End */
 
