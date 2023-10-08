@@ -201,57 +201,60 @@ class personController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $userid, $viviendaid)
+    public function update(Request $request)
     {
-        $data = $request->all();
-    
-        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
-        $person = person::where('userid', $userid)
-            ->where('viviendaid', $viviendaid)
-            ->first();
-    
-        // Verifica si se encontró el registro
-        if (!$person) {
-            return response()->json(['message' => 'Registro no encontrado'], 404);
-        }
+        $data = $request->json()->all();
 
-        $person->rol_familiar = $data['rol_familiar'];
-        $person->primer_nombre = $data['primer_nombre'];
-        $person->segundo_nombre = $data['segundo_nombre'];
-        $person->primer_apellido = $data['primer_apellido'];
-        $person->segundo_apellido = $data['segundo_apellido'];
-        $person->tipo_documento = $data['tipo_documento'];
-        $person->numero_documento = $data['numero_documento'];
-        $person->fecha_nacimiento = $data['fecha_nacimiento'];
-        $person->edad = $data['edad'];
-        $person->sexo = $data['sexo'];
-        $person->identidad_genero = $data['identidad_genero'];
-        $person->telefono_familiar = $data['telefono_familiar'];
-        $person->nivel_escolaridad = $data['nivel_escolaridad'];
-        $person->aporta_ingresos = $data['aporta_ingresos'];
-        $person->tipo_afiliacion = $data['tipo_afiliacion'];
-        $person->grupo_atencion_familiar = $data['grupo_atencion_familiar'];
-        $person->habla_creole = $data['habla_creole'];
-        $person->vacunas_covid = $data['vacunas_covid'];
-        $person->dosis_vacuna = $data['dosis_vacuna'];
-        $person->consumo_sustancias = $data['consumo_sustancias'];
-        $person->tipo_sustancias = $data['tipo_sustancias'];
-        $person->persona_recibe_visita = $data['persona_recibe_visita'];
-        $person->cursos_vida_integrantes = $data['cursos_vida_integrantes'];
-        $person->ocupacion_integrantes = $data['ocupacion_integrantes'];
-        $person->situacion_discapacidad = $data['situacion_discapacidad'];
-        $person->tipo_discapacidad = $data['tipo_discapacidad'];
-        $person->atencion_integral = $data['atencion_integral'];
-        $person->vinculacion_sgsss = $data['vinculacion_sgsss'];
-        $person->percepcion_funcionalidad = $data['percepcion_funcionalidad'];
-        $person->cuidador_principal = $data['cuidador_principal: false,'];
-        $person->escala_zarit = $data['escala_zarit'];
-        $person->otro_tipo_documento = $data['otro_tipo_documento'];
-        $person->gestante = $data['gestante'];
-        $person->otro_tipo_sustancias = $data['otro_tipo_sustancias'];
-        $person->userid = $data['userid'];
-        $person->viviendaid = $data['viviendaid'];
+        $id = $data['id'];
+        
+        $rol_familiar = $data['rol_familiar'];
+        $primer_nombre = $data['primer_nombre'];
+        $segundo_nombre = $data['segundo_nombre'];
+        $primer_apellido = $data['primer_apellido'];
+        $segundo_apellido = $data['segundo_apellido'];
+        $tipo_documento = $data['tipo_documento'];
+        $numero_documento = $data['numero_documento'];
+        $fecha_nacimiento = $data['fecha_nacimiento'];
+        $edad = $data['edad'];
+        $sexo = $data['sexo'];
+        $identidad_genero = $data['identidad_genero'];
+        $telefono_familiar = $data['telefono_familiar'];
+        $nivel_escolaridad = $data['nivel_escolaridad'];
+        $aporta_ingresos = $data['aporta_ingresos'];
+        $tipo_afiliacion = $data['tipo_afiliacion'];
+        $grupo_atencion_familiar = $data['grupo_atencion_familiar'];
+        $habla_creole = $data['habla_creole'];
+        $vacunas_covid = $data['vacunas_covid'];
+        $dosis_vacuna = $data['dosis_vacuna'];
+        $consumo_sustancias = $data['consumo_sustancias'];
+        $tipo_sustancias = $data['tipo_sustancias'];
+        $persona_recibe_visita = $data['persona_recibe_visita'];
+        $cursos_vida_integrantes = $data['cursos_vida_integrantes'];
+        $ocupacion_integrantes = $data['ocupacion_integrantes'];
+        $situacion_discapacidad = $data['situacion_discapacidad'];
+        $tipo_discapacidad = $data['tipo_discapacidad'];
+        $atencion_integral = $data['atencion_integral'];
+        $vinculacion_sgsss = $data['vinculacion_sgsss'];
+        $percepcion_funcionalidad = $data['percepcion_funcionalidad'];
+        $cuidador_principal = $data['cuidador_principal: false,'];
+        $escala_zarit = $data['escala_zarit'];
+        $otro_tipo_documento = $data['otro_tipo_documento'];
+        $gestante = $data['gestante'];
+        $otro_tipo_sustancias = $data['otro_tipo_sustancias'];
+        $userid = $data['userid'];
+        $personid = $data['personid'];
 
+
+        $tabla = person::where('id', $id)
+                   ->where('userid', $userid)
+                   ->where('personid', $personid)
+                   ->firstOrFail();
+
+        $tabla->rol_familiar = $rol_familiar;
+        $tabla->save();
+
+        // Puedes retornar una respuesta o redireccionar a otra página
+        return response()->json(['message' => 'Datos Actualizado correctamente']);
     }
 
     /**
