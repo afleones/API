@@ -47,7 +47,7 @@ class companyController extends Controller
         $company->telephone = $data['telephone'];
         $company->email = $data['email'];
         $company->responsible = $data['responsible'];
-        $company->responsible = $data['logo'];
+        $company->logo = $data['logo'];
         $company->userId = $data['userId'];
 
         // Guardamos el objeto en la base de datos
