@@ -61,6 +61,10 @@ class adolescenceController extends Controller
     {
         $data = $request->all();
 
+        $rules = [
+            'viviendaId' => 'nullable', // Hace que el campo sea opcional
+        ];
+
         // Creamos un nuevo objeto del modelo
         $adolescence = new adolescence();
         $adolescence->weight = $data['weight'];
