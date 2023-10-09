@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\person;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class personController extends Controller
 {
@@ -203,6 +204,9 @@ class personController extends Controller
      */
     public function update(Request $request,  person $person)
     {
+        //$id = $request->input('id');
+        //d($request->all);
+        //var_dump($id);exit();
         $data = $request->all();
         //var_dump($data);exit();
 

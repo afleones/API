@@ -112,7 +112,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('savePerson', [personController::class, 'store']);
     Route::get('People', [personController::class, 'index']);
     Route::post('Person', [personController::class, 'show']);
-    Route::put('updatePerson', [personController::class, 'update']);
+    Route::post('updatePerson', [personController::class, 'update']);
     Route::post('deletePerson', [personController::class, 'destroy']);
     /* End */
 
