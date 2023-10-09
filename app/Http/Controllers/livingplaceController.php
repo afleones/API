@@ -286,6 +286,9 @@ class livingplaceController extends Controller
      */
     public function update(Request $request, livingplace $livingplace)
     {
+        //$id = $request->input('id');
+        //d($request->all);
+        //var_dump($id);exit();
         $data = $request->all();
         //var_dump($data);exit();
 
