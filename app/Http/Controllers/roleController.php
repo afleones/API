@@ -28,7 +28,7 @@ class roleController extends Controller
         $role = new role();
 
         // Asignamos los datos a las propiedades del objeto
-        $role->namerole= $data['nameRole'];
+        $role->nameRole= $data['nameRole'];
         $role->userId= $data['userId'];
         // Guardamos el objeto en la base de datos
         $role->save();
