@@ -110,47 +110,26 @@ class adolescenceController extends Controller
      */
     public function show(Request $request)
     {
-        // Accede a los datos de la solicitud POST
-        $data = $request->all();
-    
-        // Valida que los parámetros requeridos estén presentes en la solicitud
-        if (isset($data['userId']) && isset($data['personaId'])){
-            // Realiza una consulta en la base de datos para encontrar una coincidencia
-            $result = DB::table('maite000003.adolescence')
-                ->where([
-                    ['userId', '=', $data['userId']],
-                    ['personaId', '=', $data['personaId']],
-                ]) ->first(); // Obtén la primera coincidencia
-            if ($result) {
-                // Envía la respuesta en un arreglo
-                return response()->json(['data' => [$result]], 200);
-            } else {
-                // Si no se encuentra una coincidencia, devuelve una respuesta de error
-                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
+        $adolescence = adolescence::where('userId', $userId)->where(function($query) use ($data) {  
+            if (isset($data['id'])) {
+                $query->Where('id', $data['id']);
             }
-        } else {
-            // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
-            return response()->json(['message' => 'Parámetros faltantes'], 400);
-        }
+            if (isset($data['personaId'])) {
+                $query->Where('personaId', $data['personaId']);
+            }
+            if (isset($data['viviendaId'])) {
+                $query->Where('viviendaId', $data['viviendaId']);
+            }
+                            
+            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+            })
+            ->get();
 
-        if (isset($data['viviendaId'])) {
-            // Realiza una consulta en la base de datos para encontrar una coincidencia
-            $result = DB::table('maite000003.adolescence')
-                 ->where([
-                    ['userId', '=', $data['userId']],
-                    ['personaId', '=', $data['personaId']],
-                    ['personaId', '=', $data['viviendaId']]
-                    ]) ->first(); // Obtén la primera coincidencia
-                    
-            if ($result) {
-                // Envía la respuesta en un arreglo
-                return response()->json(['data' => [$result]], 200);
-            } else {
-                // Si no se encuentra una coincidencia, devuelve una respuesta de error
-                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
-            }
-        
-        }
+       
+
+        //$dataArray = array($adolescence);     
+        $dataArray = $adolescence;             
+        return $dataArray;
     }
 
     /**
