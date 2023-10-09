@@ -98,8 +98,8 @@ class youthController extends Controller
         $youth->userId = $data['userId'];
         $youth->personaId = $data['personaId'];
         //Hacer el campo "viviendaId" nullable
-        $adolescence->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
-        
+        $youth->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
+
         // Guardamos el objeto en la base de datos
         $youth->save();
 

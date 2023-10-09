@@ -64,7 +64,7 @@ class gestationbirthpostpartumController extends Controller
         $gestationbirthpostpartum->userId = $data['userId'];
         $gestationbirthpostpartum->personaId = $data['personaId'];
         //Hacer el campo "viviendaId" nullable
-        $adolescence->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
+        $gestationbirthpostpartum->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
                 
         // Guardamos el objeto en la base de datos
         $gestationbirthpostpartum->save();

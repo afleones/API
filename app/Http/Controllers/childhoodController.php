@@ -94,10 +94,10 @@ class childhoodController extends Controller
         $childhood->userId = $data['userId'];  
         $childhood->personaId = $data['personaId'];  
         //Hacer el campo "viviendaId" nullable
-        $adolescence->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
+        $childhood->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
 
         $childhood->save();
-        
+
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Datos insertados correctamente']);
     }
