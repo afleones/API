@@ -108,7 +108,7 @@ class adolescenceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(Request $request,adolescence $adolescence )
     {
         $adolescence = adolescence::where('userId', $userId)->where(function($query) use ($data) {  
             if (isset($data['id'])) {
