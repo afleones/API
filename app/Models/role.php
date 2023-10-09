@@ -10,5 +10,11 @@ class role extends Model
     use HasFactory;
 
     protected $connection = 'maite';
-    protected $table = 'role';
+    protected $table = 'roles';
+
+    public function users()
+    {
+        return $this->belongsToMany(Users::class);
+    }
+
 }

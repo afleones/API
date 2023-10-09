@@ -22,4 +22,9 @@ class User extends Authenticatable
         'password'
     ];
 
+    public function roles()
+    {
+        return $this->belongsToMany(role::class);
+    }
+
 }
