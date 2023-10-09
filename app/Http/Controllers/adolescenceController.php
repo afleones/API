@@ -110,6 +110,9 @@ class adolescenceController extends Controller
      */
     public function show(Request $request,adolescence $adolescence )
     {
+        $data = $request->all(); 
+        $userId = $data['userId'];
+
         $adolescence = adolescence::where('userId', $userId)->where(function($query) use ($data) {  
             if (isset($data['id'])) {
                 $query->Where('id', $data['id']);
