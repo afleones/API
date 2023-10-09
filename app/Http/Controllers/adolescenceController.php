@@ -123,14 +123,8 @@ class adolescenceController extends Controller
             if (isset($data['viviendaId'])) {
                 $query->Where('viviendaId', $data['viviendaId']);
             }
-                            
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-            })
-            ->get();
+        })->get();
 
-       
-
-        //$dataArray = array($adolescence);     
         $dataArray = $adolescence;             
         return $dataArray;
     }

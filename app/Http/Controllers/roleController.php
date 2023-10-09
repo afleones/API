@@ -42,32 +42,16 @@ class roleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(Request $request,role $role )
     {
-        // Accede a los datos de la solicitud POST
-        $data = $request->all();
-    
-        // Valida que los parámetros requeridos estén presentes en la solicitud
-        if (
-            isset($data['useidrId'])
-        ) {
-            // Realiza una consulta en la base de datos para encontrar una coincidencia
-            $result = DB::table('maite000003.role')
-                ->where([
-                    ['id', '=', $data['id']]
-                ]) ->first(); // Obtén la primera coincidencia
-    
-            if ($result) {
-                // Envía la respuesta en un arreglo
-                return response()->json(['data' => [$result]], 200);
-            } else {
-                // Si no se encuentra una coincidencia, devuelve una respuesta de error
-                return response()->json(['message' => 'No se encontraron coincidencias'], 404);
-            }
-            } else {
-                // Si falta alguno de los parámetros requeridos, devuelve una respuesta de error
-                return response()->json(['message' => 'Parámetros faltantes'], 400);
-            }
+        $data = $request->all(); 
+        $id = $data['id'];
+
+        $role = role::where('id', $id)->where(function($query) use ($data){
+        })->get();
+
+        $dataArray = $role;             
+        return $dataArray;
     }
 
     /**
