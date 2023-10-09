@@ -98,7 +98,7 @@ class adolescenceController extends Controller
         $adolescence->userId = $data['userId'];
         $adolescence->personaId = $data['personaId'];
         //Hacer el campo "viviendaId" nullable
-        $adolescence->viviendaId = $data['viviendaid'] ?? '';
+        $adolescence->viviendaId = $data['viviendaId'] ?? 0;
 
         // Guardamos el objeto en la base de datos
         $adolescence->save();
