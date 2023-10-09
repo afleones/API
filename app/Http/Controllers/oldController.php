@@ -100,7 +100,7 @@ class oldController extends Controller
         $old->personaId = $data['personaId'];
         $old->userId = $data['userId'];
         //Hacer el campo "viviendaId" nullable
-        $old->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
+        $old->viviendaId = $data['viviendaId'] ?? 0; // Usamos operador null coalesce
     
         // Guardamos el objeto en la base de datos
         $old->save();

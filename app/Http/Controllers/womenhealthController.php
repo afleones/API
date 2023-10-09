@@ -80,7 +80,7 @@ class womenhealthController extends Controller
         $womenhealth->userId = $data['userId'];
         $womenhealth->personaId = $data['personaId'];
         //Hacer el campo "viviendaId" nullable
-        $womenhealth->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
+        $womenhealth->viviendaId = $data['viviendaid'] ?? '';
                 
         // Guardamos el objeto en la base de datos
         $womenhealth->save();
