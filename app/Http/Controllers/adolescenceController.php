@@ -61,10 +61,6 @@ class adolescenceController extends Controller
     {
         $data = $request->all();
 
-        $rules = [
-            'viviendaId' => 'nullable', // Hace que el campo sea opcional
-        ];
-
         // Creamos un nuevo objeto del modelo
         $adolescence = new adolescence();
         $adolescence->weight = $data['weight'];
@@ -101,7 +97,9 @@ class adolescenceController extends Controller
         $adolescence->tripZonesEndemic = $data['tripZonesEndemic'];
         $adolescence->userId = $data['userId'];
         $adolescence->personaId = $data['personaId'];
-        $adolescence->viviendaId = $data['viviendaId'];
+        //Hacer el campo "viviendaId" nullable
+        $adolescence->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
+
         // Guardamos el objeto en la base de datos
         $adolescence->save();
 
