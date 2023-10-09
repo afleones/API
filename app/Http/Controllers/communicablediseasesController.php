@@ -70,7 +70,7 @@ class communicablediseasesController extends Controller
         $communicablediseases->userId = $data['userId'];
         $communicablediseases->personaId = $data['personaId'];
         //Hacer el campo "viviendaId" nullable
-        $communicablediseases->viviendaId = $data['viviendaid'] ?? '';
+        $communicablediseases->viviendaId = $data['viviendaId'] ?? 0;
         
         // Guardamos el objeto en la base de datos
         $communicablediseases->save();
