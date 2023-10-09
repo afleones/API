@@ -261,19 +261,17 @@ class livingplaceController extends Controller
         //$fecha2 = $data['fecha2'];
         
 
-        $livingplace = livingplace::where('userid', $userid)
-                         ->where(function($query) use ($data) {
-                            if (isset($data['id'])) {
-                                $query->Where('id', $data['id']);
-                            }
-                            if (isset($data['userid'])) {
-                                 $query->Where('userid', $data['userid']);
-                            }
-                            if (isset($data['fecha1']) and isset($data['fecha2'])) {
-                                $query->whereBetween(\DB::raw('DATE(created_at)'), [$data['fecha1'], $data['fecha2']]);
-                            }
-                         })
-                         ->get();     
+        $livingplace = livingplace::where('userid', $userid)->where(function($query) use ($data) {
+            if (isset($data['id'])) {
+                $query->Where('id', $data['id']);
+            }
+            if (isset($data['userid'])) {
+                $query->Where('userid', $data['userid']);
+            }
+            if (isset($data['fecha1']) and isset($data['fecha2'])) {
+                $query->whereBetween(\DB::raw('DATE(created_at)'), [$data['fecha1'], $data['fecha2']]);
+            }
+        })->get();     
 
         //$dataArray = array($livingplace);
         $dataArray = ($livingplace);   //CORRECCION DE MOSTREO DE VIVIENDA 2023-10-06      OTRA VEZ                                   

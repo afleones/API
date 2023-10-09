@@ -94,7 +94,8 @@ class earlychildhoodController extends Controller
         $earlychildhood->tripZonesEndemic = $data['tripZonesEndemic'];
         $earlychildhood->userId = $data['userId'];
         $earlychildhood->personaId = $data['personaId'];
-        $earlychildhood->viviendaId = $data['viviendaId'];
+        //Hacer el campo "viviendaId" nullable
+        $adolescence->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
                 
         //Guardamos el objeto en la base de datos
         $earlychildhood->save();

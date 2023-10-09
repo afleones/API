@@ -99,7 +99,8 @@ class adultController extends Controller
         $adult->tripZonesEndemic = $data['tripZonesEndemic'];
         $adult->personaId = $data['personaId'];
         $adult->userId = $data['userId'];
-        $adult->viviendaId = $data['viviendaId'];
+        //Hacer el campo "viviendaId" nullable
+        $adolescence->viviendaId = $data['viviendaId'] ?? null; // Usamos operador null coalesce
 
         // Guardamos el objeto en la base de datos
         $adult->save();

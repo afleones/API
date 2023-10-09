@@ -180,26 +180,22 @@ class personController extends Controller
         //$viviendaid = $data['viviendaid'];
         
 
-        $person = person::where('userid', $userid)
-                         ->where(function($query) use ($data) {  
-                            if (isset($data['id'])) {
-                                $query->Where('id', $data['id']);
-                            }
-                            if (isset($data['viviendaid'])) {
-                                $query->Where('viviendaid', $data['viviendaid']);
-                            }
-                            if (isset($data['edad1']) && isset($data['edad2'])) {
-                                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
-                            }
-                            if (isset($data['sexo'])) {
-                                $query->Where('sexo', $data['sexo']);
-                            }
+        $person = person::where('userid', $userid)->where(function($query) use ($data) {  
+            if (isset($data['id'])) {
+                $query->Where('id', $data['id']);
+            }
+            if (isset($data['viviendaid'])) {
+                 $query->Where('viviendaid', $data['viviendaid']);
+            }
+            if (isset($data['edad1']) && isset($data['edad2'])) {
+                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
+            }
+            if (isset($data['sexo'])) {
+                $query->Where('sexo', $data['sexo']);
+            }
                             
-                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-                         })
-                         ->get();
-
-       
+            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+        })->get();
 
         //$dataArray = array($person);     
         $dataArray = $person;             
