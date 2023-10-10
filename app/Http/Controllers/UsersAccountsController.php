@@ -34,16 +34,16 @@ class UsersAccountsController extends Controller
     {
         $data = $request->all();
 
-        $user->codeuser = $data['codeuser'];
-        $user->role = $data['role'];
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-        $user->status = $data['status'];
-        $user->password = $data['password'];
-        $userId->userId = $data['userId'];
+        $data->codeuser = $data['codeuser'];
+        $data->role = $data['role'];
+        $data->name = $data['name'];
+        $data->email = $data['email'];
+        $data->status = $data['status'];
+        $data->password = $data['password'];
+        $data->userId = $data['userId'];
 
         // Guardamos el objeto en la base de datos
-        $user->save();
+        $data->save();
 
         return response()->json(['message' => 'Datos insertados correctamente']);
 
