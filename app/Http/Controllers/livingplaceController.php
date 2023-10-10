@@ -415,6 +415,10 @@ class livingplaceController extends Controller
 
         $tabla->division_geografica = $division_geografica;
         $tabla->direccion = $direccion;
+
+        $tabla->tipo_direccion = $tipo_direccion;
+        $tabla->numero_direccion = $numero_direccion;
+
         $tabla->territorio = $territorio;
         $tabla->microterritorio = $microterritorio;
         $tabla->tipo_vivienda = $tipo_vivienda;
