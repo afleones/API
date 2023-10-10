@@ -6,6 +6,7 @@ use App\Models\users_accounts;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\HasApiTokens;
 
 class UsersAccountsController extends Controller
 {
