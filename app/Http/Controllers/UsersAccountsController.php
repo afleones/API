@@ -6,7 +6,6 @@ use App\Models\users_accounts;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\HasApiTokens;
 
 class UsersAccountsController extends Controller
 {
@@ -92,6 +91,7 @@ class UsersAccountsController extends Controller
         $email = isset($data['email']) ? $data['email'] : '';
         $status = isset($data['status']) ? $data['status'] : '';
         $password = isset($data['password']) ? $data['password'] : '';
+        $userId = isset($data['userId']) ? $data['userId'] : '';
 
 
         $tabla = User::where('id', $id)->where('userId', $userId)->firstOrFail();
