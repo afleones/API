@@ -80,8 +80,7 @@ class UsersAccountsController extends Controller
     {
         $data = $request->all();
         //var_dump($data);exit();
-
-        $id = isset($data['id']) ? $data['id'] : '';
+        
         $codeuser = isset($data['codeuser']) ? $data['codeuser'] : '';
         $role = isset($data['role']) ? $data['role'] : '';
         $name = isset($data['role']) ? $data['role'] : '';
