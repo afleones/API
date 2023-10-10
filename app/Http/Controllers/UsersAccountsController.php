@@ -74,7 +74,7 @@ class UsersAccountsController extends Controller
             }
         })->get();
 
-        $dataArray = $users_accounts;             
+        $dataArray = $user;             
         return $dataArray;
 
     }
