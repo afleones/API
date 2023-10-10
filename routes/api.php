@@ -89,7 +89,7 @@ use App\Http\Controllers\youthController;
 use App\Http\Controllers\gestationbirthpostpartumController;
 /*  */
 
-/* controlador de Adulto Mayor */
+/* controlador de Usuarios */
 use App\Http\Controllers\UsersAccountsController;
 /*  */
 
