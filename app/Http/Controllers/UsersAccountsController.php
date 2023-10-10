@@ -37,8 +37,8 @@ class UsersAccountsController extends Controller
         $data->codeuser = $data['codeuser'];
         $data->role = $data['role'];
         $data->name = $data['name'];
-        $data->email = $data['email'];
         $data->status = $data['status'];
+        $data->email = $data['email'];
         $data->password = $data['password'];
         $data->userId = $data['userId'];
 
