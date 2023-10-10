@@ -60,14 +60,11 @@ class UsersAccountsController extends Controller
     public function show(Request $request, User $user)
     {
         $data = $request->all(); 
-        $userId = $data['userId'];
+        $codeuser = $data['codeuser'];
 
-        $user = User::where('userId', $userId)->where(function($query) use ($data) {  
+        $user = User::where('codeuser', $codeuser)->where(function($query) use ($data) {  
             if (isset($data['id'])) {
                 $query->Where('id', $data['id']);
-            }
-            if (isset($data['codeuser'])) {
-                $query->Where('codeuser', $data['codeuser']);
             }
             if (isset($data['role'])) {
                 $query->Where('role', $data['role']);
