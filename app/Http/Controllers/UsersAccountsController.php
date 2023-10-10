@@ -33,6 +33,9 @@ class UsersAccountsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        
+        // Creamos un nuevo objeto del modelo
+        $user = new users_accounts();
 
         $data->codeuser = $data['codeuser'];
         $data->role = $data['role'];
