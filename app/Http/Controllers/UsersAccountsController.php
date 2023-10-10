@@ -57,12 +57,12 @@ class UsersAccountsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
         $data = $request->all(); 
         $userId = $data['userId'];
 
-        $users_accounts = User::where('userId', $userId)->where(function($query) use ($data) {  
+        $user = User::where('userId', $userId)->where(function($query) use ($data) {  
             if (isset($data['id'])) {
                 $query->Where('id', $data['id']);
             }
