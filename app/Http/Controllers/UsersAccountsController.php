@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\users_accounts;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersAccountsController extends Controller
 {
@@ -43,7 +44,7 @@ class UsersAccountsController extends Controller
         $user->name = $data['name'];
         $user->status = $data['status'];
         $user->email = $data['email'];
-        $user->password = $data['password'];
+        $user->password = Hash::make($data['password']);
         $user->userId = $data['userId'];
 
         // Guardamos el objeto en la base de datos
