@@ -81,6 +81,19 @@ use App\Http\Controllers\adultController;
 use App\Http\Controllers\oldController;
 /*  */
 
+/* controlador de Adulto Mayor */
+use App\Http\Controllers\youthController;
+/*  */
+
+/* controlador de Adulto Mayor */
+use App\Http\Controllers\gestationbirthpostpartumController;
+/*  */
+
+/* controlador de Usuarios */
+use App\Http\Controllers\UsersAccountsController;
+/*  */
+
+
 //Api Controllers GenomaX_Documents End
 
 
@@ -127,14 +140,14 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveEarlyChildHood', [earlychildhoodController::class, 'store']);
     Route::get('earlyChildHoods', [earlychildhoodController::class, 'index']);
     Route::post('earlyChildHood', [earlychildhoodController::class, 'show']);
-    Route::put('updateEarlyChildHood', [earlychildhoodController::class, 'update']);
+    Route::post('updateEarlyChildHood', [earlychildhoodController::class, 'update']);
     Route::post('deleteEarlyChildHood', [earlychildhoodController::class, 'destroy']);
     /* End */
 
     /* Rutas de Enfermedades Transmisibles */
     Route::post('saveCommunicableDiseases', [communicablediseasesController::class, 'store']);
-    Route::get('CommunicableDiseases', [communicablediseasesController::class, 'index']);
-    Route::post('communicableDisease', [womenhealthController::class, 'show']);
+    Route::get('communicableDiseases', [communicablediseasesController::class, 'index']);
+    Route::post('communicableDisease',[communicablediseasesController::class, 'show']);
     Route::post('updateCommunicableDiseases', [communicablediseasesController::class, 'update']);
     Route::post('deleteCommunicableDiseases', [communicablediseasesController::class, 'destroy']);
     /* End */
@@ -145,14 +158,6 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('womenHealth', [womenhealthController::class, 'show']);
     Route::post('updateWomenHealth', [womenhealthController::class, 'update']);
     Route::post('deleteWomenHealth', [womenhealthController::class, 'destroy']);
-    /* End */
-
-    /* Rutas de Prueba de EndPoints */
-    Route::post('savePrueba', [pruebaController::class, 'store']);
-    Route::get('pruebas', [pruebaController::class, 'index']);
-    Route::post('prueba', [pruebaController::class, 'show']);
-    Route::post('updatePrueba', [pruebaController::class, 'update']);
-    Route::post('deletePrueba', [pruebaController::class, 'destroy']);
     /* End */
 
     /* Rutas de Infancia */
@@ -186,6 +191,30 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('updateOld', [oldController::class, 'update']);
     Route::post('deleteOld', [oldController::class, 'destroy']);
     /* End */
+
+    /* Rutas de Juventud */
+    Route::post('saveYouth', [youthController::class, 'store']);
+    Route::get('youths', [youthController::class, 'index']);
+    Route::post('youth', [youthController::class, 'show']);
+    Route::post('updateYouth', [youthController::class, 'update']);
+    Route::post('deleteYouth', [youthController::class, 'destroy']);
+    /* End */
+
+    /* Rutas de Gestacion Parto y PostParto */
+    Route::post('saveGestation', [gestationbirthpostpartumController::class, 'store']);
+    Route::get('gestations', [gestationbirthpostpartumController::class, 'index']);
+    Route::post('gestation', [gestationbirthpostpartumController::class, 'show']);
+    Route::post('updateGestation', [gestationbirthpostpartumController::class, 'update']);
+    Route::post('deleteGestation', [gestationbirthpostpartumController::class, 'destroy']);
+    /* End */
+
+     /* Rutas de Usuarios */
+     Route::post('saveUser', [UsersAccountsController::class, 'store']);
+     Route::get('users', [UsersAccountsController::class, 'index']);
+     Route::post('user', [UsersAccountsController::class, 'show']);
+     Route::post('updateUser', [UsersAccountsController::class, 'update']);
+     Route::post('deleteUser', [UsersAccountsController::class, 'destroy']);
+     /* End */
 
     //Api Routes GenomaX_Documents End
 

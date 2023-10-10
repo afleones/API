@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\childhood;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class childhoodController extends Controller
 {
@@ -92,8 +93,11 @@ class childhoodController extends Controller
         $childhood->tripZonesEndemic = $data['tripZonesEndemic'];
         $childhood->userId = $data['userId'];  
         $childhood->personaId = $data['personaId'];  
-        $childhood->viviendaId = $data['viviendaId'];  
+        //Hacer el campo "viviendaId" nullable
+        $childhood->viviendaId = $data['viviendaId'] ?? 0; // Usamos operador null coalesce
+
         $childhood->save();
+
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Datos insertados correctamente']);
     }
@@ -101,55 +105,54 @@ class childhoodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, childhood $childhood)
+    public function show(Request $request,childhood $childhood )
     {
-        //$data = $request->json()->all();
         $data = $request->all(); 
+        $userId = $data['userId'];
 
-        //var_dump($data);exit();
-        $userid = $data['userId'];
-        //$fecha1 = $data['fecha1'];
-        //$fecha2 = $data['fecha2'];
-        //$viviendaid = $data['viviendaid'];
-        
+        $childhood = childhood::where('userId', $userId)->where(function($query) use ($data) {  
+            if (isset($data['id'])) {
+                $query->Where('id', $data['id']);
+            }
+            if (isset($data['personaId'])) {
+                $query->Where('personaId', $data['personaId']);
+            }
+            if (isset($data['viviendaId'])) {
+                $query->Where('viviendaId', $data['viviendaId']);
+            }
+        })->get();
 
-        $childhood = childhood::where('userId', $userid)
-                         ->where(function($query) use ($data) {
-                            if (isset($data['id'])) {
-                                $query->Where('id', $data['id']);
-                            }
-                            if (isset($data['userId'])) {
-                                $query->Where('userId', $data['userId']);
-                            }
-                            if (isset($data['viviendaId'])) {
-                                $query->Where('viviendaId', $data['viviendaId']);
-                            }
-                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-                         })
-                         ->get();
-
-       
-
-        $dataArray = array($childhood);                 
+        $dataArray = $childhood;             
         return $dataArray;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $data = $request->json()->all();
-
-        $id = $data['id'];
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $childhood = childhood::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$childhood) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+    
+        // Actualiza los campos con los valores proporcionados en los datos
         $childhood->weight = $data['weight'];
         $childhood->size = $data['size'];
-        $childhood->headCircunference = $data['headcircunference'];
-        $childhood->gillPerimeter = $data['gillperimeter'];
-        $childhood->perimeterWaist = $data['perimeterwaist'];
+        $childhood->headCircunference = $data['headCircunference'];
+        $childhood->gillPerimeter = $data['gillPerimeter'];
+        $childhood->perimeterWaist = $data['perimeterWaist'];
         $childhood->perimeterHip = $data['perimeterHip'];
-        $childhood->systolicPressure = $data['systolicpressure'];
-        $childhood->diastolicPressure = $data['diastolicpressure'];
+        $childhood->systolicPressure = $data['systolicPressure'];
+        $childhood->diastolicPressure = $data['diastolicPressure'];
         $childhood->congenitalAnomaly = $data['congenitalAnomaly'];
         $childhood->consumptionSubstances = $data['consumptionSubstances'];
         $childhood->chronicConditions = $data['chronicConditions'];
@@ -164,7 +167,7 @@ class childhoodController extends Controller
         $childhood->signsEra = $data['signsEra'];
         $childhood->nutritionalProblems = $data['nutritionalProblems'];
         $childhood->malnutrition = $data['malnutrition'];
-        $childhood->overweightObesity = $data['overweightobesity'];
+        $childhood->overweightObesity = $data['overweightObesity'];
         $childhood->dangerDeath = $data['dangerDeath'];
         $childhood->victimization = $data['victimization'];
         $childhood->unschooling = $data['unschooling'];
@@ -172,22 +175,15 @@ class childhoodController extends Controller
         $childhood->dresserChronic = $data['dresserChronic'];
         $childhood->tripZonesEndemic = $data['tripZonesEndemic'];
         $childhood->userId = $data['userId'];  
-        $childhood->userId = $data['personaId'];  
-        $childhood->userId = $data['viviendaId'];  
-
-
-        $tabla = childhood::where('id', $id)
-                   ->where('userid', $userid)
-                   ->where('childhoodid', $childhoodid)
-                   ->firstOrFail();
-
-        $tabla->rol_familiar = $rol_familiar;
-        $tabla->save();
-
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+        $childhood->personaId = $data['personaId'];  
+        $childhood->viviendaId = $data['viviendaId'];  
+    
+        // Guarda los cambios en la base de datos
+        $childhood->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */

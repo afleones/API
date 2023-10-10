@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\old;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class oldController extends Controller
 {
@@ -16,8 +17,8 @@ class oldController extends Controller
         weight,
         size,
         imc,
-        systolicpressure,
-        diastolicpressure,
+        systolicPressure,
+        diastolicPressure,
         medicalHistory,
         completeVaccination,
         chronicConditions,
@@ -45,6 +46,9 @@ class oldController extends Controller
         unschooling,
         schoolPerformance,
         tripZonesEndemic,
+        userId,
+        personaId,
+        viviendaId,
         created_at,
 		updated_at")->get();
         return $old;
@@ -62,39 +66,41 @@ class oldController extends Controller
         $old = new old();
 
         $old->weight = $data['weight'];
-        // $old->size= $data['size'];
-        // $old->imc= $data['imc'];
-        // $old->systolicpressure= $data['systolicpressure'];
-        // $old->diastolicpressure= $data['diastolicpressure'];
-        // $old->medicalHistory= $data['medicalHistory'];
-        // $old->completeVaccination= $data['completeVaccination'];
-        // $old->chronicConditions= $data['chronicConditions'];
-        // $old->disability= $data['disability'];
-        // $old->promotionHealth= $data['promotionHealth'];
-        // $old->oralHygiene= $data['oralHygiene'];
-        // $old->referralOptometry= $data['referralOptometry'];
-        // $old->periodoIntergeconsumptionTobacconesico= $data['consumptionTobacco'];
-        // $old->consumptionAlcohol= $data['consumptionAlcohol'];
-        // $old->psychoactiveSubstances= $data['psychoactiveSubstances'];
-        // $old->developmentPubertal= $data['developmentPubertal'];
-        // $old->homeLifeSexual= $data['homeLifeSexual'];
-        // $old->its= $data['its'];
-        // $old->chronicCough= $data['chronicCough'];
-        // $old->identitySexual= $data['identitySexual'];
-        // $old->psychosocialDevelopment= $data['psychosocialDevelopment'];
-        // $old->suicidalBehavior= $data['suicidalBehavior'];
-        // $old->ethnicGroups= $data['ethnicGroups'];
-        // $old->nutritionalProblems= $data['nutritionalProblems'];
-        // $old->malnutrition= $data['malnutrition'];
-        // $old->overweightObesity= $data['overweightObesity'];
-        // $old->signsDanger= $data['signsDanger'];
-        // $old->rapePhysicalPsychological= $data['rapePhysicalPsychological'];
-        // $old->rapeSexual= $data['rapeSexual'];
-        // $old->unschooling= $data['unschooling'];
-        // $old->schoolPerformance= $data['schoolPerformance'];
-        // $old->tripZonesEndemic= $data['tripZonesEndemic'];
-        // $old->personaid= $data['personaid'];
-        // $old->userid= $data['userid'];
+        $old->size = $data['size'];
+        $old->imc = $data['imc'];
+        $old->systolicPressure = $data['systolicPressure'];
+        $old->diastolicPressure = $data['diastolicPressure'];
+        $old->medicalHistory = $data['medicalHistory'];
+        $old->completeVaccination = $data['completeVaccination'];
+        $old->chronicConditions = $data['chronicConditions'];
+        $old->disability = $data['disability'];
+        $old->promotionHealth = $data['promotionHealth'];
+        $old->oralHygiene = $data['oralHygiene'];
+        $old->referralOptometry = $data['referralOptometry'];
+        $old->consumptionTobacco = $data['consumptionTobacco'];
+        $old->consumptionAlcohol = $data['consumptionAlcohol'];
+        $old->psychoactiveSubstances = $data['psychoactiveSubstances'];
+        $old->developmentPubertal = $data['developmentPubertal'];
+        $old->homeLifeSexual = $data['homeLifeSexual'];
+        $old->its = $data['its'];
+        $old->chronicCough = $data['chronicCough'];
+        $old->identitySexual = $data['identitySexual'];
+        $old->psychosocialDevelopment = $data['psychosocialDevelopment'];
+        $old->suicidalBehavior = $data['suicidalBehavior'];
+        $old->ethnicGroups = $data['ethnicGroups'];
+        $old->nutritionalProblems = $data['nutritionalProblems'];
+        $old->malnutrition = $data['malnutrition'];
+        $old->overweightObesity = $data['overweightObesity'];
+        $old->signsDanger = $data['signsDanger'];
+        $old->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
+        $old->rapeSexual = $data['rapeSexual'];
+        $old->unschooling = $data['unschooling'];
+        $old->schoolPerformance = $data['schoolPerformance'];
+        $old->tripZonesEndemic = $data['tripZonesEndemic'];
+        $old->personaId = $data['personaId'];
+        $old->userId = $data['userId'];
+        //Hacer el campo "viviendaId" nullable
+        $old->viviendaId = $data['viviendaId'] ?? 0;
     
         // Guardamos el objeto en la base de datos
         $old->save();
@@ -106,57 +112,85 @@ class oldController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(old $old)
+    public function show(Request $request,old $old )
     {
-        
-    }
+        $data = $request->all(); 
+        $userId = $data['userId'];
 
-    /**
+        $old = old::where('userId', $userId)->where(function($query) use ($data) {  
+            if (isset($data['id'])) {
+                $query->Where('id', $data['id']);
+            }
+            if (isset($data['personaId'])) {
+                $query->Where('personaId', $data['personaId']);
+            }
+            if (isset($data['viviendaId'])) {
+                $query->Where('viviendaId', $data['viviendaId']);
+            }
+        })->get();
+
+        $dataArray = $old;             
+        return $dataArray;
+    }
+   /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $data = $request->json()->all();
-        $id = $data['id'];
-        $old->size= $data['size'];
-        $old->imc= $data['imc'];
-        $old->systolicpressure= $data['systolicpressure'];
-        $old->diastolicpressure= $data['diastolicpressure'];
-        $old->medicalHistory= $data['medicalHistory'];
-        $old->completeVaccination= $data['completeVaccination'];
-        $old->chronicConditions= $data['chronicConditions'];
-        $old->disability= $data['disability'];
-        $old->promotionHealth= $data['promotionHealth'];
-        $old->oralHygiene= $data['oralHygiene'];
-        $old->referralOptometry= $data['referralOptometry'];
-        $old->periodoIntergeconsumptionTobacconesico= $data['consumptionTobacco'];
-        $old->consumptionAlcohol= $data['consumptionAlcohol'];
-        $old->psychoactiveSubstances= $data['psychoactiveSubstances'];
-        $old->developmentPubertal= $data['developmentPubertal'];
-        $old->homeLifeSexual= $data['homeLifeSexual'];
-        $old->its= $data['its'];
-        $old->chronicCough= $data['chronicCough'];
-        $old->identitySexual= $data['identitySexual'];
-        $old->psychosocialDevelopment= $data['psychosocialDevelopment'];
-        $old->suicidalBehavior= $data['suicidalBehavior'];
-        $old->ethnicGroups= $data['ethnicGroups'];
-        $old->nutritionalProblems= $data['nutritionalProblems'];
-        $old->malnutrition= $data['malnutrition'];
-        $old->overweightObesity= $data['overweightObesity'];
-        $old->signsDanger= $data['signsDanger'];
-        $old->rapePhysicalPsychological= $data['rapePhysicalPsychological'];
-        $old->rapeSexual= $data['rapeSexual'];
-        $old->unschooling= $data['unschooling'];
-        $old->schoolPerformance= $data['schoolPerformance'];
-        $old->tripZonesEndemic= $data['tripZonesEndemic'];
-        $old->personaid= $data['personaid'];
-        $old->userid= $data['userid'];
-        $tabla = old::where('id', $id)->firstOrFail();
-        $tabla->peso = $peso;
-        $tabla->save();
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $old = old::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$old) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
 
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
+        $old->weight = $data['weight'];
+        $old->size = $data['size'];
+        $old->imc = $data['imc'];
+        $old->systolicPressure = $data['systolicPressure'];
+        $old->diastolicPressure = $data['diastolicPressure'];
+        $old->medicalHistory = $data['medicalHistory'];
+        $old->completeVaccination = $data['completeVaccination'];
+        $old->chronicConditions = $data['chronicConditions'];
+        $old->disability = $data['disability'];
+        $old->promotionHealth = $data['promotionHealth'];
+        $old->oralHygiene = $data['oralHygiene'];
+        $old->referralOptometry = $data['referralOptometry'];
+        $old->consumptionTobacco = $data['consumptionTobacco'];
+        $old->consumptionAlcohol = $data['consumptionAlcohol'];
+        $old->psychoactiveSubstances = $data['psychoactiveSubstances'];
+        $old->developmentPubertal = $data['developmentPubertal'];
+        $old->homeLifeSexual = $data['homeLifeSexual'];
+        $old->its = $data['its'];
+        $old->chronicCough = $data['chronicCough'];
+        $old->identitySexual = $data['identitySexual'];
+        $old->psychosocialDevelopment = $data['psychosocialDevelopment'];
+        $old->suicidalBehavior = $data['suicidalBehavior'];
+        $old->ethnicGroups = $data['ethnicGroups'];
+        $old->nutritionalProblems = $data['nutritionalProblems'];
+        $old->malnutrition = $data['malnutrition'];
+        $old->overweightObesity = $data['overweightObesity'];
+        $old->signsDanger = $data['signsDanger'];
+        $old->rapePhysicalPsychological = $data['rapePhysicalPsychological'];
+        $old->rapeSexual = $data['rapeSexual'];
+        $old->unschooling = $data['unschooling'];
+        $old->schoolPerformance = $data['schoolPerformance'];
+        $old->tripZonesEndemic = $data['tripZonesEndemic'];
+        $old->personaId = $data['personaId'];
+        $old->userId = $data['userId'];
+        $old->viviendaId = $data['viviendaId'];
+
+        // Guarda los cambios en la base de datos
+        $old->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
+        
 
     }
 

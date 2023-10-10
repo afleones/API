@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class prueba extends Model
+class youth extends Model
 {
     use HasFactory;
 
-
     protected $connection = 'maite';
-    protected $table = 'prueba';
+    protected $table = 'youth';
 }

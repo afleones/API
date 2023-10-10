@@ -31,6 +31,8 @@ class DatabaseUtils
     {
         // Guardar el valor de DB_DATABASE actual
         $originalDatabaseName = env('IVX_DATABASE');
+        //var_dump($originalDatabaseName);
+
 
         // Buscamos la BD a la cual se conectará el usuario
         if (auth()->check()) {

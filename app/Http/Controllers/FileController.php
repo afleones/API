@@ -16,6 +16,7 @@ class FileController extends Controller
 
 public function uploadImage(Request $request, $filename)
 {
+    //var_dump( $filename);
     // Verificar si se ha enviado un archivo
     if ($request->hasFile('image')) {
         // Obtener el archivo enviado

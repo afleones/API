@@ -10,5 +10,5 @@ class communicablediseases extends Model
     use HasFactory;
 
     protected $connection = 'maite';
-    protected $table = 'communicablediseases';
+    protected $table = 'communicableDiseases';
 }

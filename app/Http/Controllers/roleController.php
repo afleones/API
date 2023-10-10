@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class roleController extends Controller
 {
@@ -27,7 +28,8 @@ class roleController extends Controller
         $role = new role();
 
         // Asignamos los datos a las propiedades del objeto
-        $role->namerole= $data['namerole'];
+        $role->nameRole= $data['nameRole'];
+        $role->userId= $data['userId'];
         // Guardamos el objeto en la base de datos
         $role->save();
     
@@ -40,29 +42,45 @@ class roleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request,role $role )
     {
-        //
+        $data = $request->all(); 
+        $id = $data['id'];
+
+        $role = role::where('id', $id)->where(function($query) use ($data){
+        })->get();
+
+        $dataArray = $role;             
+        return $dataArray;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId, $personaId, $viviendaId)
     {
-        $data = $request->json()->all();
+        $data = $request->all();
+    
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $old = old::where('userId', $userId)
+            ->where('personaId', $personaId)
+            ->where('viviendaId', $viviendaId)
+            ->first();
+    
+        // Verifica si se encontró el registro
+        if (!$old) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
 
-        $id = $data['id'];
+        $role->namerole= $data['nameRole'];
+        $role->userId= $data['userId'];
+
+        // Guarda los cambios en la base de datos
+        $role->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
         
-        $namerole = $data['namerole'];
-        
-        $tabla = role::where('id', $id)->firstOrFail();
 
-        $tabla->namerole = $namerole;
-        $tabla->save();
-
-        // Puedes retornar una respuesta o redireccionar a otra página
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
     }
 
     /**
