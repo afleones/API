@@ -260,7 +260,6 @@ class livingplaceController extends Controller
         //$fecha1 = $data['fecha1'];
         //$fecha2 = $data['fecha2'];
         
-
         $livingplace = livingplace::where('userid', $userid)->where(function($query) use ($data) {
             if (isset($data['id'])) {
                 $query->Where('id', $data['id']);
