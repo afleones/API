@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\users_accounts;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UsersAccountsController extends Controller
@@ -12,7 +13,7 @@ class UsersAccountsController extends Controller
      */
     public function index()
     {
-        $users = user_accounts::selectRaw("
+        $users = User::selectRaw("
         id,
         codeuser,
         role,
@@ -35,7 +36,7 @@ class UsersAccountsController extends Controller
         $data = $request->all();
         
         // Creamos un nuevo objeto del modelo
-        $user = new users_accounts();
+        $user = new User();
 
         $user->codeuser = $data['codeuser'];
         $user->role = $data['role'];
@@ -55,7 +56,7 @@ class UsersAccountsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(users_accounts $users_accounts)
+    public function show(User $user)
     {
         $data = $request->all(); 
         $userId = $data['userId'];
@@ -80,7 +81,7 @@ class UsersAccountsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, users_accounts $users_accounts)
+    public function update(Request $request, User $user)
     {
         $data = $request->all();
         //var_dump($data);exit();
@@ -93,7 +94,7 @@ class UsersAccountsController extends Controller
         $status = isset($data['status']) ? $data['status'] : '';
         $password = isset($data['password']) ? $data['password'] : '';
 
-        $tabla = user_accounts::where('id', $id)->where('userId', $userId)->firstOrFail();
+        $tabla = User::where('id', $id)->where('userId', $userId)->firstOrFail();
 
         $tabla->codeuser = $codeuser;
         $tabla->role = $role;
@@ -112,12 +113,12 @@ class UsersAccountsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(users_accounts $users_accounts)
+    public function destroy(User $user)
     {
         $data = $request->json()->all();
         //var_dump($data);exit();
         $id = $data['id'];
-        user_accounts::where('id', $id)->where('id', $id)->delete();
+        User::where('id', $id)->where('id', $id)->delete();
     
         return response()->json(['message' => 'Dato borrado correctamente']);
 
