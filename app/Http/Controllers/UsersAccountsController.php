@@ -37,13 +37,13 @@ class UsersAccountsController extends Controller
         // Creamos un nuevo objeto del modelo
         $user = new users_accounts();
 
-        $user->codeuser = $codeuser['codeuser'];
-        $user->role = $role['role'];
-        $user->name = $name['name'];
-        $user->status = $status['status'];
-        $user->email = $email['email'];
-        $user->password = $password['password'];
-        $user->userId = $userId['userId'];
+        $user->codeuser = $data['codeuser'];
+        $user->role = $data['role'];
+        $user->name = $data['name'];
+        $user->status = $data['status'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->userId = $data['userId'];
 
         // Guardamos el objeto en la base de datos
         $user->save();
