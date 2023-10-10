@@ -90,7 +90,7 @@ use App\Http\Controllers\gestationbirthpostpartumController;
 /*  */
 
 /* controlador de Adulto Mayor */
-use App\Http\Controllers\usersController;
+use App\Http\Controllers\UsersAccountsController;
 /*  */
 
 
@@ -209,11 +209,11 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* End */
 
      /* Rutas de Usuarios */
-     Route::post('saveUser', [usersController::class, 'store']);
-     Route::get('users', [usersController::class, 'index']);
-     Route::post('user', [usersController::class, 'show']);
-     Route::post('updateUser', [usersController::class, 'update']);
-     Route::post('deleteUser', [usersController::class, 'destroy']);
+     Route::post('saveUser', [UsersAccountsController::class, 'store']);
+     Route::get('users', [UsersAccountsController::class, 'index']);
+     Route::post('user', [UsersAccountsController::class, 'show']);
+     Route::post('updateUser', [UsersAccountsController::class, 'update']);
+     Route::post('deleteUser', [UsersAccountsController::class, 'destroy']);
      /* End */
 
     //Api Routes GenomaX_Documents End

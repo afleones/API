@@ -27,7 +27,4 @@ class User extends Authenticatable
         return $this->belongsToMany(role::class);
     }
 
-    protected $connection = 'maite';
-    protected $table = 'users';
-
 }
