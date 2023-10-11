@@ -179,23 +179,48 @@ class personController extends Controller
         //$fecha2 = $data['fecha2'];
         //$viviendaid = $data['viviendaid'];
         
+        $person = person::where('person.userid', $userid)
+                         ->where(function($query) use ($data) {  
+                            if (isset($data['id'])) {
+                                $query->Where('person.id', $data['id']);
+                            }
+                            if (isset($data['viviendaid'])) {
+                                $query->Where('viviendaid', $data['viviendaid']);
+                            }
+                            if (isset($data['edad1']) && isset($data['edad2'])) {
+                                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
+                            }
+                            if (isset($data['sexo'])) {
+                                $query->Where('sexo', $data['sexo']);
+                            }
 
-        $person = person::where('userid', $userid)->where(function($query) use ($data) {  
-            if (isset($data['id'])) {
-                $query->Where('id', $data['id']);
-            }
-            if (isset($data['viviendaid'])) {
-                 $query->Where('viviendaid', $data['viviendaid']);
-            }
-            if (isset($data['edad1']) && isset($data['edad2'])) {
-                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
-            }
-            if (isset($data['sexo'])) {
-                $query->Where('sexo', $data['sexo']);
-            }
                             
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-        })->get();
+                            
+                            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+                         })
+                        ->leftJoin('adult', 'person.id', '=', 'adult.personaId')
+                        ->leftJoin('adolescence', 'person.id', '=', 'adolescence.personaId')
+                        ->leftJoin('childHood', 'person.id', '=', 'childHood.personaId')
+                        ->leftJoin('communicableDiseases', 'person.id', '=', 'communicableDiseases.personaId')
+                        ->leftJoin('earlyChildHood', 'person.id', '=', 'earlyChildHood.personaId')
+                        ->leftJoin('gestationBirthPostpartum', 'person.id', '=', 'gestationBirthPostpartum.personaId')
+                        ->leftJoin('old', 'person.id', '=', 'old.personaId')
+                        ->leftJoin('womenHealth', 'person.id', '=', 'womenHealth.personaId')
+                        ->leftJoin('youth', 'person.id', '=', 'youth.personaId')
+                        
+                        ->select(
+                        'person.*',
+                        \DB::raw('IFNULL(adult.id, 0) as formulario_adult'),
+                        \DB::raw('IFNULL(adolescence.id, 0) as formulario_adolescence'),
+                        \DB::raw('IFNULL(childHood.id, 0) as formulario_childHood'),
+                        \DB::raw('IFNULL(communicableDiseases.id, 0) as formulario_communicableDiseases'),
+                        \DB::raw('IFNULL(earlyChildHood.id, 0) as formulario_earlyChildHood'),
+                        \DB::raw('IFNULL(gestationBirthPostpartum.id, 0) as formulario_gestationBirthPostpartum'),
+                        \DB::raw('IFNULL(old.id, 0) as formulario_old'),
+                        \DB::raw('IFNULL(womenHealth.id, 0) as formulario_womenHealth'),
+                        \DB::raw('IFNULL(youth.id, 0) as formulario_youth')
+                        )
+                         ->get();
 
         //$dataArray = array($person);     
         $dataArray = $person;             
