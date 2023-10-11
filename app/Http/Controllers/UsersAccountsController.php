@@ -79,7 +79,7 @@ class UsersAccountsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, users_accounts $user)
+    public function update(Request $request, User $user)
     {
         $data = $request->all();
         //var_dump($data);exit();
