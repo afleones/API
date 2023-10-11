@@ -22,9 +22,6 @@ class User extends Authenticatable
         'password'
     ];
 
-    protected $connection = 'maite';
-    protected $table = 'users';
-
     public function roles()
     {
         return $this->belongsToMany(role::class);
