@@ -83,6 +83,7 @@ class UsersAccountsController extends Controller
     public function update(Request $request, users_accounts $user)
     {
         $data = $request->all();
+        $userId = $data['userId'];
         //var_dump($data);exit();
 
         $id = isset($data['id']) ? $data['id'] : '';
@@ -92,9 +93,10 @@ class UsersAccountsController extends Controller
         $email = isset($data['email']) ? $data['email'] : '';
         $status = isset($data['status']) ? $data['status'] : '';
         $password = isset($data['password']) ? $data['password'] : '';
+        $userId = isset($data['userId']) ? $data['userId'] : '';
 
 
-        $tabla = User::where('id', $id)->where('userId', $userId)->firstOrFail();
+        $tabla = User::where('id', $id)->firstOrFail();
 
         $tabla->codeuser = $codeuser;
         $tabla->role = $role;
@@ -114,14 +116,23 @@ class UsersAccountsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
-        $data = $request->json()->all();
-        //var_dump($data);exit();
+        $data = $request->all();
+        $userId = $data['userId'];
         $id = $data['id'];
-        User::where('id', $id)->where('id', $id)->delete();
+
+        $status = isset($data['status']) ? $data['status'] : '';
+        $userId = isset($data['userId']) ? $data['userId'] : '';
+
+        $tabla = User::where('id', $id)->firstOrFail();
+
+        $tabla->status = $status;
+        $tabla->userId = $userId;
+
+        $tabla->save();
     
-        return response()->json(['message' => 'Dato borrado correctamente']);
+        return response()->json(['message' => 'se ha actualizado el estado del usuario']);
 
     }
 }
