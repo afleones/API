@@ -44,6 +44,7 @@ class UsersAccountsController extends Controller
      */
     public function destroy(users_accounts $users_accounts)
     {
-        //
+        //    
     }
 }
+   

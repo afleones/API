@@ -11,6 +11,7 @@ class accounts extends Model
         'dbprefix',
         'codename',
         'dbsufix',
-        'id_plans',
+        'id_plans',    
     ];
 }
+    

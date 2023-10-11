@@ -43,7 +43,7 @@ class AccountsController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(accounts $accounts)
-    {
+    {     
         //
     }
 }
