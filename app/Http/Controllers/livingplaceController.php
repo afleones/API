@@ -16,6 +16,8 @@ class livingplaceController extends Controller
         $livingplace = livingplace::selectRaw("id,
         division_geografica,
         direccion,
+        tipo_direccion,
+        numero_direccion,
         territorio,
         microterritorio,
         tipo_vivienda,
@@ -136,6 +138,8 @@ class livingplaceController extends Controller
         $livingplace->division_geografica= $data['division_geografica'];
         
         $livingplace->direccion= $data['direccion'];
+        $livingplace->tipo_direccion= $data['tipo_direccion'];
+        $livingplace->numero_direccion= $data['numero_direccion'];
         $livingplace->territorio= $data['territorio'];
         $livingplace->microterritorio= $data['microterritorio'];
         $livingplace->tipo_vivienda= $data['tipo_vivienda'];
@@ -292,6 +296,10 @@ class livingplaceController extends Controller
         $id = isset($data['id']) ? $data['id'] : '';
         $division_geografica = isset($data['division_geografica']) ? $data['division_geografica'] : '';
         $direccion = isset($data['direccion']) ? $data['direccion'] : '';
+
+        $tipo_direccion = isset($data['tipo_direccion']) ? $data['tipo_direccion'] : '';
+        $numero_direccion = isset($data['numero_direccion']) ? $data['numero_direccion'] : '';
+
         $territorio = isset($data['territorio']) ? $data['territorio'] : '';
         $microterritorio = isset($data['microterritorio']) ? $data['microterritorio'] : '';
         $tipo_vivienda = isset($data['tipo_vivienda']) ? $data['tipo_vivienda'] : '';
@@ -404,6 +412,10 @@ class livingplaceController extends Controller
 
         $tabla->division_geografica = $division_geografica;
         $tabla->direccion = $direccion;
+
+        $tabla->tipo_direccion = $tipo_direccion;
+        $tabla->numero_direccion = $numero_direccion;
+
         $tabla->territorio = $territorio;
         $tabla->microterritorio = $microterritorio;
         $tabla->tipo_vivienda = $tipo_vivienda;
