@@ -6,7 +6,6 @@ use App\Models\users_accounts;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\HasApiTokens;
 
 class UsersAccountsController extends Controller
 {
@@ -80,7 +79,7 @@ class UsersAccountsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, users_accounts $user)
+    public function update(Request $request, User $user)
     {
         $data = $request->all();
         $userId = $data['userId'];
