@@ -39,6 +39,7 @@ class DatabaseUtils
             $userid = auth()->user()->id;
             $account = accounts::where('id', $userid)->first();
             $databaseName = $account->dbprefix.str_pad($account->dbsufix, 6, '0', STR_PAD_LEFT);
+            $databaseName = $originalDatabaseName; //$account->dbprefix.str_pad($account->dbsufix, 6, '0', STR_PAD_LEFT);
             // dd($databaseName);
             // Cambiar el valor de IVX_DATABASE a la nueva base de datos
             putenv("IVX_DATABASE={$databaseName}");

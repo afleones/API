@@ -15,19 +15,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password', 
+        'password',     
     ];
 
     protected $hidden = [
         'password'
     ];
 
-    protected $connection = 'maite';
-    protected $table = 'users';
-
     public function roles()
     {
         return $this->belongsToMany(role::class);
     }
 
-}
+}    
