@@ -204,6 +204,15 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deleteGestation', [gestationbirthpostpartumController::class, 'destroy']);
     /* End */
 
+
+    /*Estadisticas*/
+    
+    Route::post('getLivingplaces', [livingplaceController::class, 'showLivingplace']);
+    Route::post('getCaminantes', [personController::class, 'showCaminante']);
+
+    /* End */
+
+
     //Api Routes GenomaX_Documents End
 
     Route::get('user-profile', [AuthController::class, 'userProfile']);
