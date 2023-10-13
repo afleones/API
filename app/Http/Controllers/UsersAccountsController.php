@@ -12,7 +12,7 @@ class UsersAccountsController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -20,31 +20,32 @@ class UsersAccountsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(users_accounts $users_accounts)
+    public function show(Request $request, User $user)
     {
-        //
+       
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, users_accounts $users_accounts)
+    public function update(Request $request, User $user)
     {
-        //
+   
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(users_accounts $users_accounts)
+    public function destroy(Request $request, User $user)
     {
-        //    
     }
 }
    

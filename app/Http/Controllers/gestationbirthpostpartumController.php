@@ -63,7 +63,8 @@ class gestationbirthpostpartumController extends Controller
         $gestationbirthpostpartum->tripEndemic = $data['tripEndemic'];
         $gestationbirthpostpartum->userId = $data['userId'];
         $gestationbirthpostpartum->personaId = $data['personaId'];
-        $gestationbirthpostpartum->viviendaId = $data['viviendaId'];
+        //Hacer el campo "viviendaId" nullable
+        $gestationbirthpostpartum->viviendaId = $data['viviendaId'] ?? 0;
                 
         // Guardamos el objeto en la base de datos
         $gestationbirthpostpartum->save();

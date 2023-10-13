@@ -79,7 +79,8 @@ class womenhealthController extends Controller
         $womenhealth->endemicZonesTravel = $data['endemicZonesTravel'];
         $womenhealth->userId = $data['userId'];
         $womenhealth->personaId = $data['personaId'];
-        $womenhealth->viviendaId = $data['viviendaId'];
+        //Hacer el campo "viviendaId" nullable
+        $womenhealth->viviendaId = $data['viviendaId'] ?? 0;
                 
         // Guardamos el objeto en la base de datos
         $womenhealth->save();
