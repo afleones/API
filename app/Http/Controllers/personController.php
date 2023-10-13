@@ -234,6 +234,37 @@ class personController extends Controller
         return $dataArray;
     }
 
+
+    public function showCaminante(Request $request, person $person)
+    {
+        //$data = $request->json()->all();
+        $data = $request->all(); 
+
+        //var_dump($data);exit();
+        //$userid = $data['userid'];
+
+        $person = person::
+                         where(function($query) use ($data) {  
+                            if (isset($data['userid'])) {
+                                $query->Where('person.userid', $data['userid']);
+                            }
+                            if (isset($data['liderid'])) {
+                                $query->Where('users.liderid', $data['liderid']);
+                            }
+                            if (isset($data['fecha1']) and isset($data['fecha2'])) {
+                                $query->whereBetween(\DB::raw('DATE(person.created_at)'), [$data['fecha1'], $data['fecha2']]);
+                            }
+                         })
+                         ->leftJoin('maite_backend.users', 'users.id', '=', 'person.userid')
+                         ->selectRaw('users.liderid,person.userid, name,viviendaid, DATE(person.created_at) as Creado, count(*) as Total')
+                         ->groupBy('person.userid', 'viviendaid', 'Creado')
+                         ->get();
+
+        $dataArray = $person;             
+        return $dataArray;
+    }
+
+
     /**
      * Update the specified resource in storage.
      */

@@ -208,6 +208,13 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deleteGestation', [gestationbirthpostpartumController::class, 'destroy']);
     /* End */
 
+    /*Estadisticas*/
+    
+    Route::post('getLivingplaces', [livingplaceController::class, 'showLivingplace']);
+    Route::post('getCaminantes', [personController::class, 'showCaminante']);
+
+    /* End */
+
      /* Rutas de Usuarios */
      Route::post('saveUser', [UsersAccountsController::class, 'store']);
      Route::get('users', [UsersAccountsController::class, 'index']);
