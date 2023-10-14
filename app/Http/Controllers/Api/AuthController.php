@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 App::setLocale('es');
 
@@ -120,7 +121,7 @@ class AuthController extends Controller
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->status = $data['status'];
-        $user->password = encrypt($data['password']);
+        $user->password =  Hash::make($data['password']);
         $user->userId = $data['userId'];
         //$account->created_at = now(); // Fecha y hora actual
         //$account->updated_at = now(); // Fecha y hora actual
