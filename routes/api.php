@@ -223,6 +223,8 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
      Route::post('deleteUser', [UsersAccountsController::class, 'destroy']);
      /* End */
 
+    Route::post('createUser', [AuthController::class, 'store']);
+
     //Api Routes GenomaX_Documents End
 
     Route::get('user-profile', [AuthController::class, 'userProfile']);
