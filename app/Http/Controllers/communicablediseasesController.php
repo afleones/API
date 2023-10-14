@@ -124,21 +124,24 @@ class communicablediseasesController extends Controller
         }
     
         // Actualiza los campos con los valores proporcionados en los datos
-        $communicablediseases->fullName = $data['fullName'];
-        $communicablediseases->sex = $data['sex'];
+        $communicablediseases->fullName = $data['primer_nombre'];
+        $communicablediseases->sex = $data['sexo'];
         $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
-        $communicablediseases->age = $data['age'];
-        $communicablediseases->relationship = $data['relationship'];
-        $communicablediseases->occupation = $data['occupation'];
-        $communicablediseases->incomeContribution = $data['incomeContribution'];
-        $communicablediseases->educationLevel = $data['educationLevel'];
-        $communicablediseases->affiliationType = $data['affiliationType'];
-        $communicablediseases->specialCareGroup = $data['specialCareGroup'];
-        $communicablediseases->speaksCreole = $data['speaksCreole'];
-        $communicablediseases->covidVaccine = $data['covidVaccine'];
-        $communicablediseases->vaccineDoses = $data['vaccineDoses'];
-        $communicablediseases->substanceUse = $data['substanceUse'];
-        $communicablediseases->substanceType = $data['substanceType'];
+        $communicablediseases->age = $data['edad'];
+        $communicablediseases->relationship = $data['rol_familiar'];
+        $communicablediseases->occupation = $data['ocupacion_integrantes'];
+        $communicablediseases->incomeContribution = $data['aporta_ingresos'];
+        $communicablediseases->educationLevel = $data['nivel_escolaridad'];
+        $communicablediseases->affiliationType = $data['vinculacion_sgsss'];
+        $communicablediseases->specialCareGroup = $data['grupo_atencion_familiar'];
+        $communicablediseases->speaksCreole = $data['habla_creole'];
+        $communicablediseases->covidVaccine = $data['vacunas_covid'];
+        $communicablediseases->vaccineDoses = $data['dosis_vacuna'];
+        $communicablediseases->substanceUse = $data['consumo_sustancias'];
+        $communicablediseases->substanceType = $data['tipo_sustancias'];
+        $communicablediseases->dresserChronic = $data['dresserChronic'];
+        $communicablediseases->tripZonesEndemic = $data['tripZonesEndemic'];
+
     
         // Guarda los cambios en la base de datos
         $communicablediseases->save();
