@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\users_accounts;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UsersAccountsController extends Controller
