@@ -97,7 +97,8 @@ class youthController extends Controller
         $youth->tripZonesEndemic = $data['tripZonesEndemic'];
         $youth->userId = $data['userId'];
         $youth->personaId = $data['personaId'];
-        $youth->viviendaId = $data['viviendaId'];      
+        //Hacer el campo "viviendaId" nullable
+        $youth->viviendaId = $data['viviendaId'] ?? 0;
         // Guardamos el objeto en la base de datos
         $youth->save();
 

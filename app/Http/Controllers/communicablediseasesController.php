@@ -69,7 +69,8 @@ class communicablediseasesController extends Controller
         $communicablediseases->substanceType = $data['substanceType'];
         $communicablediseases->userId = $data['userId'];
         $communicablediseases->personaId = $data['personaId'];
-        $communicablediseases->viviendaId = $data['viviendaId'];
+        //Hacer el campo "viviendaId" nullable
+        $communicablediseases->viviendaId = $data['viviendaId'] ?? 0;
         
         // Guardamos el objeto en la base de datos
         $communicablediseases->save();
@@ -123,21 +124,24 @@ class communicablediseasesController extends Controller
         }
     
         // Actualiza los campos con los valores proporcionados en los datos
-        $communicablediseases->fullName = $data['fullName'];
-        $communicablediseases->sex = $data['sex'];
+        $communicablediseases->primer_nombre = $data['primer_nombre'];
+        $communicablediseases->sexo = $data['sexo'];
         $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
-        $communicablediseases->age = $data['age'];
-        $communicablediseases->relationship = $data['relationship'];
-        $communicablediseases->occupation = $data['occupation'];
-        $communicablediseases->incomeContribution = $data['incomeContribution'];
-        $communicablediseases->educationLevel = $data['educationLevel'];
-        $communicablediseases->affiliationType = $data['affiliationType'];
-        $communicablediseases->specialCareGroup = $data['specialCareGroup'];
-        $communicablediseases->speaksCreole = $data['speaksCreole'];
-        $communicablediseases->covidVaccine = $data['covidVaccine'];
-        $communicablediseases->vaccineDoses = $data['vaccineDoses'];
-        $communicablediseases->substanceUse = $data['substanceUse'];
-        $communicablediseases->substanceType = $data['substanceType'];
+        $communicablediseases->edad = $data['edad'];
+        $communicablediseases->rol_familiar = $data['rol_familiar'];
+        $communicablediseases->ocupacion_integrantes = $data['ocupacion_integrantes'];
+        $communicablediseases->aporta_ingresos = $data['aporta_ingresos'];
+        $communicablediseases->nivel_escolaridad = $data['nivel_escolaridad'];
+        $communicablediseases->vinculacion_sgsss = $data['vinculacion_sgsss'];
+        $communicablediseases->grupo_atencion_familiar = $data['grupo_atencion_familiar'];
+        $communicablediseases->habla_creole = $data['habla_creole'];
+        $communicablediseases->vacunas_covid = $data['vacunas_covid'];
+        $communicablediseases->dosis_vacuna = $data['dosis_vacuna'];
+        $communicablediseases->consumo_sustancias = $data['consumo_sustancias'];
+        $communicablediseases->tipo_sustancias = $data['tipo_sustancias'];
+        $communicablediseases->dresserChronic = $data['dresserChronic'];
+        $communicablediseases->tripZonesEndemic = $data['tripZonesEndemic'];
+
     
         // Guarda los cambios en la base de datos
         $communicablediseases->save();

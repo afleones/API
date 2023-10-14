@@ -99,7 +99,8 @@ class oldController extends Controller
         $old->tripZonesEndemic = $data['tripZonesEndemic'];
         $old->personaId = $data['personaId'];
         $old->userId = $data['userId'];
-        $old->viviendaId = $data['viviendaId'];
+        //Hacer el campo "viviendaId" nullable
+        $old->viviendaId = $data['viviendaId'] ?? 0;
     
         // Guardamos el objeto en la base de datos
         $old->save();
