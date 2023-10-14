@@ -213,6 +213,8 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* End */
 
 
+    Route::post('createUser', [AuthController::class, 'store']);
+
     //Api Routes GenomaX_Documents End
 
     Route::get('user-profile', [AuthController::class, 'userProfile']);
