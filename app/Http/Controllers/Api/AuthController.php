@@ -120,10 +120,11 @@ class AuthController extends Controller
         $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
         $user->role = $data['role'];
         $user->name = $data['name'];
-        $user->email = $data['email'];
         $user->status = $data['status'];
+        $user->email = $data['email'];
         $user->password =  Hash::make($data['password']);
         $user->userId = $data['userId'];
+        $user->liderid = $data['liderid'];
         //$account->created_at = now(); // Fecha y hora actual
         //$account->updated_at = now(); // Fecha y hora actual
         
@@ -176,10 +177,12 @@ class AuthController extends Controller
         $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
         $user->role = $data['role'];
         $user->name = $data['name'];
-        $user->email = $data['email'];
         $user->status = $data['status'];
+        $user->email = $data['email'];
         $user->password =  Hash::make($data['password']);
         $user->userId = $data['userId'];
+        $user->liderid = $data['liderid'];
+        
         // Guarda los cambios en la base de datos
         $user->save();
     
