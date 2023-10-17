@@ -46,9 +46,10 @@ class AuthController extends Controller
             'email' =>['required','email'],
             'password' =>['required']
         ]);
-
+        //var_dump(Hash::make($credentials['password']));exit();
         if(Auth::attempt($credentials)) {
             $user = Auth::user();
+            //var_dump($user);exit();
             $token = $user->createToken('token')->plainTextToken;
             $cookie = cookie('maite_token', $token, 60*24);
             // Cambiar la base de datos y enviar el token como parámetro
