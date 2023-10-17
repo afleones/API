@@ -27,6 +27,9 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\CryptDBController;
 use App\Http\Controllers\DashBoardController;
 
+
+use App\Http\Controllers\AcademyCourseController;
+
 //Api Controllers GenomaX_Documents Start
 
 /* Controlador de Autenticación */
@@ -208,6 +211,13 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deleteGestation', [gestationbirthpostpartumController::class, 'destroy']);
     /* End */
 
+    /*Estadisticas*/
+    
+    Route::post('getLivingplaces', [livingplaceController::class, 'showLivingplace']);
+    Route::post('getCaminantes', [personController::class, 'showCaminante']);
+
+    /* End */
+
      /* Rutas de Usuarios */
      Route::post('saveUser', [UsersAccountsController::class, 'store']);
      Route::get('users', [UsersAccountsController::class, 'index']);
@@ -215,6 +225,23 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
      Route::post('updateUser', [UsersAccountsController::class, 'update']);
      Route::post('deleteUser', [UsersAccountsController::class, 'destroy']);
      /* End */
+
+    Route::post('createUser', [AuthController::class, 'store']);
+
+
+
+    //Api Riutes Academy Start
+
+    Route::get('Courses', [AcademyCourseController::class, 'index']);
+    Route::post('Course', [AcademyCourseController::class, 'show']);
+    Route::post('SaveCourse', [AcademyCourseController::class, 'store']);
+    Route::post('UpdateCourse', [AcademyCourseController::class, 'update']);
+    Route::get('DeleteCourse', [AcademyCourseController::class, 'destroy']);
+
+    //Api Riutes Academy End
+
+
+
 
     //Api Routes GenomaX_Documents End
 
