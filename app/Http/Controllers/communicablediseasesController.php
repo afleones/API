@@ -66,8 +66,8 @@ class communicablediseasesController extends Controller
         $communicablediseases->vaccineDoses = $data['dosis_vacuna'];
         $communicablediseases->substanceUse = $data['consumo_sustancias'];
         $communicablediseases->substanceType = $data['tipo_sustancias'];
-        $communicablediseases->userId = $data['dresserChronic'];
-        $communicablediseases->userId = $data['tripZonesEndemic'];
+        $communicablediseases->dresserChronic = $data['dresserChronic'];
+        $communicablediseases->tripZonesEndemic = $data['tripZonesEndemic'];
         $communicablediseases->userId = $data['userId'];
         $communicablediseases->personaId = $data['personaId'];
         //Hacer el campo "viviendaId" nullable
