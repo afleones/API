@@ -159,14 +159,13 @@ class AuthController extends Controller
         */
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        
         $data = $request->all();
+        $id = $data['id'];        
         //var_dump($data);exit();
-
         // Encuentra el registro que deseas actualizar basado en los criterios de consulta
-        $user = user::where('id', $id)->first();
+        $user = User::where('id', $id)->first();
     
         // Verifica si se encontró el registro
         if (!$user) {
