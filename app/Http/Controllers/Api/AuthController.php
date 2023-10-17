@@ -124,7 +124,7 @@ class AuthController extends Controller
         $user->email = $data['email'];
         $user->password =  Hash::make($data['password']);
         $user->userId = $data['userId'];
-        $user->liderid = $data['liderid'];
+        $user->liderid = $data['liderid'] ?? NULL;
         //$account->created_at = now(); // Fecha y hora actual
         //$account->updated_at = now(); // Fecha y hora actual
         
@@ -181,8 +181,8 @@ class AuthController extends Controller
         $user->email = $data['email'];
         $user->password =  Hash::make($data['password']);
         $user->userId = $data['userId'];
-        $user->liderid = $data['liderid'];
-        
+        $user->liderid = $data['liderid']?? NULL;;
+
         // Guarda los cambios en la base de datos
         $user->save();
     
