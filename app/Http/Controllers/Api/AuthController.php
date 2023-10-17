@@ -99,13 +99,21 @@ class AuthController extends Controller
             return response(["message" => "La contraseña actual no coincide"], Response::HTTP_UNAUTHORIZED);
         }
     }
-    
+
     public function allUsers() {
-        $users=User::all();
+        $users = User::select('id', 'codeuser', 'role', 'name', 'status', 'email', 'password', 'userId', 'liderid') // Excluye el campo 'password'
+                    ->get();
+    
         return response()->json([
-            "users"=>$users
+            "users" => $users
         ]);
     }
+    // public function allUsers() {
+    //     $users=User::all();
+    //     return response()->json([
+    //         "users"=>$users
+    //     ]);
+    // }
 
     public function store(Request $request,  User $user)
     {
@@ -181,11 +189,19 @@ class AuthController extends Controller
         $user->email = $data['email'];
         $user->password =  Hash::make($data['password']);
         $user->userId = $data['userId'];
-        $user->liderid = $data['liderid']?? NULL;;
+        $user->liderid = $data['liderid']?? NULL;
 
         // Guarda los cambios en la base de datos
         $user->save();
     
         return response()->json(['message' => 'Registro actualizado con éxito']);
     }  
+
+    public function listarLideres() {
+        $lideres = User::where('role', 3)->get();
+    
+        return response()->json([
+            'lideres' => $lideres
+        ]);
+    }
 }
