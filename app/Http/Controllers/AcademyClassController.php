@@ -18,7 +18,8 @@ class AcademyClassController extends Controller
                                     Image,
                                     CourseId,
                                     Video,
-                                    Description
+                                    Description,
+                                    State
         ")->get();
         return $Class;
     }
@@ -41,14 +42,16 @@ class AcademyClassController extends Controller
         $Class->CourseId= $data['CourseId'];
         $Class->Video= $data['Video'];
         $Class->Description= $data['Description'];
+        $Class->State= $data['State'];
 
 
         // Guardamos el objeto en la base de datos
         $Class->save();
     
+        $insertedId = $Class->id;
     
         // Retornamos una respuesta de éxito
-        return response()->json(['message' => 'Datos insertados correctamente']);
+        return response()->json(['message' => 'Datos insertados correctamente', 'inserted_id' => $insertedId]);
     }
 
     /**
@@ -62,6 +65,12 @@ class AcademyClassController extends Controller
         $Class = AcademyClass::where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->Where('id', $data['id']);
+                            }
+                            if (isset($data['Author'])) {
+                                $query->Where('Author', $data['Author']);
+                            }
+                            if (isset($data['State'])) {
+                                $query->Where('State', $data['State']);
                             }
                          })
                          ->get();     
@@ -84,6 +93,7 @@ class AcademyClassController extends Controller
         $CourseId = $data['CourseId'] ?? 0;
         $Video = $data['Video'] ?? '';
         $Description = $data['Description'] ?? '';
+        $State = $data['State'] ?? 0;
         
         try {
             AcademyClass::where('id', $Id)->update([
@@ -92,7 +102,8 @@ class AcademyClassController extends Controller
                 'Image' => $Image,
                 'CourseId' => $CourseId,
                 'Video' => $Video,
-                'Description' => $Description
+                'Description' => $Description,
+                'State' => $State,
                 // Agrega otros campos que quieras actualizar aquí
             ]);
     

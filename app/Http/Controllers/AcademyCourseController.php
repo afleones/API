@@ -16,7 +16,8 @@ class AcademyCourseController extends Controller
                                     Title,
                                     Author,
                                     Image,
-                                    Description
+                                    Description,
+                                    State
         ")->get();
         return $Course;
     }
@@ -37,14 +38,16 @@ class AcademyCourseController extends Controller
         $Course->Author= $data['Author'];
         $Course->Image= $data['Image'];
         $Course->Description= $data['Description'];
-
+        $Course->State= $data['State'];
 
         // Guardamos el objeto en la base de datos
         $Course->save();
+
+        $insertedId = $Course->id;
     
     
         // Retornamos una respuesta de éxito
-        return response()->json(['message' => 'Datos insertados correctamente']);
+        return response()->json(['message' => 'Datos insertados correctamente', 'inserted_id' => $insertedId]);
     }
 
     /**
@@ -58,6 +61,12 @@ class AcademyCourseController extends Controller
         $Course = AcademyCourse::where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->Where('id', $data['id']);
+                            }
+                            if (isset($data['Author'])) {
+                                $query->Where('Author', $data['Author']);
+                            }
+                            if (isset($data['State'])) {
+                                $query->Where('State', $data['State']);
                             }
                          })
                          ->get();     
@@ -78,13 +87,15 @@ class AcademyCourseController extends Controller
         $Author = $data['Author'] ?? 0;
         $Image = $data['Image'] ?? 0;
         $Description = $data['Description'] ?? '';
-        
+        $State = $data['State'] ?? 0;
+
         try {
             AcademyCourse::where('id', $Id)->update([
                 'Title' => $Title,
                 'Author' => $Author,
                 'Image' => $Image,
-                'Description' => $Description
+                'Description' => $Description,
+                'State' => $State,
                 // Agrega otros campos que quieras actualizar aquí
             ]);
     

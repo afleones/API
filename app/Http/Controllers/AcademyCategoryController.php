@@ -17,7 +17,9 @@ class AcademyCategoryController extends Controller
     public function index()
     {
         $Category = AcademyCategory::selectRaw("id,
-                                    Title
+                                    Title,
+                                    Author,
+                                    State
         ")->get();
         return $Category;
     }
@@ -35,15 +37,17 @@ class AcademyCategoryController extends Controller
 
         // Asignamos los datos a las propiedades del objeto
         $Category->Title= $data['Title'];
-       
+        $Category->Author= $data['Author'];
+        $Category->State= $data['State'];
 
 
         // Guardamos el objeto en la base de datos
         $Category->save();
     
+        $insertedId = $Category->id;
     
         // Retornamos una respuesta de éxito
-        return response()->json(['message' => 'Datos insertados correctamente']);
+        return response()->json(['message' => 'Datos insertados correctamente', 'inserted_id' => $insertedId]);
     }
 
     /**
@@ -57,6 +61,12 @@ class AcademyCategoryController extends Controller
         $Category = AcademyCategory::where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->Where('id', $data['id']);
+                            }
+                            if (isset($data['Author'])) {
+                                $query->Where('Author', $data['Author']);
+                            }
+                            if (isset($data['State'])) {
+                                $query->Where('State', $data['State']);
                             }
                          })
                          ->get();     
@@ -74,11 +84,17 @@ class AcademyCategoryController extends Controller
         $data = $request->all();
         $Id = $data['Id'];
         $Title = $data['Title'] ?? '';
+        $Author = $data['Author'] ?? 0;
+        $State = $data['State'] ?? 0;
+        
+        
        
         
         try {
             AcademyCategory::where('id', $Id)->update([
-                'Title' => $Title
+                'Title' => $Title,
+                'Author' => $Author,
+                'State' => $State
                 // Agrega otros campos que quieras actualizar aquí
             ]);
     
@@ -111,22 +127,18 @@ class AcademyCategoryController extends Controller
                             if (isset($data['Id'])) {
                                 $query->Where('Id', $data['Id']);
                             }
-                            /*
-                            if (isset($data['userid'])) {
-                                $query->Where('person.userid', $data['userid']);
+                            if (isset($data['Author'])) {
+                                $query->Where('Author', $data['Author']);
                             }
-                            if (isset($data['liderid'])) {
-                                $query->Where('users.liderid', $data['liderid']);
+                            if (isset($data['State'])) {
+                                $query->Where('State', $data['State']);
                             }
-                            if (isset($data['fecha1']) and isset($data['fecha2'])) {
-                                $query->whereBetween(\DB::raw('DATE(person.created_at)'), [$data['fecha1'], $data['fecha2']]);
-                            }
-                            */
+
                          })
-                         //->leftJoin('maite_backend.users', 'users.id', '=', 'person.userid')
+                         
                          ->selectRaw('Id,Title')
 
-                         //->groupBy('person.userid', 'viviendaid', 'Creado')
+                         
                          ->get();
 
         
@@ -145,6 +157,7 @@ class AcademyCategoryController extends Controller
                                     'Image' => $Course->Image,
                                     'Description' => $Course->Description,
                                     'CategoryId' => $Course->CategoryId,
+                                    'State' => $Course->State,
                                     'classes' => $detalleClass
                                 ];
                             }
