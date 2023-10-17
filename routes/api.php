@@ -221,14 +221,9 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* End */
 
      /* Rutas de Usuarios */
-     Route::post('saveUser', [UsersAccountsController::class, 'store']);
-     Route::get('users', [UsersAccountsController::class, 'index']);
-     Route::post('user', [UsersAccountsController::class, 'show']);
-     Route::post('updateUser', [UsersAccountsController::class, 'update']);
-     Route::post('deleteUser', [UsersAccountsController::class, 'destroy']);
+     Route::post('createUser', [AuthController::class, 'store']);
+     Route::post('updateUser', [AuthController::class, 'update']);
      /* End */
-
-    Route::post('createUser', [AuthController::class, 'store']);
 
 
 

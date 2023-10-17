@@ -107,7 +107,6 @@ class AuthController extends Controller
         ]);
     }
 
-
     public function store(Request $request,  User $user)
     {
         
@@ -160,8 +159,31 @@ class AuthController extends Controller
         */
     }
 
+    public function update(Request $request, $id)
+    {
+        
+        $data = $request->all();
+        //var_dump($data);exit();
 
-
-
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $user = user::where('id', $id)->first();
     
+        // Verifica si se encontró el registro
+        if (!$user) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+    
+        // Actualiza los campos con los valores proporcionados en los datos
+        $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
+        $user->role = $data['role'];
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->status = $data['status'];
+        $user->password =  Hash::make($data['password']);
+        $user->userId = $data['userId'];
+        // Guarda los cambios en la base de datos
+        $user->save();
+    
+        return response()->json(['message' => 'Registro actualizado con éxito']);
+    }  
 }

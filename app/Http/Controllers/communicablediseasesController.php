@@ -149,7 +149,7 @@ class communicablediseasesController extends Controller
     
         return response()->json(['message' => 'Registro actualizado con éxito']);
     }
-            /**
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)
