@@ -230,6 +230,9 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('UpdateCategory', [AcademyCategoryController::class, 'update']);
     Route::get('DeleteCategory', [AcademyCategoryController::class, 'destroy']);
 
+    
+    Route::post('CoursexCategory', [AcademyCategoryController::class, 'showCoursexCategory']);
+
     Route::get('Courses', [AcademyCourseController::class, 'index']);
     Route::post('Course', [AcademyCourseController::class, 'show']);
     Route::post('SaveCourse', [AcademyCourseController::class, 'store']);

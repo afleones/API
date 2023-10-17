@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AcademyCategory;
+
+use App\Models\AcademyCourse;
+use App\Models\AcademyClass;
+
 use Illuminate\Http\Request;
 
 class AcademyCategoryController extends Controller
@@ -93,4 +97,67 @@ class AcademyCategoryController extends Controller
     {
         //
     }
+
+
+    public function showCoursexCategory(Request $request){
+        //$data = $request->json()->all();
+        $data = $request->all(); 
+
+        //var_dump($data);exit();
+        //$userid = $data['userid'];
+
+        $Categories = AcademyCategory::
+                         where(function($query) use ($data) {  
+                            if (isset($data['Id'])) {
+                                $query->Where('Id', $data['Id']);
+                            }
+                            /*
+                            if (isset($data['userid'])) {
+                                $query->Where('person.userid', $data['userid']);
+                            }
+                            if (isset($data['liderid'])) {
+                                $query->Where('users.liderid', $data['liderid']);
+                            }
+                            if (isset($data['fecha1']) and isset($data['fecha2'])) {
+                                $query->whereBetween(\DB::raw('DATE(person.created_at)'), [$data['fecha1'], $data['fecha2']]);
+                            }
+                            */
+                         })
+                         //->leftJoin('maite_backend.users', 'users.id', '=', 'person.userid')
+                         ->selectRaw('Id,Title')
+
+                         //->groupBy('person.userid', 'viviendaid', 'Creado')
+                         ->get();
+
+        
+                         $payload = []; // Inicializa el arreglo de resultados
+
+                        foreach ($Categories as $Category) {
+                            $detalleCourses = AcademyCourse::where('CategoryId', $Category->Id)->get();
+                            $coursesData = [];
+
+                            foreach ($detalleCourses as $Course) {
+                                $detalleClass = AcademyClass::where('CourseId', $Course->Id)->get();
+                                $coursesData[] = [
+                                    'Id' => $Course->Id,
+                                    'Title' => $Course->Title,
+                                    'Author' => $Course->Author,
+                                    'Image' => $Course->Image,
+                                    'Description' => $Course->Description,
+                                    'CategoryId' => $Course->CategoryId,
+                                    'classes' => $detalleClass
+                                ];
+                            }
+
+                            $payload[] = [
+                                'Id' => $Category->Id,
+                                'Title' => $Category->Title,
+                                'courses' => $coursesData
+                            ];
+                        }
+
+        return $payload;
+    }
+
+
 }
