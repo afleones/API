@@ -70,22 +70,29 @@ class AcademyCourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, AcademyCourse $AcademyCourse)
     {
         $data = $request->all();
         $Id = $data['Id'];
-        $Title = $data['Title'];
-
+        $Title = $data['Title'] ?? '';
+        $Author = $data['Author'] ?? 0;
+        $Image = $data['Image'] ?? 0;
+        $Description = $data['Description'] ?? '';
+        
         try {
-            $tabla = AcademyCourse::where('Id', $Id)->firstOrFail();
-            $tabla->Title = $Title;
-            $tabla->save();
-
+            AcademyCourse::where('id', $Id)->update([
+                'Title' => $Title,
+                'Author' => $Author,
+                'Image' => $Image,
+                'Description' => $Description
+                // Agrega otros campos que quieras actualizar aquí
+            ]);
+    
             // Actualización exitosa
             return response()->json(['message' => 'Datos actualizados correctamente']);
         } catch (\Exception $e) {
             // Error durante la actualización
-            return response()->json(['error' => 'Error al actualizar los datos'], 500);
+            return response()->json(['error' => 'Error al actualizar los datos' . $e->getMessage()], 500);
         }
     }
 
