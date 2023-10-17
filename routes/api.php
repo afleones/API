@@ -27,6 +27,9 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\CryptDBController;
 use App\Http\Controllers\DashBoardController;
 
+
+use App\Http\Controllers\AcademyCourseController;
+
 //Api Controllers GenomaX_Documents Start
 
 /* Controlador de Autenticación */
@@ -214,6 +217,21 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
 
     Route::post('createUser', [AuthController::class, 'store']);
+
+
+
+    //Api Riutes Academy Start
+
+    Route::get('Courses', [AcademyCourseController::class, 'index']);
+    Route::post('Course', [AcademyCourseController::class, 'show']);
+    Route::post('SaveCourse', [AcademyCourseController::class, 'store']);
+    Route::post('UpdateCourse', [AcademyCourseController::class, 'update']);
+    Route::get('DeleteCourse', [AcademyCourseController::class, 'destroy']);
+
+    //Api Riutes Academy End
+
+
+
 
     //Api Routes GenomaX_Documents End
 
