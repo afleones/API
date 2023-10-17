@@ -213,21 +213,20 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('deleteGestation', [gestationbirthpostpartumController::class, 'destroy']);
     /* End */
 
-    /*Estadisticas*/
-    
+    /* Estadisticas */
     Route::post('getLivingplaces', [livingplaceController::class, 'showLivingplace']);
     Route::post('getCaminantes', [personController::class, 'showCaminante']);
-
     /* End */
 
-     /* Rutas de Usuarios */
-     Route::post('createUser', [AuthController::class, 'store']);
-     Route::post('updateUser', [AuthController::class, 'update']);
-     /* End */
+    /* Rutas de Usuarios */
+    Route::post('createUser', [AuthController::class, 'store']);
+    Route::post('updateUser', [AuthController::class, 'update']);
+    /* End */
+
+    //Api Routes GenomaX_Documents End
 
 
-
-    //Api Riutes Academy Start
+    //Api Routes Academy Start
 
     Route::get('Categories', [AcademyCategoryController::class, 'index']);
     Route::post('Category', [AcademyCategoryController::class, 'show']);
@@ -252,11 +251,6 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::get('DeleteClass', [AcademyClassController::class, 'destroy']);
 
     //Api Riutes Academy End
-
-
-
-
-    //Api Routes GenomaX_Documents End
 
     Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::post('logout', [AuthController::class, 'logOut']);
