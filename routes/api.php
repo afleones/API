@@ -98,6 +98,14 @@ use App\Http\Controllers\gestationbirthpostpartumController;
 use App\Http\Controllers\UsersAccountsController;
 /*  */
 
+//controllers app Meet
+
+/* controllers app Meet */
+use App\Http\Controllers\MeetEventsController;
+/* end */
+
+// Controllers app Meet
+
 
 //Api Controllers GenomaX_Documents End
 
@@ -232,7 +240,6 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
 
     //Api Routes Academy Start
-
     Route::get('Categories', [AcademyCategoryController::class, 'index']);
     Route::post('Category', [AcademyCategoryController::class, 'show']);
     Route::post('SaveCategory', [AcademyCategoryController::class, 'store']);
@@ -254,8 +261,17 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('SaveClass', [AcademyClassController::class, 'store']);
     Route::post('UpdateClass', [AcademyClassController::class, 'update']);
     Route::get('DeleteClass', [AcademyClassController::class, 'destroy']);
+    //Api Routes Academy End
 
-    //Api Riutes Academy End
+
+     //Api Routes Meet Start
+
+    /* events */
+    Route::post('saveEvent', [MeetEventsController::class, 'store']);
+    /* end */
+
+     //Api Routes Meet end
+
 
     Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::post('logout', [AuthController::class, 'logOut']);
