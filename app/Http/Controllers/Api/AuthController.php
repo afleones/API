@@ -100,12 +100,12 @@ class AuthController extends Controller
         }
     }
     
-    // public function allUsers() {
-    //     $users=User::all();
-    //     return response()->json([
-    //         "users"=>$users
-    //     ]);
-    // }
+     public function allUsers() {
+         $users=User::all();
+         return response()->json([
+             "users"=>$users
+         ]);
+     }
 
     public function store(Request $request,  User $user)
     {
