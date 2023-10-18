@@ -190,18 +190,18 @@ class AuthController extends Controller
         $user->password =  Hash::make($data['password']);
         $user->userId = $data['userId'];
         $user->liderid = $data['liderid']?? NULL;
+     
+    public function showLider(Request $request,  User $user)
+    {
+        $data = $request->all(); 
 
-        // Guarda los cambios en la base de datos
-        $user->save();
-    
-        return response()->json(['message' => 'Registro actualizado con éxito']);
-    }  
-
-    public function listarLideres() {
-        $lideres = User::where('role', 3)->get();
-    
+        $users=User::where(function($query) use ($data) {  
+            if (isset($data['role'])) {
+                $query->Where('role', $data['role']);
+            }
+         })->get();
         return response()->json([
-            'lideres' => $lideres
+          "users"=>$users
         ]);
     }
 }
