@@ -188,33 +188,30 @@ class AuthController extends Controller
         return response()->json(['message' => 'Registro actualizado con éxito']);
     } 
   
-    public function showLider(Request $request,  User $user)
-    {
-        $data = $request->all(); 
+    // public function showLider(Request $request,  User $user)
+    // {
+    //     $data = $request->all(); 
 
-        $users=User::where(function($query) use ($data) {  
-            if (isset($data['role'])) {
-                $query->Where('role', $data['role']);
-            }
-            /*
-            if (isset($data['person.viviendaid'])) {
-                $query->Where('viviendaid', $data['viviendaid']);
-            }
-            if (isset($data['person.edad1']) && isset($data['person.edad2'])) {
-                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
-            }
-            if (isset($data['person.sexo'])) {
-                $query->Where('sexo', $data['sexo']);
-            }
-            */
+    //     $users=User::where(function($query) use ($data) {  
+    //         if (isset($data['role'])) {
+    //             $query->Where('role', $data['role']);
+    //         }
+    //      })->get();
+    //     return response()->json([
+    //         "users"=>$users
+    //     ]);
+    // }
 
-            
-            
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-         })
-        ->get();
-        return response()->json([
-            "users"=>$users
-        ]);
-    }
+    public function showLider(Request $request, User $user)
+{
+    $data = $request->all(); 
+
+    $users = User::where(function($query) use ($data) {  
+        $query->Where('role', 3); // Establecemos 'role' igual a 3
+    })->get();
+
+    return response()->json([
+        "users" => $users
+    ]);
+}
 }
