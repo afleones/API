@@ -186,8 +186,8 @@ class AuthController extends Controller
         $user->save();
     
         return response()->json(['message' => 'Registro actualizado con éxito']);
-    }
-
+    } 
+  
     public function showLider(Request $request,  User $user)
     {
         $data = $request->all(); 
