@@ -222,10 +222,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('createUser', [AuthController::class, 'store']);
     Route::post('updateUser', [AuthController::class, 'update']);
     /* End */
-    
-    /* Rutas para Listar Lideres */
-    Route::post('showLider', [AuthController::class, 'showLider']);
-    /* End */
+
     //Api Routes GenomaX_Documents End
 
 
