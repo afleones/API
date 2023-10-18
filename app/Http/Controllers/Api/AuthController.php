@@ -180,6 +180,7 @@ class AuthController extends Controller
         if (!$user) {
             return response()->json(['message' => 'Registro no encontrado'], 404);
         }
+    }
     
         // Actualiza los campos con los valores proporcionados en los datos
         $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
@@ -199,9 +200,25 @@ class AuthController extends Controller
             if (isset($data['role'])) {
                 $query->Where('role', $data['role']);
             }
-         })->get();
+            /*
+            if (isset($data['person.viviendaid'])) {
+                $query->Where('viviendaid', $data['viviendaid']);
+            }
+            if (isset($data['person.edad1']) && isset($data['person.edad2'])) {
+                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
+            }
+            if (isset($data['person.sexo'])) {
+                $query->Where('sexo', $data['sexo']);
+            }
+            */
+
+            
+            
+            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+         })
+        ->get();
         return response()->json([
-          "users"=>$users
+            "users"=>$users
         ]);
     }
 }
