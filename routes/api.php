@@ -215,10 +215,16 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('getLivingplaces', [livingplaceController::class, 'showLivingplace']);
     Route::post('getCaminantes', [personController::class, 'showCaminante']);
 
+
+    
+    
+
     /* End */
 
 
     Route::post('createUser', [AuthController::class, 'store']);
+
+    Route::post('showLider', [AuthController::class, 'showLider']);
 
 
 

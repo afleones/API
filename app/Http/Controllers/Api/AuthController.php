@@ -160,7 +160,35 @@ class AuthController extends Controller
     }
 
 
+    public function showLider(Request $request,  User $user)
+    {
+        $data = $request->all(); 
 
+        $users=User::where(function($query) use ($data) {  
+            if (isset($data['role'])) {
+                $query->Where('role', $data['role']);
+            }
+            /*
+            if (isset($data['person.viviendaid'])) {
+                $query->Where('viviendaid', $data['viviendaid']);
+            }
+            if (isset($data['person.edad1']) && isset($data['person.edad2'])) {
+                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
+            }
+            if (isset($data['person.sexo'])) {
+                $query->Where('sexo', $data['sexo']);
+            }
+            */
+
+            
+            
+            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
+         })
+        ->get();
+        return response()->json([
+            "users"=>$users
+        ]);
+    }
 
     
 }
