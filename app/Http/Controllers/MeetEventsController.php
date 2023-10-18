@@ -7,6 +7,11 @@ use App\Models\MeetEvent;
 
 class MeetEventsController extends Controller
 {
+    public function index(Request $request)
+    {
+        //
+    }
+
     public function store(Request $request)
     {
 
@@ -18,6 +23,7 @@ class MeetEventsController extends Controller
         $event->start = $data['start'];
         $event->end = $data['end'];
         $event->url = $data['url'];
+        $event->userId = $data['userId'];
                        
         // Guardamos el objeto en la base de datos
         $event->save();
@@ -25,5 +31,49 @@ class MeetEventsController extends Controller
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Datos insertados correctamente', 'event' => $event], 201);
     }
+    
+    
+
+    public function update(Request $request, MeetEvent $id)
+{   
+    $data = $request->all();
+    $id = $data['id'];
+    $userId = $data['userId'];
+
+    // Obtener el evento a actualizar
+    $tabla = MeetEvent::where('id', $id)->where('userId', $userId)->firstOrFail();
+
+        $tabla->title = $data['title'] ?? $tabla->title;
+        $tabla->description = $data['description'] ?? $tabla->description;
+        $tabla->start = $data['start'] ?? $tabla->start; // Si no se proporciona, se usa el valor existente.
+        $tabla->end = $data['end'] ?? $tabla->end; // Si no se proporciona, se usa el valor existente.;
+        $tabla->url = $data['url'] ?? $tabla->url;
+
+        $tabla->save();
+
+        return response()->json(['message' => 'Datos Actualizado correctamente']);
+    }
+
+    public function show(Request $request)
+    {
+        $data = $request->all();   
+              
+
+        $event = MeetEvent::where(function($query) use ($data) {
+            if (isset($data['id'])) {
+                $query->Where('id', $data['id']);
+            }
+            if (isset($data['userId'])) {
+                $query->Where('userId', $data['userId']);
+            }
+            if (isset($data['title'])) {
+                $query->Where('title', $data['title']);
+            }
+            })->get();     
+
+        return $event;
+    }
+
+
 
 }
