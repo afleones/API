@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Users_accounts;
 use App\Models\customer;
 use App\Utils\DatabaseUtils;
 use Illuminate\Support\Facades\Hash;
@@ -98,14 +99,21 @@ class AuthController extends Controller
             return response(["message" => "La contraseña actual no coincide"], Response::HTTP_UNAUTHORIZED);
         }
     }
-    
+
     public function allUsers() {
-        $users=User::all();
+        $users = User::select('id', 'codeuser', 'role', 'name', 'status', 'email', 'password', 'userId', 'liderid') // Excluye el campo 'password'
+                    ->get();
+    
         return response()->json([
-            "users"=>$users
+            "users" => $users
         ]);
     }
-
+    // public function allUsers() {
+    //     $users=User::all();
+    //     return response()->json([
+    //         "users"=>$users
+    //     ]);
+    // }
 
     public function store(Request $request,  User $user)
     {
@@ -120,10 +128,11 @@ class AuthController extends Controller
         $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
         $user->role = $data['role'];
         $user->name = $data['name'];
-        $user->email = $data['email'];
         $user->status = $data['status'];
+        $user->email = $data['email'];
         $user->password =  Hash::make($data['password']);
         $user->userId = $data['userId'];
+        $user->liderid = $data['liderid'] ?? NULL;
         //$account->created_at = now(); // Fecha y hora actual
         //$account->updated_at = now(); // Fecha y hora actual
         
@@ -159,7 +168,29 @@ class AuthController extends Controller
         */
     }
 
-
+    public function update(Request $request)
+    {
+        $data = $request->all();
+        $id = $data['id'];        
+        //var_dump($data);exit();
+        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+        $user = User::where('id', $id)->first();
+    
+        // Verifica si se encontró el registro
+        if (!$user) {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+    
+        // Actualiza los campos con los valores proporcionados en los datos
+        $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
+        $user->role = $data['role'];
+        $user->name = $data['name'];
+        $user->status = $data['status'];
+        $user->email = $data['email'];
+        $user->password =  Hash::make($data['password']);
+        $user->userId = $data['userId'];
+        $user->liderid = $data['liderid']?? NULL;
+     
     public function showLider(Request $request,  User $user)
     {
         $data = $request->all(); 
@@ -168,27 +199,9 @@ class AuthController extends Controller
             if (isset($data['role'])) {
                 $query->Where('role', $data['role']);
             }
-            /*
-            if (isset($data['person.viviendaid'])) {
-                $query->Where('viviendaid', $data['viviendaid']);
-            }
-            if (isset($data['person.edad1']) && isset($data['person.edad2'])) {
-                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
-            }
-            if (isset($data['person.sexo'])) {
-                $query->Where('sexo', $data['sexo']);
-            }
-            */
-
-            
-            
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-         })
-        ->get();
+         })->get();
         return response()->json([
-            "users"=>$users
+          "users"=>$users
         ]);
     }
-
-    
 }

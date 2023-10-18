@@ -44,32 +44,34 @@ class communicablediseasesController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
- 
         // Creamos un nuevo objeto del modelo
         $communicablediseases = new communicablediseases();
 
-        $communicablediseases->fullName = $data['fullName'];
-        $communicablediseases->sex = $data['sex'];
-        if (isset($data['otherSex'])) {
-            $communicablediseases->otherSex = $data['otherSex'];
-        } else {
-            $communicablediseases->otherSex = null;
-        }
-        $communicablediseases->age = $data['age'];
-        $communicablediseases->relationship = $data['relationship'];
-        $communicablediseases->occupation = $data['occupation'];
-        $communicablediseases->incomeContribution = $data['incomeContribution'];
-        $communicablediseases->educationLevel = $data['educationLevel'];
-        $communicablediseases->affiliationType = $data['affiliationType'];
-        $communicablediseases->specialCareGroup = $data['specialCareGroup'];
-        $communicablediseases->speaksCreole = $data['speaksCreole'];
-        $communicablediseases->covidVaccine = $data['covidVaccine'];
-        $communicablediseases->vaccineDoses = $data['vaccineDoses'];
-        $communicablediseases->substanceUse = $data['substanceUse'];
-        $communicablediseases->substanceType = $data['substanceType'];
+        $communicablediseases->fullName = $data['primer_nombre'];
+        $communicablediseases->sex = $data['sexo'];
+        // if (isset($data['otherSex'])) {
+        //     $communicablediseases->otherSex = $data['otherSex'];
+        // } else {
+        //     $communicablediseases->otherSex = null;
+        // }
+        $communicablediseases->age = $data['edad'];
+        $communicablediseases->relationship = $data['rol_familiar'];
+        $communicablediseases->occupation = $data['ocupacion_integrantes'];
+        $communicablediseases->incomeContribution = $data['aporta_ingresos'];
+        $communicablediseases->educationLevel = $data['nivel_escolaridad'];
+        $communicablediseases->affiliationType = $data['vinculacion_sgsss'];
+        $communicablediseases->specialCareGroup = $data['grupo_atencion_familiar'];
+        $communicablediseases->speaksCreole = $data['habla_creole'];
+        $communicablediseases->covidVaccine = $data['vacunas_covid'];
+        $communicablediseases->vaccineDoses = $data['dosis_vacuna'];
+        $communicablediseases->substanceUse = $data['consumo_sustancias'];
+        $communicablediseases->substanceType = $data['tipo_sustancias'];
+        $communicablediseases->dresserChronic = $data['dresserChronic'];
+        $communicablediseases->tripZonesEndemic = $data['tripZonesEndemic'];
         $communicablediseases->userId = $data['userId'];
         $communicablediseases->personaId = $data['personaId'];
-        $communicablediseases->viviendaId = $data['viviendaId'];
+        //Hacer el campo "viviendaId" nullable
+        $communicablediseases->viviendaId = $data['viviendaId'] ?? 0;
         
         // Guardamos el objeto en la base de datos
         $communicablediseases->save();
@@ -123,28 +125,31 @@ class communicablediseasesController extends Controller
         }
     
         // Actualiza los campos con los valores proporcionados en los datos
-        $communicablediseases->fullName = $data['fullName'];
-        $communicablediseases->sex = $data['sex'];
+        $communicablediseases->fullName = $data['primer_nombre'];
+        $communicablediseases->sex = $data['sexo'];
         $communicablediseases->otherSex = isset($data['otherSex']) ? $data['otherSex'] : null;
-        $communicablediseases->age = $data['age'];
-        $communicablediseases->relationship = $data['relationship'];
-        $communicablediseases->occupation = $data['occupation'];
-        $communicablediseases->incomeContribution = $data['incomeContribution'];
-        $communicablediseases->educationLevel = $data['educationLevel'];
-        $communicablediseases->affiliationType = $data['affiliationType'];
-        $communicablediseases->specialCareGroup = $data['specialCareGroup'];
-        $communicablediseases->speaksCreole = $data['speaksCreole'];
-        $communicablediseases->covidVaccine = $data['covidVaccine'];
-        $communicablediseases->vaccineDoses = $data['vaccineDoses'];
-        $communicablediseases->substanceUse = $data['substanceUse'];
-        $communicablediseases->substanceType = $data['substanceType'];
+        $communicablediseases->age = $data['edad'];
+        $communicablediseases->relationship = $data['rol_familiar'];
+        $communicablediseases->occupation = $data['ocupacion_integrantes'];
+        $communicablediseases->incomeContribution = $data['aporta_ingresos'];
+        $communicablediseases->educationLevel = $data['nivel_escolaridad'];
+        $communicablediseases->affiliationType = $data['vinculacion_sgsss'];
+        $communicablediseases->specialCareGroup = $data['grupo_atencion_familiar'];
+        $communicablediseases->speaksCreole = $data['habla_creole'];
+        $communicablediseases->covidVaccine = $data['vacunas_covid'];
+        $communicablediseases->vaccineDoses = $data['dosis_vacuna'];
+        $communicablediseases->substanceUse = $data['consumo_sustancias'];
+        $communicablediseases->substanceType = $data['tipo_sustancias'];
+        $communicablediseases->dresserChronic = $data['dresserChronic'];
+        $communicablediseases->tripZonesEndemic = $data['tripZonesEndemic'];
+
     
         // Guarda los cambios en la base de datos
         $communicablediseases->save();
     
         return response()->json(['message' => 'Registro actualizado con éxito']);
     }
-            /**
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)
