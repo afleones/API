@@ -189,6 +189,6 @@ class AuthController extends Controller
             "users"=>$users
         ]);
     }
-
+    
     
 }
