@@ -186,6 +186,7 @@ class personController extends Controller
         //$fecha2 = $data['fecha2'];
         //$viviendaid = $data['viviendaid'];
         
+
         $person = person::where('person.userid', $userid)
                          ->where(function($query) use ($data) {  
                             if (isset($data['id'])) {
@@ -228,6 +229,8 @@ class personController extends Controller
                         \DB::raw('IFNULL(youth.id, 0) as formulario_youth')
                         )
                          ->get();
+
+       
 
         //$dataArray = array($person);     
         $dataArray = $person;             
