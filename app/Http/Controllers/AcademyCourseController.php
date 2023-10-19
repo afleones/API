@@ -38,6 +38,7 @@ class AcademyCourseController extends Controller
         $Course->Author= $data['Author'];
         $Course->Image= $data['Image'];
         $Course->Description= $data['Description'];
+        $Course->CategoryId= $data['CategoryId'];
         $Course->State= $data['State'];
 
         // Guardamos el objeto en la base de datos
@@ -87,6 +88,7 @@ class AcademyCourseController extends Controller
         $Author = $data['Author'] ?? 0;
         $Image = $data['Image'] ?? 0;
         $Description = $data['Description'] ?? '';
+        $CategoryId = $data['CategoryId'] ?? '';
         $State = $data['State'] ?? 0;
 
         try {
@@ -95,6 +97,7 @@ class AcademyCourseController extends Controller
                 'Author' => $Author,
                 'Image' => $Image,
                 'Description' => $Description,
+                'CategoryId' => $CategoryId,
                 'State' => $State,
                 // Agrega otros campos que quieras actualizar aquí
             ]);
