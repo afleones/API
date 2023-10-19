@@ -136,7 +136,7 @@ class AcademyCategoryController extends Controller
 
                          })
                          
-                         ->selectRaw('Id,Title')
+                         ->selectRaw('Id,Title,State')
 
                          
                          ->get();
@@ -165,6 +165,7 @@ class AcademyCategoryController extends Controller
                             $payload[] = [
                                 'Id' => $Category->Id,
                                 'Title' => $Category->Title,
+                                'State' => $Category->State,
                                 'courses' => $coursesData
                             ];
                         }
