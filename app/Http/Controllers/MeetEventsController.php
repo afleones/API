@@ -30,7 +30,7 @@ class MeetEventsController extends Controller
         $event->save();
           
         // Retornamos una respuesta de éxito
-        return response()->json(['message' => 'Datos insertados correctamente', 'event' => $event], 201);
+        return response()->json(['message' => 'Datos insertados correctamente']);
     }
     
     

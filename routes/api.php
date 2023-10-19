@@ -100,15 +100,18 @@ use App\Http\Controllers\UsersAccountsController;
 
 //controllers app Meet
 
-/* controllers app Meet */
+/* Events Controller */
 use App\Http\Controllers\MeetEventsController;
+/* end */
+
+/* Chat Controller */
+use App\Http\Controllers\ChatController;
 /* end */
 
 // Controllers app Meet
 
 
 //Api Controllers GenomaX_Documents End
-
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -261,10 +264,11 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('SaveClass', [AcademyClassController::class, 'store']);
     Route::post('UpdateClass', [AcademyClassController::class, 'update']);
     Route::get('DeleteClass', [AcademyClassController::class, 'destroy']);
+
     //Api Routes Academy End
 
 
-     //Api Routes Meet Start
+    //Api Routes Meet Start
 
     /* events */
     Route::post('saveEvent', [MeetEventsController::class, 'store']);
@@ -273,7 +277,12 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('event', [MeetEventsController::class, 'show']);
     /* end */
 
-     //Api Routes Meet end
+    /* chat */
+    Route::post('/chat/send', [ChatController::class, 'sendMessage']);
+    Route::get('/chat/history', [ChatController::class, 'getChatHistory']);
+    /* end */
+
+    //Api Routes Meet end
 
 
     Route::get('user-profile', [AuthController::class, 'userProfile']);
