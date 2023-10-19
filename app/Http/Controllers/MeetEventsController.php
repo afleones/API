@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MeetEvent;
+use Symfony\Component\HttpFoundation\Response;
 
 class MeetEventsController extends Controller
 {
@@ -22,7 +23,7 @@ class MeetEventsController extends Controller
         $event->description = $data['description'] ?? 'Sin Descripcion';
         $event->start = $data['start'];
         $event->end = $data['end'];
-        $event->url = $data['url'] ?? 'Sin Descripcion';
+        $event->url = $data['url'] ?? '';
         $event->status = $data['status'] ?? 1;
         $event->userId = $data['userId'];
                        
@@ -33,8 +34,6 @@ class MeetEventsController extends Controller
         return response()->json(['message' => 'Datos insertados correctamente']);
     }
     
-    
-
     public function update(Request $request, MeetEvent $id)
     {   
         $data = $request->all();
@@ -73,8 +72,9 @@ class MeetEventsController extends Controller
             if (isset($data['status'])) {
                 $query->where('status', 0);
             }
-            })->get();     
-
-        return $event;
+            })->get();  
+    
+        $dataArray = ($event);                                     
+        return $dataArray;
     }
 }
