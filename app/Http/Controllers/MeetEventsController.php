@@ -22,7 +22,7 @@ class MeetEventsController extends Controller
         $event->description = $data['description'] ?? 'Sin Descripcion';
         $event->start = $data['start'];
         $event->end = $data['end'];
-        $event->url = $data['url'];
+        $event->url = $data['url'] ?? 'Sin Descripcion';
         $event->status = $data['status'] ?? 1;
         $event->userId = $data['userId'];
                        
