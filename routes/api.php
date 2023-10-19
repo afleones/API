@@ -271,7 +271,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     //Api Routes Meet Start
 
     /* events */
-    Route::post('saveEvent', [MeetEventsController::class, 'store']);
+    Route::post('createEvent', [MeetEventsController::class, 'store']);
     Route::post('updateEvent', [MeetEventsController::class, 'update']);
     Route::post('events', [MeetEventsController::class, 'index']);
     Route::post('event', [MeetEventsController::class, 'show']);
