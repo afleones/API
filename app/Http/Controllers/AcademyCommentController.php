@@ -10,6 +10,8 @@ use App\Models\AcademyClass;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Carbon;
+
 class AcademyCommentController extends Controller
 {
     /**
@@ -84,7 +86,8 @@ class AcademyCommentController extends Controller
         $data = $request->all();   
               
 
-        $Comments = AcademyComment::where(function($query) use ($data) {
+        $Comments = AcademyComment::join('maite_backend.users', 'users.id', '=', 'Comment.UserId')
+                                    ->where(function($query) use ($data) {
                             if (isset($data['id'])) {
                                 $query->Where('id', $data['id']);
                             }
@@ -101,18 +104,46 @@ class AcademyCommentController extends Controller
 
                          $payload = []; // Inicializa el arreglo de resultados
 
+                         $fechaActual = time();
+
                          foreach ($Comments as $Comment) {
-                             $CommentDetail = AcademyCommentDetail::where('CommentId', $Comment->Id)->get();
-                                
+                             $CommentDetails = AcademyCommentDetail::join('maite_backend.users', 'users.id', '=', 'Comment_Detail.UserId')
+                                                                    ->where('CommentId', $Comment->Id)->get();
 
-                             
+                                                                    $commentDetailList=[];
+                                                                    foreach ($CommentDetails as $CommentDetail) {
 
+                                                                        /*
+                                                                        $fechaCreacion = strtotime($CommentDetail->created_at);
+                                                                        $resta = $fechaActual - $fechaCreacion;
+                                                                        $minutosTranscurridosCreacion = floor($resta / 60);
+                                                                        $horasTranscurridasCreacion = floor($resta / 3600);
+                                                                        $diasTranscurridosCreacion = floor($resta / 86400);
+                                                                        */
+
+                                                                            $commentDetailList[] =[
+                                                                                'id' => $CommentDetail->Id,
+                                                                                'UserId' => $CommentDetail->UserId,
+                                                                                'author' => $CommentDetail->name,
+                                                                                'imageSrc' => '',
+                                                                                'content' => $CommentDetail->Comment,
+                                                                                'parentId' => '',
+                                                                                'timeAgo' => $CommentDetail->created_at,
+                                                                                'timeAgoUpdate' => $CommentDetail->updated_at,
+                                                                            ];
+                                                                    }
+                            
                              $payload[] = [
-                                'Id' => $Comment->Id,
+                                'id' => $Comment->Id,
                                 'UserId' => $Comment->UserId,
+                                'author' => $Comment->name,
+                                'imageSrc' => '',
                                 'ClassId' => $Comment->ClassId,
-                                'Comment' => $Comment->Comment,
-                                'CommentDetailData' => $CommentDetail
+                                'content' => $Comment->Comment,
+                                'parentId' => '',
+                                'timeAgo' => $Comment->created_at,
+                                'timeAgoUpdate' => $Comment->updated_at,
+                                'replies' => $commentDetailList
                             ];
                          }        
         
