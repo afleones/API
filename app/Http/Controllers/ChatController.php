@@ -15,7 +15,6 @@ class ChatController extends Controller
         $user = auth()->user(); // Supongamos que obtienes al usuario actual
         $message = $request->$data['message']; // Obtén el mensaje del formulario
 
-
         // Emite un evento para notificar a otros usuarios sobre el nuevo mensaje
         event(new ChatMessageSent($user, $message));
 

@@ -300,8 +300,8 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* end */
 
     /* chat */
-    Route::post('/chat/send', [ChatController::class, 'sendMessage']);
-    Route::get('/chat/history', [ChatController::class, 'getChatHistory']);
+    Route::post('chat/send', [ChatController::class, 'sendMessage']);
+    Route::get('chat/history', [ChatController::class, 'getChatHistory']);
     /* end */
 
     //Api Routes Meet end
