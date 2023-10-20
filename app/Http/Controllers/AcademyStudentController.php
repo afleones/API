@@ -47,7 +47,7 @@ class AcademyStudentController extends Controller
         // Guardamos el objeto en la base de datos
         $students->save();
 
-        $insertedId = $students->id;
+        $insertedId = $students->Id;
     
     
         // Retornamos una respuesta de éxito

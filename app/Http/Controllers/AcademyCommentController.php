@@ -47,7 +47,7 @@ class AcademyCommentController extends Controller
         // Guardamos el objeto en la base de datos
         $Comment->save();
     
-        $insertedId = $Comment->id;
+        $insertedId = $Comment->Id;
     
         // Retornamos una respuesta de éxito
         return response()->json(['message' => 'Datos insertados correctamente', 'inserted_id' => $insertedId]);
