@@ -215,14 +215,15 @@ class AuthController extends Controller
         ]);
     }
 
+    // Para Listar Invitados con rol 4(Estudiante) y 5(Docente) -- MEET
     public function showInvitados(Request $request, User $user)
     {
         $data = $request->all(); 
 
         $users = User::where(function($query) use ($data) {  
-            $query->Where('role', $data['role']);
+            $query->where('role', 4)
+                ->orWhere('role', 5);
         })->get();
-
         return response()->json([
             "users" => $users
         ]);
