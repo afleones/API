@@ -73,7 +73,7 @@ class MeetEventsController extends Controller
         
         $dataArray = $event;
         return $dataArray;
-              
+    }         
     //     $event = MeetEvent::where(function($query) use ($data) {
     //         if (isset($data['id'])) {
     //             $query->Where('id', $data['id']);
