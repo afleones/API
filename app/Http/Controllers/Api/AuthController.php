@@ -99,14 +99,17 @@ class AuthController extends Controller
             return response(["message" => "La contraseña actual no coincide"], Response::HTTP_UNAUTHORIZED);
         }
     }
-    
+
+    // Listar todos los Usuarios
      public function allUsers() {
          $users=User::all();
          return response()->json([
              "users"=>$users
          ]);
-     }
+    }
+    // Aqui Finaliza la Funcion
 
+    // Crear Usuarios
     public function store(Request $request,  User $user)
     {
         $data = $request->all();
@@ -158,7 +161,9 @@ class AuthController extends Controller
         return response()->json(['message' => 'account created']);
         */
     }
+    // Aqui Finaliza la Funcion
 
+    // Actualizar Datos de Usuario
     public function update(Request $request)
     {
         $data = $request->all();
@@ -186,23 +191,11 @@ class AuthController extends Controller
         $user->save();
     
         return response()->json(['message' => 'Registro actualizado con éxito']);
-    } 
-  
-    // public function showLider(Request $request,  User $user)
-    // {
-    //     $data = $request->all(); 
+    }
+    // Aqui Finaliza la Funcion
 
-    //     $users=User::where(function($query) use ($data) {  
-    //         if (isset($data['role'])) {
-    //             $query->Where('role', $data['role']);
-    //         }
-    //      })->get();
-    //     return response()->json([
-    //         "users"=>$users
-    //     ]);
-    // }
-
-        public function showLider(Request $request, User $user)
+    // Para Listar Lideres -- DOCUMENTS
+    public function showLider(Request $request, User $user)
     {
         $data = $request->all(); 
 
@@ -214,19 +207,17 @@ class AuthController extends Controller
             "users" => $users
         ]);
     }
+    // Aqui Finaliza la Funcion
 
     // Para Listar Invitados con rol 4(Estudiante) y 5(Docente) -- MEET
     public function showInvitados(Request $request, User $user)
     {
-        $data = $request->all(); 
-
-        $users = User::where(function($query) use ($data) {  
-            $query->where('role', 4)
-                ->orWhere('role', 5);
+        $users = User::where(function($query){  
+            $query->where('role', 4)->orWhere('role', 5);
         })->get();
         return response()->json([
             "users" => $users
         ]);
     }
-
+    // Aqui Finaliza la Funcion
 }
