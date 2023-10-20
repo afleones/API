@@ -69,6 +69,9 @@ class AcademyCourseController extends Controller
                             if (isset($data['State'])) {
                                 $query->Where('State', $data['State']);
                             }
+                            if (isset($data['CategoryId'])) {
+                                $query->Where('CategoryId', $data['CategoryId']);
+                            }
                          })
                          ->get();     
 
