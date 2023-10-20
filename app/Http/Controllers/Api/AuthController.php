@@ -202,16 +202,30 @@ class AuthController extends Controller
     //     ]);
     // }
 
-    public function showLider(Request $request, User $user)
-{
-    $data = $request->all(); 
+        public function showLider(Request $request, User $user)
+    {
+        $data = $request->all(); 
 
-    $users = User::where(function($query) use ($data) {  
-        $query->Where('role', 3); // Establecemos 'role' igual a 3
-    })->get();
+        $users = User::where(function($query) use ($data) {  
+            $query->Where('role', 3); // Establecemos 'role' igual a 3
+        })->get();
 
-    return response()->json([
-        "users" => $users
-    ]);
-}
+        return response()->json([
+            "users" => $users
+        ]);
+    }
+
+    public function showInvitados(Request $request, User $user)
+    {
+        $data = $request->all(); 
+
+        $users = User::where(function($query) use ($data) {  
+            $query->Where($data['role']);
+        })->get();
+
+        return response()->json([
+            "users" => $users
+        ]);
+    }
+
 }

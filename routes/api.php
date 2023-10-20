@@ -283,6 +283,10 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('event', [MeetEventsController::class, 'show']);
     /* end */
 
+    /* invitados a meet */
+    Route::post('invitados', [AuthController::class, 'showInvitados']);
+    /* end */
+
     /* chat */
     Route::post('/chat/send', [ChatController::class, 'sendMessage']);
     Route::get('/chat/history', [ChatController::class, 'getChatHistory']);
