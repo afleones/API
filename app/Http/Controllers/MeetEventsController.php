@@ -57,24 +57,39 @@ class MeetEventsController extends Controller
 
     public function show(Request $request)
     {
-        $data = $request->all();   
-              
+        $data = $request->all();  
+        
         $event = MeetEvent::where(function($query) use ($data) {
             if (isset($data['id'])) {
-                $query->Where('id', $data['id']);
+                $query->where('id', $data['id']);
             }
             if (isset($data['userId'])) {
-                $query->Where('userId', $data['userId']);
+                $query->where('userId', $data['userId']);
             }
             if (isset($data['title'])) {
-                $query->Where('title', $data['title']);
+                $query->where('title', $data['title']);
             }
-            if (isset($data['status'])) {
-                $query->where('status', 0);
-            }
-            })->get();  
-    
-        $dataArray = ($event);                                     
+        })->where('status', '!=', 0)->get();
+        
+        $dataArray = $event;
         return $dataArray;
-    }
+              
+    //     $event = MeetEvent::where(function($query) use ($data) {
+    //         if (isset($data['id'])) {
+    //             $query->Where('id', $data['id']);
+    //         }
+    //         if (isset($data['userId'])) {
+    //             $query->Where('userId', $data['userId']);
+    //         }
+    //         if (isset($data['title'])) {
+    //             $query->Where('title', $data['title']);
+    //         }
+    //         if (isset($data['status'])) {
+    //             $query->where('status', 0);
+    //         }
+    //         })->get();  
+    
+    //     $dataArray = ($event);                                     
+    //     return $dataArray;
+    // }
 }
