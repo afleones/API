@@ -220,7 +220,7 @@ class AuthController extends Controller
         $data = $request->all(); 
 
         $users = User::where(function($query) use ($data) {  
-            $query->Where($data['role']);
+            $query->Where('role', $data['role']);
         })->get();
 
         return response()->json([
