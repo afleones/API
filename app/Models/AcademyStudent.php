@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Str; 
+
 class AcademyStudent extends Model
 {
     use HasFactory;
@@ -20,5 +22,6 @@ class AcademyStudent extends Model
             $table->Id = Str::random(10); // Generar un código alfanumérico único de 10 caracteres
         });
     }
+
 }
     
