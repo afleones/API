@@ -32,6 +32,7 @@ use App\Http\Controllers\AcademyCategoryController;
 use App\Http\Controllers\AcademyCourseController;
 use App\Http\Controllers\AcademyClassController;
 use App\Http\Controllers\AcademyStudentController;
+use App\Http\Controllers\AcademyCommentController;
 
 //Api Controllers GenomaX_Documents Start
 
@@ -267,8 +268,19 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::get('DeleteClass', [AcademyClassController::class, 'destroy']);
 
     Route::get('Students', [AcademyStudentController::class, 'index']);
-
+    Route::post('Student', [AcademyStudentController::class, 'show']);
     Route::post('SaveStudent', [AcademyStudentController::class, 'store']);
+    Route::post('UpdateStudent', [AcademyStudentController::class, 'update']);
+
+
+    Route::get('Comments', [AcademyCommentController::class, 'index']);
+    Route::post('Comment', [AcademyCommentController::class, 'show']);
+    
+    Route::post('SaveComment', [AcademyCommentController::class, 'store']);
+    Route::post('SaveCommentDetail', [AcademyCommentController::class, 'storeDetail']);
+    
+    Route::post('UpdateComment', [AcademyCommentController::class, 'update']);
+    Route::post('UpdateCommentDetail', [AcademyCommentController::class, 'updateDetail']);
 
 
     //Api Routes Academy End

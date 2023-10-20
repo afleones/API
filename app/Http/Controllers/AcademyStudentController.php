@@ -42,7 +42,6 @@ class AcademyStudentController extends Controller
         $students->CourseId= $data['CourseId'];
         $students->ClassId= $data['ClassId'];
         $students->StudentId= $data['StudentId'];
-        $students->State= $data['CategoryId'];
         $students->State= $data['State'];
 
         // Guardamos el objeto en la base de datos
@@ -63,44 +62,56 @@ class AcademyStudentController extends Controller
         $data = $request->all();   
               
 
-        $Course = AcademyCourse::where(function($query) use ($data) {
-                            if (isset($data['id'])) {
-                                $query->Where('id', $data['id']);
-                            }
-                            if (isset($data['Author'])) {
-                                $query->Where('Author', $data['Author']);
-                            }
-                            if (isset($data['State'])) {
-                                $query->Where('State', $data['State']);
-                            }
-                         })
-                         ->get();     
+        $students = AcademyStudent::where(function($query) use ($data) {
+                                        if (isset($data['id'])) {
+                                            $query->Where('Category_Course_Class_Student.id', $data['id']);
+                                        }
+                                        if (isset($data['StudentId'])) {
+                                            $query->Where('StudentId', $data['StudentId']);
+                                        }
+                                        
+                                    })
+                                    ->join('Category', 'Category.id', '=', 'Category_Course_Class_Student.CategoryId')
+                                    ->join('Course', 'Course.id', '=', 'Category_Course_Class_Student.CourseId')
+                                    ->join('Class', 'Class.id', '=', 'Category_Course_Class_Student.ClassId')
+                                    ->join('maite_backend.users', 'users.id', '=', 'Category_Course_Class_Student.StudentId')
+            ->selectRaw("Category_Course_Class_Student.CategoryId,Category.Title as Title_Category,
+            Category_Course_Class_Student.CourseId, Course.Title as Title_Course, 
+                        ClassId, Class.Title as Title_Class,
+                        StudentId, users.name, 
+                        Category_Course_Class_Student.State")
+            ->get();
+
+
+       
 
                                          
         
-        return $Course;
+        return $students;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AcademyCourse $AcademyCourse)
+    public function update(Request $request, AcademyStudent $AcademyStudent)
     {
         $data = $request->all();
+
+
         $Id = $data['Id'];
-        $Title = $data['Title'] ?? '';
-        $Author = $data['Author'] ?? 0;
-        $Image = $data['Image'] ?? 0;
-        $Description = $data['Description'] ?? '';
-        $CategoryId = $data['CategoryId'] ?? '';
+        $CategoryId = $data['CategoryId'] ?? 0;
+        $CourseId = $data['CourseId'] ?? 0;
+        $ClassId = $data['ClassId'] ?? 0;
+        $StudentId = $data['StudentId'] ?? 0;
         $State = $data['State'] ?? 0;
 
+       
         try {
-            AcademyCourse::where('id', $Id)->update([
-                'Title' => $Title,
-                'Author' => $Author,
-                'Image' => $Image,
-                'Description' => $Description,
+            AcademyStudent::where('id', $Id)->update([
+                'CategoryId' => $CategoryId,
+                'CourseId' => $CourseId,
+                'ClassId' => $ClassId,
+                'StudentId' => $StudentId,
                 'CategoryId' => $CategoryId,
                 'State' => $State,
                 // Agrega otros campos que quieras actualizar aquí
