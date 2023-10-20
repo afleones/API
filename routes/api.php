@@ -284,7 +284,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* end */
 
     /* invitados a meet */
-    Route::post('invitados', [AuthController::class, 'showInvitados']);
+    Route::post('guests', [AuthController::class, 'showGuests']);
     /* end */
 
     /* chat */

@@ -210,7 +210,7 @@ class AuthController extends Controller
     // Aqui Finaliza la Funcion
 
     // Para Listar Invitados con rol 4(Estudiante) y 5(Docente) -- MEET
-    public function showInvitados(Request $request, User $user)
+    public function showGuests(Request $request, User $user)
     {
         $users = User::where(function($query){  
             $query->where('role', 4)->orWhere('role', 5);
