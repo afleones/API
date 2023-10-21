@@ -122,10 +122,10 @@ class AcademyCategoryController extends Controller
         //var_dump($data);exit();
         //$userid = $data['userid'];
 
-        $Categories = AcademyCategory::
-                         where(function($query) use ($data) {  
-                            if (isset($data['Id'])) {
-                                $query->Where('Id', $data['Id']);
+        $Categories = AcademyCategory::join('maite_backend.users', 'users.id', '=', 'Category.Author')
+                         ->where(function($query) use ($data) {  
+                            if (isset($data['Category.Id'])) {
+                                $query->Where('Category.Id', $data['Id']);
                             }
                             if (isset($data['Author'])) {
                                 $query->Where('Author', $data['Author']);
@@ -136,7 +136,7 @@ class AcademyCategoryController extends Controller
 
                          })
                          
-                         ->selectRaw('Id,Title,State')
+                         ->selectRaw('Category.Id,Author,name,Title,State')
 
                          
                          ->get();
@@ -145,25 +145,56 @@ class AcademyCategoryController extends Controller
                          $payload = []; // Inicializa el arreglo de resultados
 
                         foreach ($Categories as $Category) {
-                            $detalleCourses = AcademyCourse::where('CategoryId', $Category->Id)->get();
+                            $detalleCourses = AcademyCourse::join('maite_backend.users', 'users.id', '=', 'Course.Author')
+                                                             ->where('CategoryId', $Category->Id)->get();
                             $coursesData = [];
 
                             foreach ($detalleCourses as $Course) {
-                                $detalleClass = AcademyClass::where('CourseId', $Course->Id)->get();
+                                $detalleClasses = AcademyClass::join('maite_backend.users', 'users.id', '=', 'Class.Author')
+                                                              ->where('CourseId', $Course->Id)
+                                                              ->selectRaw('Class.Id,Title,Author,name,Image,CourseId,Video,Description,State,Class.created_at,Class.updated_at')
+                                                              ->get();
+
+                                                              $detalleClassList=[];
+                                                                    foreach ($detalleClasses as $detalleClassDetail) {
+
+                                                                       
+
+                                                                            $detalleClassList[] =[
+                                                                                'Id' => $detalleClassDetail->Id,
+                                                                                'Title' => $detalleClassDetail->Title,
+                                                                                'AuthorId' => $detalleClassDetail->Author,
+                                                                                'Author' => $detalleClassDetail->name,
+                                                                                'Image' => $detalleClassDetail->Image,
+                                                                                'CourseId' => $detalleClassDetail->CourseId,
+                                                                                'Video' => $detalleClassDetail->Video,
+                                                                                'Description' => $detalleClassDetail->Description,
+                                                                                'State' => $detalleClassDetail->State,
+                                                                                'created_at' => $detalleClassDetail->created_at,
+                                                                                'updated_at' => $detalleClassDetail->updated_at,
+                                                                            ];
+                                                                    }
+
+
+
+
                                 $coursesData[] = [
                                     'Id' => $Course->Id,
                                     'Title' => $Course->Title,
-                                    'Author' => $Course->Author,
+                                    'AuthorId' => $Course->Author,
+                                    'Author' => $Course->name,
                                     'Image' => $Course->Image,
                                     'Description' => $Course->Description,
                                     'CategoryId' => $Course->CategoryId,
                                     'State' => $Course->State,
-                                    'classes' => $detalleClass
+                                    'classes' => $detalleClassList
                                 ];
                             }
 
                             $payload[] = [
                                 'Id' => $Category->Id,
+                                'AuthorId' => $Category->Author,
+                                'Author' => $Category->name,
                                 'Title' => $Category->Title,
                                 'State' => $Category->State,
                                 'courses' => $coursesData
