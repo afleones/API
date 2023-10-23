@@ -192,8 +192,8 @@ class personController extends Controller
                             if (isset($data['id'])) {
                                 $query->Where('person.id', $data['id']);
                             }
-                            if (isset($data['person.viviendaid'])) {
-                                $query->Where('viviendaid', $data['viviendaid']);
+                            if (isset($data['viviendaid'])) {
+                                $query->Where('person.viviendaid', $data['viviendaid']);
                             }
                             if (isset($data['person.edad1']) && isset($data['person.edad2'])) {
                                 $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
@@ -202,7 +202,7 @@ class personController extends Controller
                                 $query->Where('sexo', $data['sexo']);
                             }
 
-                            
+                           
                             
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
