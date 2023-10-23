@@ -38,7 +38,7 @@ class MeetEventsController extends Controller
 
         $guestsEvent = new MeetGuestsEvent();
         $guestsEvent->eventId = $eventId;
-        $guestsEvent->guestId = $data['guestId'];
+        $guestsEvent->guestId = $data['guestId'] ?? 0;
         $guestsEvent->userId = $data['userId'];
         $guestsEvent->status = $data['status'] ?? 1;
 
