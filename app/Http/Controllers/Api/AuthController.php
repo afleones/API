@@ -183,12 +183,9 @@ class AuthController extends Controller
     $user->name = $data['name'];
     $user->status = $data['status'];
     $user->email = $data['email'];  
-    // Verifica si la contraseña se proporcionó y es diferente de la contraseña actual
-    if (isset($data['password']) && $data['password'] != $user->password) {
-        $user->password = Hash::make($data['password']);
-    }
     $user->userId = $data['userId'];
     $user->liderid = $data['liderid'] ?? NULL;
+    
     // Guarda los cambios en la base de datos
     $user->save();
 
