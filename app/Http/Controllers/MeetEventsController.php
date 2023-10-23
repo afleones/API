@@ -16,97 +16,90 @@ class MeetEventsController extends Controller
         //
     }
 
-    public function store(Request $request)
-    {
+public function store(Request $request)
+{
+    $data = $request->all();
 
-        $data = $request->all();
+    $event = new MeetEvent();
+    $event->title = $data['title'];
+    $event->description = $data['description'] ?? 'Sin Descripción';
+    $event->start = $data['start'];
+    $event->end = $data['end'];
+    $event->url = $data['url'] ?? '';
+    $event->status = $data['status'] ?? 1;
+    $event->userId = $data['userId'];
 
-        $event = new MeetEvent();
-        $event->title = $data['title'];
-        $event->description = $data['description'] ?? 'Sin Descripcion';
-        $event->start = $data['start'];
-        $event->end = $data['end'];
-        $event->url = $data['url'] ?? '';
-        $event->status = $data['status'] ?? 1;
-        $event->userId = $data['userId'];
+    // Guardamos el objeto en la base de datos
+    $event->save();
 
-        // Guardamos el objeto en la base de datos
-        $event->save();
+    // Obtener el ID del registro de la primera tabla
+    $eventId = $event->getKey();
 
-        // Obtener el ID del registro de la primera tabla
-        $eventId = $event->getKey();
+    $guestIds = $data['guestIds'];
+    $userId = $data['userId'];
 
+    // Crear registros en la tabla MeetGuestsEvent para cada guestId
+    foreach ($guestIds as $guestId) {
         $guestsEvent = new MeetGuestsEvent();
         $guestsEvent->eventId = $eventId;
-        $guestsEvent->guestId = $data['guestId'] ?? 0;
-        $guestsEvent->userId = $data['userId'];
-        $guestsEvent->status = $data['status'] ?? 1;
-
+        $guestsEvent->guestId = $guestId;
+        $guestsEvent->userId = $userId;
+        $guestsEvent->status = 1;
+        // Otros campos según tus necesidades
         // Guardamos el objeto en la base de datos
         $guestsEvent->save();
-
-        // Retornamos una respuesta de éxito
-        return response()->json(['message' => 'evento creado exitosamente',
-        'event'=> $event,
-        'guestsEvent'=> $guestsEvent]);
-        // Retornamos una respuesta de éxito
-        return response()->json(['message' => 'usuarios asignados correctamente']);
     }
+
+    // Retornamos una respuesta de éxito
+    return response()->json(['message' => 'evento creado exitosamente']);
+}
+
     
     public function update(Request $request, MeetEvent $id)
-    {   
-        $data = $request->all();
-        $id = $data['id'];
-        $userId = $data['userId'];
+{
+    $data = $request->all();
+    $id = $data['id'];
+    $userId = $data['userId'];
 
-        // Obtener el evento a actualizar
-        $tabla = MeetEvent::where('id', $id)->where('userId', $userId)->firstOrFail();
+    // Obtener el evento a actualizar
+    $event = MeetEvent::where('id', $id)->where('userId', $userId)->firstOrFail();
 
-        $tabla->title = $data['title'] ?? $tabla->title;
-        $tabla->description = $data['description'] ?? $tabla->description;
-        $tabla->start = $data['start'] ?? $tabla->start; // Si no se proporciona, se usa el valor existente.
-        $tabla->end = $data['end'] ?? $tabla->end; // Si no se proporciona, se usa el valor existente.;
-        $tabla->url = $data['url'] ?? $tabla->url;
-        $tabla->status = $data['status'] ?? $tabla->status;
+    $event->title = $data['title'] ?? $event->title;
+    $event->description = $data['description'] ?? $event->description;
+    $event->start = $data['start'] ?? $event->start;
+    $event->end = $data['end'] ?? $event->end;
+    $event->url = $data['url'] ?? $event->url;
+    $event->status = $data['status'] ?? $event->status;
 
-        $tabla->save();
+    $event->save();
 
-        return response()->json(['message' => 'Datos Actualizado correctamente']);
-    }
+    // Actualizar el campo 'status' en el modelo MeetGuestsEvent relacionado
+    MeetGuestsEvent::where('eventId', $event->id)->update(['status' => $event->status]);
+
+    return response()->json(['message' => 'Datos Actualizados correctamente']);
+}
 
     public function show(Request $request)
     {
-        $data = $request->all();
-    
-        // Obtén el valor de guestId del request.
-        $guestId = $data['guestId'];
-    
-        // Asegúrate de que guestId sea requerido y sea un número entero.
-        $rules = [
-            'guestId' => 'required|integer',
-        ];
-    
-        $validator = Validator::make($data, $rules);
-    
-        if ($validator->fails()) {
-            return response()->json(['error' => 'Los datos proporcionados no son válidos.'], 400);
-        }
-    
-        // Realiza la consulta para obtener los datos de la tabla events que coincidan con guestId.
-        $events = MeetEvent::join('Meet_Guests_Class_Event', 'events.id', '=', 'Meet_Guests_Class_Event.eventId')
-            ->select('events.*')
-            ->where('Meet_Guests_Class_Event.guestId', $guestId)
-            ->where('events.status', '!=', 0)
-            ->get();
-    
-        // Realiza la consulta para obtener los datos de la tabla Meet_Guests_Class_Event que coincidan con guestId.
-        $guestEvents = MeetGuestsEvent::where('guestId', $guestId)
-            ->get();
-    
-        // Devuelve los resultados en formato JSON en dos arrays separados.
-        return response()->json(['events' => $events, 'guestEvents' => $guestEvents]);
-    }
-            
+        $data = $request->all();  
+        
+        $event = MeetEvent::where(function($query) use ($data) {
+            if (isset($data['id'])) {
+                $query->where('id', $data['id']);
+            }
+            if (isset($data['userId'])) {
+                $query->where('userId', $data['userId']);
+            }
+            if (isset($data['title'])) {
+                $query->where('title', $data['title']);
+            }
+        })->where('status', '!=', 0)->get();
+        
+        $dataArray = $event;
+        return $dataArray;
+    }         
+        
+
 
     // public function show(Request $request)
     // {
@@ -145,4 +138,39 @@ class MeetEventsController extends Controller
     //     $dataArray = ($event);                                     
     //     return $dataArray;
     // }
+	
+	    public function validarReunion(Request $request)
+    {
+        $data = $request->all();
+    
+        // Obtén el valor de guestId del request.
+        $guestId = $data['guestId'];
+    
+        // Asegúrate de que guestId sea requerido y sea un número entero.
+        $rules = [
+            'guestId' => 'required|integer',
+        ];
+    
+        $validator = Validator::make($data, $rules);
+    
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Los datos proporcionados no son válidos.'], 400);
+        }
+    
+        // Realiza la consulta para obtener los datos de la tabla events que coincidan con guestId.
+        $events = MeetEvent::join('Meet_Guests_Class_Event', 'events.id', '=', 'Meet_Guests_Class_Event.eventId')
+            ->select('events.*')
+            ->where('Meet_Guests_Class_Event.guestId', $guestId)
+            ->where('events.status', '!=', 0)
+            ->get();
+    
+        // Realiza la consulta para obtener los datos de la tabla Meet_Guests_Class_Event que coincidan con guestId.
+        $guestEvents = MeetGuestsEvent::where('guestId', $guestId)
+            ->get();
+    
+        // Devuelve los resultados en formato JSON en dos arrays separados.
+        return response()->json(['events' => $events, 'guestEvents' => $guestEvents]);
+
+    }
+
 }
