@@ -165,34 +165,65 @@ class AuthController extends Controller
 
     // Actualizar Datos de Usuario
     public function update(Request $request)
-    {
-        $data = $request->all();
-        $id = $data['id'];        
-        //var_dump($data);exit();
-        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
-        $user = User::where('id', $id)->first();
-    
-        // Verifica si se encontró el registro
-        if (!$user) {
-            return response()->json(['message' => 'Registro no encontrado'], 404);
-        }
-    
-        // Actualiza los campos con los valores proporcionados en los datos
-        $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
-        $user->role = $data['role'];
-        $user->name = $data['name'];
-        $user->status = $data['status'];
-        $user->email = $data['email'];
-        $user->password =  Hash::make($data['password']);
-        $user->userId = $data['userId'];
-        $user->liderid = $data['liderid']?? NULL;
+{
+    $data = $request->all();
+    $id = $data['id'];
 
-        // Guarda los cambios en la base de datos
-        $user->save();
-    
-        return response()->json(['message' => 'Registro actualizado con éxito']);
+    // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+    $user = User::where('id', $id)->first();
+
+    // Verifica si se encontró el registro
+    if (!$user) {
+        return response()->json(['message' => 'Registro no encontrado'], 404);
     }
-    // Aqui Finaliza la Funcion
+
+    // Actualiza los campos con los valores proporcionados en los datos
+    $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : '';
+    $user->role = $data['role'];
+    $user->name = $data['name'];
+    $user->status = $data['status'];
+    $user->email = $data['email'];  
+    // Verifica si la contraseña se proporcionó y es diferente de la contraseña actual
+    if (isset($data['password']) && $data['password'] != $user->password) {
+        $user->password = Hash::make($data['password']);
+    }
+    $user->userId = $data['userId'];
+    $user->liderid = $data['liderid'] ?? NULL;
+    // Guarda los cambios en la base de datos
+    $user->save();
+
+    return response()->json(['message' => 'Registro actualizado con éxito']);
+}
+
+    // public function update(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $id = $data['id'];        
+    //     //var_dump($data);exit();
+    //     // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+    //     $user = User::where('id', $id)->first();
+    
+    //     // Verifica si se encontró el registro
+    //     if (!$user) {
+    //         return response()->json(['message' => 'Registro no encontrado'], 404);
+    //     }
+    
+    //     // Actualiza los campos con los valores proporcionados en los datos
+    //     $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
+    //     $user->role = $data['role'];
+    //     $user->name = $data['name'];
+    //     $user->status = $data['status'];
+    //     $user->email = $data['email'];
+    //     $user->password =  Hash::make($data['password']);
+    //     $user->userId = $data['userId'];
+    //     $user->liderid = $data['liderid']?? NULL;
+
+    //     // Guarda los cambios en la base de datos
+    //     $user->save();
+    
+    //     return response()->json(['message' => 'Registro actualizado con éxito']);
+    // }
+    // // Aqui Finaliza la Funcion
 
     // Para Listar Lideres -- DOCUMENTS
     public function showLider(Request $request, User $user)
