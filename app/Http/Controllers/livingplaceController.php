@@ -16,6 +16,7 @@ class livingplaceController extends Controller
         $livingplace = livingplace::selectRaw("id,
         division_geografica,
         direccion,
+        barrio,
         tipo_direccion,
         numero_direccion,
         territorio,
@@ -138,6 +139,7 @@ class livingplaceController extends Controller
         $livingplace->division_geografica= $data['division_geografica'];
         
         $livingplace->direccion= $data['direccion'];
+        $livingplace->barrio= $data['barrio'];
         $livingplace->tipo_direccion= $data['tipo_direccion'];
         $livingplace->numero_direccion= $data['numero_direccion'];
         $livingplace->territorio= $data['territorio'];
@@ -328,7 +330,8 @@ class livingplaceController extends Controller
         $id = isset($data['id']) ? $data['id'] : '';
         $division_geografica = isset($data['division_geografica']) ? $data['division_geografica'] : '';
         $direccion = isset($data['direccion']) ? $data['direccion'] : '';
-
+        $barrio = isset($data['barrio']) ? $data['barrio'] : '';
+        
         $tipo_direccion = isset($data['tipo_direccion']) ? $data['tipo_direccion'] : '';
         $numero_direccion = isset($data['numero_direccion']) ? $data['numero_direccion'] : '';
 
@@ -444,6 +447,8 @@ class livingplaceController extends Controller
 
         $tabla->division_geografica = $division_geografica;
         $tabla->direccion = $direccion;
+        $tabla->barrio = $barrio;
+        
 
         $tabla->tipo_direccion = $tipo_direccion;
         $tabla->numero_direccion = $numero_direccion;
