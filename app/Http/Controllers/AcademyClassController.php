@@ -43,7 +43,7 @@ class AcademyClassController extends Controller
         $Class->Title= $data['Title'];
         $Class->Author= $data['Author'];
         $Class->Image= $data['Image'];
-        $Class->CourseId= $data['CourseId'];
+        $Class->CourseId= $data['CourseId']; 
 
 
         $validator = Validator::make($request->all(), [
