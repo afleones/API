@@ -33,6 +33,7 @@ use App\Http\Controllers\AcademyCourseController;
 use App\Http\Controllers\AcademyClassController;
 use App\Http\Controllers\AcademyStudentController;
 use App\Http\Controllers\AcademyCommentController;
+use App\Http\Controllers\AcademyVideoController;
 
 //Api Controllers GenomaX_Documents Start
 
@@ -117,6 +118,8 @@ use App\Http\Controllers\ChatController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+
+Route::post('subir-video', [AcademyVideoController::class, 'subirVideo']);
 
 Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], function(){
 
@@ -281,6 +284,10 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     
     Route::post('UpdateComment', [AcademyCommentController::class, 'update']);
     Route::post('UpdateCommentDetail', [AcademyCommentController::class, 'updateDetail']);
+
+
+    
+    
 
 
     //Api Routes Academy End
