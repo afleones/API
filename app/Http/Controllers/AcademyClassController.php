@@ -47,7 +47,7 @@ class AcademyClassController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'Video' => 'required|file|mimes:mp4,avi,mpg,mov,ogg,webm|max:6056', // Cambia las extensiones y el tamaño según tus necesidades
+            'Video' => 'required|file|mimes:mp4,avi,mpg,mov,ogg,webm,pdf|max:6056', // Cambia las extensiones y el tamaño según tus necesidades
         ], [
             'Video.required' => 'Debes seleccionar un Video para subir.',
             'Video.file' => 'El campo debe ser un archivo válido.',
