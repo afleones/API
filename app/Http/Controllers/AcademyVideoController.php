@@ -29,7 +29,7 @@ class AcademyVideoController extends Controller
     
         // Si la validación es exitosa, procede con el almacenamiento del video
         if ($request->file('video')) {
-            $video = $request->file('video');
+            $video = $request->file('video'); 
             
             // Define el directorio donde se almacenarán los videos subidos
             $uploadDirectory = public_path('videos/subfolder'); // Cambia "subfolder" al nombre de la carpeta que desees
