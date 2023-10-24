@@ -73,4 +73,9 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    'videos' => [
+        'driver' => 'local',
+        'root' => public_path('videos'), // Carpeta donde se almacenarán los videos
+    ],
+
 ];
