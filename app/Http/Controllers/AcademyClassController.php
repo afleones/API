@@ -79,7 +79,7 @@ class AcademyClassController extends Controller
         $Class->Video= '/public/videos/'.$videoName; //$data['Video'];
         
         
-        $Class->Description= $data['Description'];
+        $Class->Description= $data['Description']; 
         $Class->State= $data['State'];
 
 
