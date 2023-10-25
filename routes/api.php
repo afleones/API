@@ -34,6 +34,9 @@ use App\Http\Controllers\AcademyClassController;
 use App\Http\Controllers\AcademyStudentController;
 use App\Http\Controllers\AcademyCommentController;
 use App\Http\Controllers\AcademyVideoController;
+use App\Http\Controllers\AcademyExamController;
+use App\Http\Controllers\AcademyCertificateController;
+
 
 //Api Controllers GenomaX_Documents Start
 
@@ -287,8 +290,15 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
 
     
-    
+    Route::post('insertExam', [AcademyExamController::class, 'insertExam']);
+    Route::get('showExams', [AcademyExamController::class, 'showExams']);
+    Route::post('updateExam', [AcademyExamController::class, 'updateExam']);
 
+    Route::get('Certificates', [AcademyCertificateController::class, 'index']);
+    Route::post('Certificate', [AcademyCertificateController::class, 'show']);
+    Route::post('saveCertificate', [AcademyCertificateController::class, 'store']);
+    Route::post('updateCertificate', [AcademyCertificateController::class, 'update']);
+    
 
     //Api Routes Academy End
 
