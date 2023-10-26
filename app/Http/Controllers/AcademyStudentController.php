@@ -98,7 +98,7 @@ class AcademyStudentController extends Controller
         $data = $request->all();
 
 
-        $Id = $data['Id'];
+        //$Id = $data['Id'];
         $CategoryId = $data['CategoryId'] ?? 0;
         $CourseId = $data['CourseId'] ?? 0;
         $ClassId = $data['ClassId'] ?? 0;
@@ -107,15 +107,26 @@ class AcademyStudentController extends Controller
 
        
         try {
-            AcademyStudent::where('id', $Id)->update([
-                'CategoryId' => $CategoryId,
-                'CourseId' => $CourseId,
-                'ClassId' => $ClassId,
-                'StudentId' => $StudentId,
-                'CategoryId' => $CategoryId,
-                'State' => $State,
-                // Agrega otros campos que quieras actualizar aquí
-            ]);
+            AcademyStudent::where(function($query) use ($data) {
+                            if (isset($data['Id'])) {
+                                $query->Where('Id', $data['Id']);
+                            }
+                            if (isset($data['StudentId'])) {
+                                $query->Where('StudentId', $data['StudentId']);
+                            }
+                            if (isset($data['ClassId'])) {
+                                $query->Where('ClassId', $data['ClassId']);
+                            }
+                        })
+                        ->update([
+                            //'CategoryId' => $CategoryId,
+                            //'CourseId' => $CourseId,
+                            //'ClassId' => $ClassId,
+                            //'StudentId' => $StudentId,
+                            //'CategoryId' => $CategoryId,
+                            'State' => $State,
+                            // Agrega otros campos que quieras actualizar aquí
+                        ]);
     
             // Actualización exitosa
             return response()->json(['message' => 'Datos actualizados correctamente']);
