@@ -259,6 +259,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     
     Route::post('CoursexCategory', [AcademyCategoryController::class, 'showCoursexCategory']);
+    Route::post('CoursexCategoryStudent', [AcademyCategoryController::class, 'showCoursexCategoryStudent']);
 
     Route::get('Courses', [AcademyCourseController::class, 'index']);
     Route::post('Course', [AcademyCourseController::class, 'show']);
