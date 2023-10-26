@@ -85,7 +85,7 @@ class AcademyCategoryController extends Controller
         $Id = $data['Id'];
         $Title = $data['Title'] ?? '';
         $Author = $data['Author'] ?? 0;
-        $State = $data['State'] ?? 0;
+        $State = $data['State'] ?? 0; 
         
         
        
