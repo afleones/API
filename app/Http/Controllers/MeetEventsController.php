@@ -73,6 +73,25 @@ public function store(Request $request)
 
     $event->save();
 
+    // Si necesitas actualizar otros registros relacionados, como MeetGuestsEvent, aquí es el lugar para hacerlo.
+    // Elimina los registros existentes en MeetGuestsEvent para este evento
+    MeetGuestsEvent::where('eventId', $id)->delete();
+
+    // Crea registros en la tabla MeetGuestsEvent para cada guestId
+    $guestIds = $data['guestIds'];
+    $userId = $data['userId'];
+
+    foreach ($guestIds as $guestId) {
+        $guestsEvent = new MeetGuestsEvent();
+        $guestsEvent->eventId = $id; // Usamos $id en lugar de $eventId
+        $guestsEvent->guestId = $guestId;
+        $guestsEvent->userId = $userId;
+        $guestsEvent->status = 1;
+        // Otros campos según tus necesidades
+        // Guardamos el objeto en la base de datos
+        $guestsEvent->save();
+    }
+
     // Actualizar el campo 'status' en el modelo MeetGuestsEvent relacionado
     MeetGuestsEvent::where('eventId', $event->id)->update(['status' => $event->status]);
 
