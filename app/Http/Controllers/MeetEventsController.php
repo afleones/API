@@ -98,48 +98,8 @@ public function store(Request $request)
         $dataArray = $event;
         return $dataArray;
     }         
-        
-
-
-    // public function show(Request $request)
-    // {
-    //     $data = $request->all();  
-        
-    //     $event = MeetEvent::where(function($query) use ($data) {
-    //         if (isset($data['id'])) {
-    //             $query->where('id', $data['id']);
-    //         }
-    //         if (isset($data['userId'])) {
-    //             $query->where('userId', $data['userId']);
-    //         }
-    //         if (isset($data['title'])) {
-    //             $query->where('title', $data['title']);
-    //         }
-    //     })->where('status', '!=', 0)->get();
-        
-    //     $dataArray = $event;
-    //     return $dataArray;
-    // }         
-    //     $event = MeetEvent::where(function($query) use ($data) {
-    //         if (isset($data['id'])) {
-    //             $query->Where('id', $data['id']);
-    //         }
-    //         if (isset($data['userId'])) {
-    //             $query->Where('userId', $data['userId']);
-    //         }
-    //         if (isset($data['title'])) {
-    //             $query->Where('title', $data['title']);
-    //         }
-    //         if (isset($data['status'])) {
-    //             $query->where('status', 0);
-    //         }
-    //         })->get();  
-    
-    //     $dataArray = ($event);                                     
-    //     return $dataArray;
-    // }
 	
-	    public function validarReunion(Request $request)
+    public function validarReunion(Request $request)
     {
         $data = $request->all();
     
@@ -157,20 +117,14 @@ public function store(Request $request)
             return response()->json(['error' => 'Los datos proporcionados no son válidos.'], 400);
         }
     
-        // Realiza la consulta para obtener los datos de la tabla events que coincidan con guestId.
-        $events = MeetEvent::join('Meet_Guests_Class_Event', 'events.id', '=', 'Meet_Guests_Class_Event.eventId')
-            ->select('events.*')
-            ->where('Meet_Guests_Class_Event.guestId', $guestId)
+        // Realiza la consulta para obtener los datos de la tabla eventos (MeetEvent) que coincidan con guestId.
+        $events = MeetEvent::join('meetGuestsEvents', 'events.id', '=', 'meetGuestsEvents.eventId')
+            ->where('meetGuestsEvents.guestId', $guestId)
             ->where('events.status', '!=', 0)
             ->get();
     
-        // Realiza la consulta para obtener los datos de la tabla Meet_Guests_Class_Event que coincidan con guestId.
-        $guestEvents = MeetGuestsEvent::where('guestId', $guestId)
-            ->get();
-    
-        // Devuelve los resultados en formato JSON en dos arrays separados.
-        return response()->json(['events' => $events, 'guestEvents' => $guestEvents]);
-
+        // Devuelve los resultados en formato JSON en un array.
+        return response()->json(['events' => $events]);
     }
-
+    
 }
