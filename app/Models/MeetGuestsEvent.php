@@ -10,5 +10,5 @@ class MeetGuestsEvent extends Model
     use HasFactory;
 
     protected $connection = 'meet';
-    protected $table = 'Meet_Guests_Class_Event';
+    protected $table = 'meetGuestsEvents';
 }
