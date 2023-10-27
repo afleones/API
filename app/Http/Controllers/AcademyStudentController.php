@@ -87,7 +87,7 @@ class AcademyStudentController extends Controller
 
                                          
         
-        return $students;
+        return $students; 
     }
 
     /**
