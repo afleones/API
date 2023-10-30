@@ -169,34 +169,42 @@ class MeetEventsController extends Controller
     public function validarReunion(Request $request)
     {
         $data = $request->all();
-    
+        
         // Obtén el valor de guestId del request.
         $guestId = $data['guestId'];
-    
+        
         // Asegúrate de que guestId sea requerido y sea un número entero.
         $rules = [
             'guestId' => 'required|integer',
         ];
-    
+        
         $validator = Validator::make($data, $rules);
-    
+        
         if ($validator->fails()) {
             return response()->json(['error' => 'Los datos proporcionados no son válidos.'], 400);
         }
-    
+        
         // Realiza la consulta para obtener los datos de la tabla eventos (MeetEvent) que coincidan con guestId.
         $events = MeetEvent::join('meetGuestsEvents', 'events.id', '=', 'meetGuestsEvents.eventId')
             ->where('meetGuestsEvents.guestId', $guestId)
             ->where('events.status', '!=', 0)
             ->get();
-    
+        
+        // Obtén los userId de los eventos.
         $eventUserCreator = $events->pluck('userId')->unique();
-    
-        // Consulta en la tabla 'users' usando los userId obtenidos de la consulta en $events.
-        $user = User::whereIn('id', $eventUserCreator)->get();
-    
-        // Devuelve los resultados en formato JSON en un array.
-        return response()->json(['event' => $events, 'eventCreator' => $user]);
+        
+        // Consulta en la tabla 'users' para obtener el campo 'name' relacionado con los userId de los eventos.
+        $userName = User::whereIn('id', $eventUserCreator)->pluck('name', 'id');
+        
+        // Agrega los nombres de usuarios a los eventos.
+        $events = $events->map(function ($event) use ($userName) {
+            $userId = $event->userId;
+            $event->eventCreator = $userName->get($userId);
+            return $event;
+        });
+        
+        // Devuelve los resultados en formato JSON en un arreglo.
+        return response()->json(['data' => $events]);
     }
-            
+                        
 }
