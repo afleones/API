@@ -26,16 +26,16 @@
                 left: 0px;
                 right: 0px;
                 width: 100%;
-                -webkit-transform: skew(-20deg);
-                -moz-transform: skew(-20deg);
-                -o-transform: skew(-20deg);
-                background-color:cadetblue;
+                -webkit-transform: skew(-50deg); 
+                 -moz-transform: skew(-20deg); 
+                 -o-transform: skew(-20deg); 
+                background-color:#0C3E62;
                 
                 /** Extra personal styles **/
                 font-family: Arial, Helvetica, sans-serif;
                 text-transform: capitalize;
-                height: 55px;
-                margin-left: 75px;
+                height: 400px;
+                margin-left: -900px;
                 font: 25px arial;
                 font-weight: bold;
                 color: white;
@@ -52,24 +52,25 @@
                 right: 0px;
                 font-size: 20px;
                 width: 100%;
-                -webkit-transform: skew(-20deg);
+                -webkit-transform: skew(-50deg);
                 -moz-transform: skew(-20deg);
                 -o-transform: skew(-20deg);
-                background-color:cadetblue;
+                background-color:#0C3E62;
+                
 
                 /** Extra personal styles **/
-                height: 30px; 
-                margin-left: -75px;
+                height: 400px; 
+                margin-left: 900px;
                 background-position: top;
                 background-size: 100% auto;
-                color: white;
+                color: black;
                 font-size: 14px;
-                text-align: center;
+                text-align: right;
                 line-height: 35px;
             }
             #container {
                 z-index: 200;
-                top: 60px;
+                top: 200px;
                 left: 30px;
                 right: 30px;
                 /** border-color: red;
@@ -101,11 +102,33 @@
                 /** background-image: url("{{ asset('resources/images/templates/1.tablehead.jpg') }}");
                 background-color: transparent;
                 background-position: top;
-                background-size: 100% auto; **/
-                background-color:cadetblue;
-                color: white;
+                background-size: 100% auto; 
+                background-color:cadetblue;**/
+                font-size: 35px;
+                color: green;
                 text-align: center;
                 
+            }
+            td {
+                
+            
+                text-align: center;
+                
+            }
+            #titulo{
+                font-size: 40px;
+                color: #0C3E62;
+                text-align: center;
+            }
+            #subtitulo{
+                font-size: 25px;
+                
+                text-align: center;
+            }
+            #titulonegrita{
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
             }
         </style>
 
@@ -116,107 +139,52 @@
     </head>
     <body>
         <header>
-        {{ $info_data['mycomercialname'] }}
+        
         </header>
+       
+            
+
         <footer>
-            <div id="powered">Powered By: <b>maite</b> &#174; - Facturación Ilimitada</div>
+            <div id="powered">Powered By: <b>Nexus IT</b> &#174; - Academy</div>
         </footer>
         <div id="container" name="container">
-            <table style="width: 100%;" >
-                <tr>
-                    <td>
-                        <div id="show_invoice">
-                            <table id="numinvx"><tr><td style="text-align:center;"><span id="number_title" style=" border-bottom-color: #39A839; border-bottom-width: 1px; border-bottom-style:solid;">COTIZACION</span></td></tr>
-                            <tr><td style="text-align:center;"><span id="number_invoice">{{ $info_data['invoice_number'] }}</span></td></tr>
-                            </table>
-                        </div>
-                    </td>
-                    <td style="align: center;">
-                        <table><tr><td valign="center" style="align: center;">
-                            <div id="img_logo" style="text-align:center">
-                                <img src="{{ $info_data['logo_company'] }}" alt="logo" width="50%" >
-                            </div>
-                        </td></tr></table>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top">
-                        FECHA: {{ date('d/m/Y', strtotime($info_data['order_date'])) }}
-                    </td>
-                    <td align="center;">
-                        <div id="info_company">
-                            <table style="width: 100%;"><tr><td style="text-align:center"><span ><b> {{ $info_data['myname'] }}</b></span></td></tr>
-                            <tr><td style="text-align:center"><span >{{ $info_data['nit'] }}</span></td></tr>
-                            <tr><td style="text-align:center"><span >{{ $info_data['myaddress'] }}</span></td></tr>
-                            <tr><td style="text-align:center"><span >{{ $info_data['myphone'] }}</span></td></tr></table>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div id="info_customer">
-                            <table><tr><td><span > CLIENTE:</span></td></tr>
-                            <tr><td><span >{{ $info_data['comercialname'] }}</span></td></tr>
-                            <tr><td><span ><b>{{ $info_data['order_receiver_name'] }}</b></span></td></tr>
-                            <tr><td><span >{{ $info_data['order_receiver_nit'] }}</span></td></tr>
-                            <tr><td><span >{{ $info_data['order_receiver_address'] }} - {{ $info_data['order_receiver_phone']}}</span></td></tr></table>
-                        </div>
-                    </td>
-                    <td>
-
-                    </td>
-                </tr>
-            </table>
-            <table style="width: 100%;"><tr><td style="text-align:center">
-            <span style="font-size:9px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">- - - ITEMS - - -</span>
-            </td></tr></table>
             <table style="width: 100%;">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>CODIGO</th>
-                        <th>DESCRIPCION</th>
-                        <th>CANTIDAD</th>
-                        <th>VAL. UNIT.</th>
-                        <th>DCTO</th>
-                        <th>IVA/IC</th>
-                        <th>TOTAL</th>
+                        <th colspan="3">Genomax - Academy</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $varbool="#DEF3E6"; ?>
-                    @foreach ($item_data as $item)
-                    <?php if ($varbool=="#DEF3E6") { $varbool="#F1F9EE"; } else { $varbool="#DEF3E6"; } ?>
-                    <tr style="background-color:<?php echo $varbool;?>;">
-                        <td >{{ $item['order_item_id'] }}</td>
-                        <td>{{ $item['item_code'] }}</td>
-                        <td>{{ $item['item_name'] }} {{ $item['descripcion']}} - {{ $item['reference'] }} </td>
-                        <td style="text-align:center">{{ $item['order_item_quantity'] }}</td>
-                        <td style="text-align:right">{{ $item['order_item_price'] }}</td>
-                        <td style="text-align:right">{{ $item['order_item_desc'] }}</td>
-                        <td style="text-align:right">{{ $item['order_item_iva'] }}</td>
-                        <td style="text-align:right">{{ $item['order_item_final_amount'] }}</td>
+                    <tr>
+                        <td colspan="3">Cetifica a</td>
                     </tr>
-                    @endforeach
+                    <tr >
+                        <td colspan="3"><div id="titulo">{{ $info_data['username'] }}</div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Por participar y aprobar el</td>
+                    </tr>
+                    <tr >
+                        <td colspan="3"><div id="subtitulo">CURSO DE</div></td>
+                    </tr>
+                    <tr >
+                        <td colspan="3"><div id="titulo">{{ $info_data['coursename'] }}</div></td>
+                    </tr>
+                    <tr >
+                        <td><img src="images/{{ $info_data['Signature1'] }}" alt="Logo"></td>
+                        <td><img src="images/{{ $info_data['logo'] }}" alt="Logo"></td>
+                        <td><img src="images/{{ $info_data['Signature2'] }}" alt="Logo"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Certificado de aprobacion online</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><div id="titulonegrita">Aprobado el {{ $info_data['approvaldate'] }}</div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">{{ $info_data['coursehour'] }}</td>
+                    </tr>
                 </tbody>
-            </table>
-            <table style="width: 100%;">
-                <tr><td style="text-align:left; width:50%"   valign="top">
-                <span style="font-size:9px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"><b>NOTA: </b>{{ $info_data['note']}}</span>
-                </td>
-                <td style="text-align:right">
-                    <table style="width: 60%; border-style:double; border-color: cadetblue;border-width: 2px;" align="right">
-                    <tr style="background-color:honeydew"><td style="text-align:left">Total Base:</td><td style="text-align:right">$ {{ number_format($info_data['order_total_before_tax'], 2, ',', '.') }}</td></tr>
-                    <tr style="background-color:azure"><td style="text-align:left">Total IVA/IC:</td><td style="text-align:right">$ {{ number_format($info_data['order_total_tax'], 2, ',', '.') }}</td></tr>
-                    <tr style="background-color:aliceblue"><td style="text-align:left">TOTAL FACTURA:</td><td style="text-align:right">$ {{ number_format($info_data['order_total_after_tax'], 2, ',', '.') }}</td></tr>
-                    </table>
-                </td>
-                </tr>
-            </table>
-            <table style="width: 100%;">
-            <tr>
-                <td style="text-align:left;border-bottom-width: 2px;"> {{$info_data['numerotexto']}}</td>
-            </tr>
             </table>
         </div> <!-- Fin div container  -->
     </body>
