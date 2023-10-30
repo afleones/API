@@ -204,7 +204,7 @@ class MeetEventsController extends Controller
         });
         
         // Devuelve los resultados en formato JSON en un arreglo.
-        return response()->json(['data' => $events]);
+        return response()->json(['events' => $events]);
     }
                         
 }
