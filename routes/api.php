@@ -299,6 +299,14 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('Certificate', [AcademyCertificateController::class, 'show']);
     Route::post('saveCertificate', [AcademyCertificateController::class, 'store']);
     Route::post('updateCertificate', [AcademyCertificateController::class, 'update']);
+
+    Route::get('/ViewPDF/{certificate}', [AcademyCertificateController::class, 'ViewPDF']);
+
+    Route::post('storeExamCertificateStudent', [AcademyCertificateController::class, 'storeExamCertificateStudent']);
+    
+    Route::post('showCertificateStudent', [AcademyCertificateController::class, 'showCertificateStudent']);
+    
+    
     
 
     //Api Routes Academy End
