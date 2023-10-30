@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MeetEvent;
 use App\Models\MeetGuestsEvent;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Symfony\Component\HttpFoundation\Response;
@@ -189,8 +190,11 @@ class MeetEventsController extends Controller
             ->where('events.status', '!=', 0)
             ->get();
     
-        // Devuelve los resultados en formato JSON en un array.
-        return response()->json(['events' => $events]);
-    }
+        // Consulta en la tabla 'users' usando guestId
+        $user = User::where('id', $guestId)->first();
     
+        // Devuelve los resultados en formato JSON en un array.
+        return response()->json(['events' => $events, 'user' => $user]);
+    }
+        
 }
