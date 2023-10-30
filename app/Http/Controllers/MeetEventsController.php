@@ -116,7 +116,25 @@ public function store(Request $request)
         
         $dataArray = $event;
         return $dataArray;
-    }         
+    }   
+    
+    public function showEdit(Request $request, $userId, $eventId, $guestId) {
+
+        $data = $request->all();
+        $userId = $data['userId'];
+        $eventId = $data['eventId'];
+        $guestId = $data['guestId'];
+
+        $events = MeetEvent::join('meetGuestsEvents', 'events.id', '=', 'meetGuestsEvents.eventId')
+            ->join('meetEventGuests', 'meetGuestsEvents.id', '=', 'meetEventGuests.meetGuestEventId')
+            ->where('meetGuestsEvents.userId', $userId)
+            ->where('meetGuestsEvents.eventId', $eventId)
+            ->where('meetEventGuests.guestId', $guestId)
+            ->where('events.status', '!=', 0)
+            ->get();
+    
+        return response()->json(['events' => $events]);
+    }
 	
     public function validarReunion(Request $request)
     {
