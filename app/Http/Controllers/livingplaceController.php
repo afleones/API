@@ -247,10 +247,13 @@ class livingplaceController extends Controller
         
         // Guardamos el objeto en la base de datos
         $livingplace->save();
+
+        $insertedId = $livingplace->id;
+        return response()->json(['message' => 'Datos insertados correctamente', 'inserted_id' => $insertedId]);
     
     
         // Retornamos una respuesta de éxito
-        return response()->json(['message' => 'Datos insertados correctamente']);
+       // return response()->json(['message' => 'Datos insertados correctamente']);
 
     }
 

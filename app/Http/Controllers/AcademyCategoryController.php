@@ -226,9 +226,15 @@ class AcademyCategoryController extends Controller
                             if (isset($data['State'])) {
                                 $query->Where('Category.State', $data['State']);
                             }
+                            if (isset($data['StudentId'])) {
+                                $query->Where('StudentId', $data['StudentId']);
+                            }
+                            if (isset($data['fecha1']) and isset($data['fecha2'])) {
+                                $query->whereBetween(\DB::raw('DATE(Category_Course_Class_Student.created_at)'), [$data['fecha1'], $data['fecha2']]);
+                            }
 
                          })
-                         
+                         ->distinct() 
                          ->selectRaw('Category.Id,Author,name,Title,Category.State')
 
                          
@@ -259,7 +265,7 @@ class AcademyCategoryController extends Controller
                                                                                                             }
                                                                                                             
                                                                                                         })
-                                                                                                        ->selectRaw('Category_Course_Class_Student.StudentId,users.name,Category_Course_Class_Student.State as ViewedStatus')
+                                                                                                        ->selectRaw('Category_Course_Class_Student.StudentId,users.name,Category_Course_Class_Student.State as ViewedStatus,Category_Course_Class_Student.created_at,Category_Course_Class_Student.updated_at')
                                                                                                         ->get();
 
                                                                                                         //$detalleStudent=[];
