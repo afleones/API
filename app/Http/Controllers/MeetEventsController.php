@@ -98,8 +98,28 @@ class MeetEventsController extends Controller
 
         return response()->json(['message' => 'Datos Actualizados correctamente']);
     }
+	
+	public function show(Request $request)
+    {
+        $data = $request->all();  
+        
+        $event = MeetEvent::where(function($query) use ($data) {
+            if (isset($data['id'])) {
+                $query->where('id', $data['id']);
+            }
+            if (isset($data['userId'])) {
+                $query->where('userId', $data['userId']);
+            }
+            if (isset($data['title'])) {
+                $query->where('title', $data['title']);
+            }
+        })->where('status', '!=', 0)->get();
+        
+        $dataArray = $event;
+        return $dataArray;
+    }     
 
-    public function show(Request $request)
+    public function showEvents(Request $request)
     {
         $data = $request->all();
     
@@ -136,19 +156,12 @@ class MeetEventsController extends Controller
         })->where('status', '!=', 0)->get();
 
         $guests = MeetGuestsEvent::where(function ($query) use ($data) {
-            if (isset($data['id'])) {
-                $query->where('id', $data['id']);
-            }
             if (isset($data['userId'])) {
                 $query->where('userId', $data['userId']);
             }
-            if (isset($data['title'])) {
-                $query->where('title', $data['title']);
-            }
         })->where('status', '!=', 0)->get();
-    
-        $dataArray = $event;
-        return response()->json(['events' => $dataArray, 'Invitados' => $guests]);
+
+        return response()->json(['events' => $event, 'guests' => $guests]);
 
     }
             

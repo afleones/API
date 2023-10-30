@@ -311,7 +311,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('updateEvent', [MeetEventsController::class, 'update']);
     Route::post('events', [MeetEventsController::class, 'index']);
     Route::post('event', [MeetEventsController::class, 'show']);
-    Route::post('edit', [MeetEventsController::class, 'showEdit']);
+    Route::post('edit', [MeetEventsController::class, 'showEvents']);
     Route::post('notify', [MeetEventsController::class, 'validarReunion']);
     /* end */
 
