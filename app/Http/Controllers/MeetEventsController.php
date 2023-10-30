@@ -190,11 +190,13 @@ class MeetEventsController extends Controller
             ->where('events.status', '!=', 0)
             ->get();
     
-        // Consulta en la tabla 'users' usando guestId
-        $user = User::where('id', $guestId)->first();
+        $eventUserCreator = $events->pluck('userId')->unique();
+    
+        // Consulta en la tabla 'users' usando los userId obtenidos de la consulta en $events.
+        $user = User::whereIn('id', $eventUserCreator)->get();
     
         // Devuelve los resultados en formato JSON en un array.
-        return response()->json(['events' => $events, 'user' => $user]);
+        return response()->json(['event' => $events, 'eventCreator' => $user]);
     }
-        
+            
 }
