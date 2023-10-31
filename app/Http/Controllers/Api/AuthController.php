@@ -99,14 +99,17 @@ class AuthController extends Controller
             return response(["message" => "La contraseña actual no coincide"], Response::HTTP_UNAUTHORIZED);
         }
     }
-    
+
+    // Listar todos los Usuarios
      public function allUsers() {
          $users=User::all();
          return response()->json([
              "users"=>$users
          ]);
-     }
+    }
+    // Aqui Finaliza la Funcion
 
+    // Crear Usuarios
     public function store(Request $request,  User $user)
     {
         $data = $request->all();
@@ -158,63 +161,91 @@ class AuthController extends Controller
         return response()->json(['message' => 'account created']);
         */
     }
+    // Aqui Finaliza la Funcion
 
+    // Actualizar Datos de Usuario
     public function update(Request $request)
-    {
-        $data = $request->all();
-        $id = $data['id'];        
-        //var_dump($data);exit();
-        // Encuentra el registro que deseas actualizar basado en los criterios de consulta
-        $user = User::where('id', $id)->first();
-    
-        // Verifica si se encontró el registro
-        if (!$user) {
-            return response()->json(['message' => 'Registro no encontrado'], 404);
-        }
-    
-        // Actualiza los campos con los valores proporcionados en los datos
-        $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
-        $user->role = $data['role'];
-        $user->name = $data['name'];
-        $user->status = $data['status'];
-        $user->email = $data['email'];
-        $user->password =  Hash::make($data['password']);
-        $user->userId = $data['userId'];
-        $user->liderid = $data['liderid']?? NULL;
+{
+    $data = $request->all();
+    $id = $data['id'];
 
-        // Guarda los cambios en la base de datos
-        $user->save();
+    // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+    $user = User::where('id', $id)->first();
+
+    // Verifica si se encontró el registro
+    if (!$user) {
+        return response()->json(['message' => 'Registro no encontrado'], 404);
+    }
+
+    // Actualiza los campos con los valores proporcionados en los datos
+    $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : '';
+    $user->role = $data['role'];
+    $user->name = $data['name'];
+    $user->status = $data['status'];
+    $user->email = $data['email'];  
+    $user->userId = $data['userId'];
+    $user->liderid = $data['liderid'] ?? NULL;
     
-        return response()->json(['message' => 'Registro actualizado con éxito']);
-    } 
-  
-    public function showLider(Request $request,  User $user)
+    // Guarda los cambios en la base de datos
+    $user->save();
+
+    return response()->json(['message' => 'Registro actualizado con éxito']);
+}
+
+    // public function update(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $id = $data['id'];        
+    //     //var_dump($data);exit();
+    //     // Encuentra el registro que deseas actualizar basado en los criterios de consulta
+    //     $user = User::where('id', $id)->first();
+    
+    //     // Verifica si se encontró el registro
+    //     if (!$user) {
+    //         return response()->json(['message' => 'Registro no encontrado'], 404);
+    //     }
+    
+    //     // Actualiza los campos con los valores proporcionados en los datos
+    //     $user->codeuser = isset($data['codeuser']) ? $data['codeuser'] : ''; 
+    //     $user->role = $data['role'];
+    //     $user->name = $data['name'];
+    //     $user->status = $data['status'];
+    //     $user->email = $data['email'];
+    //     $user->password =  Hash::make($data['password']);
+    //     $user->userId = $data['userId'];
+    //     $user->liderid = $data['liderid']?? NULL;
+
+    //     // Guarda los cambios en la base de datos
+    //     $user->save();
+    
+    //     return response()->json(['message' => 'Registro actualizado con éxito']);
+    // }
+    // // Aqui Finaliza la Funcion
+
+    // Para Listar Lideres -- DOCUMENTS
+    public function showLider(Request $request, User $user)
     {
         $data = $request->all(); 
 
-        $users=User::where(function($query) use ($data) {  
-            if (isset($data['role'])) {
-                $query->Where('role', $data['role']);
-            }
-            /*
-            if (isset($data['person.viviendaid'])) {
-                $query->Where('viviendaid', $data['viviendaid']);
-            }
-            if (isset($data['person.edad1']) && isset($data['person.edad2'])) {
-                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
-            }
-            if (isset($data['person.sexo'])) {
-                $query->Where('sexo', $data['sexo']);
-            }
-            */
+        $users = User::where(function($query) use ($data) {  
+            $query->Where('role', 3); // Establecemos 'role' igual a 3
+        })->get();
 
-            
-            
-            //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
-         })
-        ->get();
         return response()->json([
-            "users"=>$users
+            "users" => $users
         ]);
     }
+    // Aqui Finaliza la Funcion
+
+    // Para Listar Invitados con rol 4(Estudiante) y 5(Docente) -- MEET
+    public function showGuests(Request $request, User $user)
+    {
+        $users = User::where(function($query){  
+            $query->where('role', 4)->orWhere('role', 5);
+        })->get();
+        return response()->json([
+            "users" => $users
+        ]);
+    }
+    // Aqui Finaliza la Funcion
 }

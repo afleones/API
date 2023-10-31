@@ -31,6 +31,12 @@ use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\AcademyCategoryController;
 use App\Http\Controllers\AcademyCourseController;
 use App\Http\Controllers\AcademyClassController;
+use App\Http\Controllers\AcademyStudentController;
+use App\Http\Controllers\AcademyCommentController;
+use App\Http\Controllers\AcademyVideoController;
+use App\Http\Controllers\AcademyExamController;
+use App\Http\Controllers\AcademyCertificateController;
+
 
 //Api Controllers GenomaX_Documents Start
 
@@ -98,12 +104,25 @@ use App\Http\Controllers\gestationbirthpostpartumController;
 use App\Http\Controllers\UsersAccountsController;
 /*  */
 
+//controllers app Meet
+
+/* Events Controller */
+use App\Http\Controllers\MeetEventsController;
+/* end */
+
+/* Chat Controller */
+use App\Http\Controllers\ChatController;
+/* end */
+
+// Controllers app Meet
+
 
 //Api Controllers GenomaX_Documents End
 
-
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+
+Route::post('subir-video', [AcademyVideoController::class, 'subirVideo']);
 
 Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], function(){
 
@@ -232,7 +251,6 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
 
     //Api Routes Academy Start
-
     Route::get('Categories', [AcademyCategoryController::class, 'index']);
     Route::post('Category', [AcademyCategoryController::class, 'show']);
     Route::post('SaveCategory', [AcademyCategoryController::class, 'store']);
@@ -241,6 +259,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     
     Route::post('CoursexCategory', [AcademyCategoryController::class, 'showCoursexCategory']);
+    Route::post('CoursexCategoryStudent', [AcademyCategoryController::class, 'showCoursexCategoryStudent']);
 
     Route::get('Courses', [AcademyCourseController::class, 'index']);
     Route::post('Course', [AcademyCourseController::class, 'show']);
@@ -255,7 +274,69 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('UpdateClass', [AcademyClassController::class, 'update']);
     Route::get('DeleteClass', [AcademyClassController::class, 'destroy']);
 
-    //Api Riutes Academy End
+    Route::get('Students', [AcademyStudentController::class, 'index']);
+    Route::post('Student', [AcademyStudentController::class, 'show']);
+    Route::post('SaveStudent', [AcademyStudentController::class, 'store']);
+    Route::post('UpdateStudent', [AcademyStudentController::class, 'update']);
+
+
+    Route::get('Comments', [AcademyCommentController::class, 'index']);
+    Route::post('Comment', [AcademyCommentController::class, 'show']);
+    
+    Route::post('SaveComment', [AcademyCommentController::class, 'store']);
+    Route::post('SaveCommentDetail', [AcademyCommentController::class, 'storeDetail']);
+    
+    Route::post('UpdateComment', [AcademyCommentController::class, 'update']);
+    Route::post('UpdateCommentDetail', [AcademyCommentController::class, 'updateDetail']);
+
+
+    
+    Route::post('insertExam', [AcademyExamController::class, 'insertExam']);
+    Route::get('showExams', [AcademyExamController::class, 'showExams']);
+    Route::post('updateExam', [AcademyExamController::class, 'updateExam']);
+
+    Route::get('Certificates', [AcademyCertificateController::class, 'index']);
+    Route::post('Certificate', [AcademyCertificateController::class, 'show']);
+    Route::post('saveCertificate', [AcademyCertificateController::class, 'store']);
+    Route::post('updateCertificate', [AcademyCertificateController::class, 'update']);
+
+    Route::get('/ViewPDF/{certificate}', [AcademyCertificateController::class, 'ViewPDF']);
+
+    Route::post('storeExamCertificateStudent', [AcademyCertificateController::class, 'storeExamCertificateStudent']);
+    
+    Route::post('showCertificateStudent', [AcademyCertificateController::class, 'showCertificateStudent']);
+    
+    
+    
+
+    //Api Routes Academy End
+
+
+    //Api Routes Meet Start
+
+    /* events */
+    Route::post('createEvent', [MeetEventsController::class, 'store']);
+    Route::post('updateEvent', [MeetEventsController::class, 'update']);
+    Route::post('events', [MeetEventsController::class, 'index']);
+    Route::post('event', [MeetEventsController::class, 'show']);
+    Route::post('edit', [MeetEventsController::class, 'showEvents']);
+    Route::post('notify', [MeetEventsController::class, 'validarReunion']);
+    Route::post('notification', [MeetEventsController::class, 'notifyStatus']);
+    Route::post('discard', [MeetEventsController::class, 'deleteNotification']);
+
+    /* end */
+
+    /* invitados a meet */
+    Route::get('guests', [AuthController::class, 'showGuests']);
+    /* end */
+
+    /* chat */
+    Route::post('chat/send', [ChatController::class, 'sendMessage']);
+    Route::get('chat/history', [ChatController::class, 'getChatHistory']);
+    /* end */
+
+    //Api Routes Meet end
+
 
     Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::post('logout', [AuthController::class, 'logOut']);

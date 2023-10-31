@@ -165,8 +165,10 @@ class personController extends Controller
             $person->save();
         
         
+            $insertedId = $person->id;
+            return response()->json(['message' => 'Datos insertados correctamente', 'inserted_id' => $insertedId]);
             // Retornamos una respuesta de éxito
-            return response()->json(['message' => 'Datos insertados correctamente']);
+            //return response()->json(['message' => 'Datos insertados correctamente']);
 
         }
 
@@ -186,22 +188,23 @@ class personController extends Controller
         //$fecha2 = $data['fecha2'];
         //$viviendaid = $data['viviendaid'];
         
+
         $person = person::where('person.userid', $userid)
                          ->where(function($query) use ($data) {  
                             if (isset($data['id'])) {
                                 $query->Where('person.id', $data['id']);
                             }
-                            if (isset($data['person.viviendaid'])) {
-                                $query->Where('viviendaid', $data['viviendaid']);
+                            if (isset($data['viviendaid'])) {
+                                $query->Where('person.viviendaid', $data['viviendaid']);
                             }
-                            if (isset($data['person.edad1']) && isset($data['person.edad2'])) {
-                                $query->whereBetween('edad', [$data['edad1'], $data['edad2']]);
+                            if (isset($data['edad1']) && isset($data['person.edad2'])) {
+                                $query->whereBetween('person.edad', [$data['edad1'], $data['edad2']]);
                             }
-                            if (isset($data['person.sexo'])) {
-                                $query->Where('sexo', $data['sexo']);
+                            if (isset($data['sexo'])) {
+                                $query->Where('person.sexo', $data['sexo']);
                             }
 
-                            
+                           
                             
                             //$query->whereBetween(\DB::raw('DATE(created_at)'), [$fecha1, $fecha2]);
                          })
@@ -228,6 +231,8 @@ class personController extends Controller
                         \DB::raw('IFNULL(youth.id, 0) as formulario_youth')
                         )
                          ->get();
+
+       
 
         //$dataArray = array($person);     
         $dataArray = $person;             
