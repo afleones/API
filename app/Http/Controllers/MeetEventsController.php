@@ -283,7 +283,6 @@ class MeetEventsController extends Controller
     {
         $data = $request->all();
         $id = $data['id'];
-        $guestId = $data['guestId'];
         $notifyStatus = $data['notifyStatus'];
 
                 // Asegúrate de que notifyStatus sea requerido y sea un número entero igual a 0.
@@ -297,11 +296,8 @@ class MeetEventsController extends Controller
             return response()->json(['error' => 'El campo notifyStatus no es válido.'], 400);
         }
 
-        // Obtener el evento a actualizar
-        $event = MeetEvent::where('id', $id)->firstOrFail();
-
         // Actualiza el campo 'notifyStatus' en la tabla 'MeetGuestsEvent' para los registros relacionados con el evento
-        MeetGuestsEvent::where('eventId', $event->id)->update(['notifyStatus' => $data['notifyStatus']]);
+        MeetGuestsEvent::where('id', $id)->update(['notifyStatus' => $data['notifyStatus']]);
 
         return response()->json(['message' => 'se ha eliminado la notificacion']);
     }
