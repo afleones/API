@@ -215,7 +215,8 @@ class AcademyCategoryController extends Controller
         //$userid = $data['userid'];
 
         $Categories = AcademyCategory::join('maite_backend.users', 'users.id', '=', 'Category.Author')
-                                       //->join('Category_Course_Class_Student', 'CategoryId', '=', 'Category.Id')
+                                       ->join('Course', 'CategoryId', '=', 'Category.Id')
+                                       ->join('Category_Course_Class_Student', 'CourseId', '=', 'Course.Id')
                          ->where(function($query) use ($data) {  
                             if (isset($data['Category.Id'])) {
                                 $query->Where('Category.Id', $data['Id']);
@@ -226,16 +227,16 @@ class AcademyCategoryController extends Controller
                             if (isset($data['State'])) {
                                 $query->Where('Category.State', $data['State']);
                             }
-                            /*if (isset($data['StudentId'])) {
+                            if (isset($data['StudentId'])) {
                                 $query->Where('StudentId', $data['StudentId']);
-                            }*/
+                            }
                             if (isset($data['fecha1']) and isset($data['fecha2'])) {
                                 $query->whereBetween(\DB::raw('DATE(Category_Course_Class_Student.created_at)'), [$data['fecha1'], $data['fecha2']]);
                             }
 
                          })
                          ->distinct() 
-                         ->selectRaw('Category.Id,Author,name,Title,Category.State')
+                         ->selectRaw('Category.Id,Category.Author,name,Category.Title,Category.State')
 
                          
                          ->get();
