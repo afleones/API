@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\livingplace;
+use App\Models\person;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -287,6 +288,8 @@ class livingplaceController extends Controller
         return $dataArray;
     }
 
+    
+
 
     public function showLivingplace(Request $request, livingplace $livingplace)
     {
@@ -318,6 +321,52 @@ class livingplaceController extends Controller
         return $dataArray;
     }
 
+
+    public function showLivingplacePerson(Request $request, livingplace $livingplace)
+    {
+        //$data = $request->json()->all();
+        $data = $request->all(); 
+
+        //var_dump($data);exit();
+        //$userid = $data['userid'];
+
+        $livingplaces = livingplace::
+                         where(function($query) use ($data) {  
+                            if (isset($data['userid'])) {
+                                $query->Where('livingplace.userid', $data['userid']);
+                            }
+                            if (isset($data['liderid'])) {
+                                $query->Where('users.liderid', $data['liderid']);
+                            }
+                            if (isset($data['viviendaid'])) {
+                                $query->Where('livingplace.id', $data['viviendaid']);
+                            }
+                            if (isset($data['fecha1']) and isset($data['fecha2'])) {
+                                $query->whereBetween(\DB::raw('DATE(livingplace.created_at)'), [$data['fecha1'], $data['fecha2']]);
+                            }
+                         })
+                         ->leftJoin('maite_backend.users', 'users.id', '=', 'livingplace.userid')
+                         ->select('livingplace.*')
+                         //->selectRaw('users.liderid,livingplace.userid, name, DATE(livingplace.created_at) as Creado')
+                         //->groupBy('livingplace.userid', 'Creado', 'liderid')
+                         ->orderBY('livingplace.userid')
+                         ->get();
+
+                         $payload = []; // Inicializa el arreglo de resultados
+
+                        foreach ($livingplaces as $livingplace) {
+                            $persons = person::where('viviendaid', $livingplace->id)->get();
+
+                            $payload = ['livingplace' => $livingplace, 'persons' => $persons];
+
+                        }
+
+
+
+
+                   
+        return $payload;
+    }
 
     /**
      * Update the specified resource in storage.
