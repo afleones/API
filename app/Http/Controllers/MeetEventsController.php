@@ -222,5 +222,21 @@ class MeetEventsController extends Controller
         // Devuelve los resultados en formato JSON en un arreglo.
         return response()->json(['events' => $events]);
     }
+
+        public function deleteNotification(Request $request, MeetEvent $id)
+    {
+        $data = $request->all();
+        $id = $data['id'];
+        $userId = $data['userId'];
+
+        // Obtener el evento a actualizar
+        $event = MeetEvent::where('id', $id)->where('userId', $userId)->firstOrFail();
+
+        // Actualiza el campo 'notifyStatus' en la tabla 'MeetGuestsEvent' para los registros relacionados con el evento
+        MeetGuestsEvent::where('eventId', $event->id)->update(['notifyStatus' => $data['notifyStatus']]);
+
+        return response()->json(['message' => 'se ha eliminado la notificacion']);
+    }
+
                             
 }
