@@ -283,7 +283,7 @@ class MeetEventsController extends Controller
     {
         $data = $request->all();
         $id = $data['id'];
-        $userId = $data['userId'];
+        $guestId = $data['guestId'];
         $notifyStatus = $data['notifyStatus'];
 
                 // Asegúrate de que notifyStatus sea requerido y sea un número entero igual a 0.
@@ -298,7 +298,7 @@ class MeetEventsController extends Controller
         }
 
         // Obtener el evento a actualizar
-        $event = MeetEvent::where('id', $id)->where('userId', $userId)->firstOrFail();
+        $event = MeetEvent::where('id', $id)->firstOrFail();
 
         // Actualiza el campo 'notifyStatus' en la tabla 'MeetGuestsEvent' para los registros relacionados con el evento
         MeetGuestsEvent::where('eventId', $event->id)->update(['notifyStatus' => $data['notifyStatus']]);
