@@ -169,42 +169,50 @@ class MeetEventsController extends Controller
     public function validarReunion(Request $request)
     {
         $data = $request->all();
-        
+    
         // Obtén el valor de guestId del request.
         $guestId = $data['guestId'];
-        
+    
         // Asegúrate de que guestId sea requerido y sea un número entero.
         $rules = [
             'guestId' => 'required|integer',
         ];
-        
+    
         $validator = Validator::make($data, $rules);
-        
+    
         if ($validator->fails()) {
             return response()->json(['error' => 'Los datos proporcionados no son válidos.'], 400);
         }
-        
-        // Realiza la consulta para obtener los datos de la tabla eventos (MeetEvent) que coincidan con guestId.
+    
+        // Obtén la fecha de inicio del mes actual.
+        $fechaInicioMes = now()->startOfMonth()->format('Y-m-d');
+    
+        // Obtén la fecha de fin del mes actual.
+        $fechaFinMes = now()->endOfMonth()->format('Y-m-d');
+    
+        // Realiza la consulta para obtener los datos de la tabla eventos (MeetEvent) que coincidan con guestId
+        // y que tengan una fecha entre la fecha de inicio y la fecha de fin del mes actual.
         $events = MeetEvent::join('meetGuestsEvents', 'events.id', '=', 'meetGuestsEvents.eventId')
             ->where('meetGuestsEvents.guestId', $guestId)
             ->where('events.status', '!=', 0)
+            ->whereBetween(\DB::raw('DATE(events.created_at)'), [$fechaInicioMes, $fechaFinMes])
+            ->whereBetween(\DB::raw('DATE(meetGuestsEvents.created_at)'), [$fechaInicioMes, $fechaFinMes])
             ->get();
-        
+    
         // Obtén los userId de los eventos.
         $eventUserCreator = $events->pluck('userId')->unique();
-        
+    
         // Consulta en la tabla 'users' para obtener el campo 'name' relacionado con los userId de los eventos.
         $userName = User::whereIn('id', $eventUserCreator)->pluck('name', 'id');
-        
+    
         // Agrega los nombres de usuarios a los eventos.
         $events = $events->map(function ($event) use ($userName) {
             $userId = $event->userId;
             $event->eventCreator = $userName->get($userId);
             return $event;
         });
-        
         // Devuelve los resultados en formato JSON en un arreglo.
         return response()->json(['events' => $events]);
     }
-                        
+                            
 }
