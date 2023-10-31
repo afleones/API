@@ -193,12 +193,20 @@ class MeetEventsController extends Controller
         // Realiza la consulta para obtener los datos de la tabla eventos (MeetEvent) que coincidan con guestId
         // y que tengan una fecha entre la fecha de inicio y la fecha de fin del mes actual.
         $events = MeetEvent::join('meetGuestsEvents', 'events.id', '=', 'meetGuestsEvents.eventId')
-            ->where('meetGuestsEvents.guestId', $guestId)
-            ->where('events.status', '!=', 0)
-            ->whereBetween(\DB::raw('DATE(events.created_at)'), [$fechaInicioMes, $fechaFinMes])
-            ->whereBetween(\DB::raw('DATE(meetGuestsEvents.created_at)'), [$fechaInicioMes, $fechaFinMes])
-            ->get();
+        ->where('meetGuestsEvents.guestId', $guestId)
+        ->where('events.status', '!=', 0)
+        ->whereBetween(\DB::raw('DATE(events.created_at)'), [$fechaInicioMes, $fechaFinMes])
+        ->whereBetween(\DB::raw('DATE(meetGuestsEvents.created_at)'), [$fechaInicioMes, $fechaFinMes])
+        ->get();
     
+    // Verifica si no se encontraron registros.
+    if ($events->isEmpty()) {
+        return response()->json(['message' => 'No se encontraron registros para el mes actual.'], 404);
+    }
+    
+    // Continúa con el procesamiento de los registros y la respuesta.
+    // ...
+        
         // Obtén los userId de los eventos.
         $eventUserCreator = $events->pluck('userId')->unique();
     
