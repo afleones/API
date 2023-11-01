@@ -132,6 +132,9 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveLivingPlace', [livingplaceController::class, 'store']);
     Route::get('livingPlaces', [livingplaceController::class, 'index']);
     Route::post('livingplace', [livingplaceController::class, 'show']);
+
+    Route::post('showLivingplacePerson', [livingplaceController::class, 'showLivingplacePerson']);
+
     Route::post('updateLivingPlace', [livingplaceController::class, 'update']);
     Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']);
     /* End */

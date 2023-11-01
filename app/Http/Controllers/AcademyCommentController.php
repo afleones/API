@@ -94,11 +94,11 @@ class AcademyCommentController extends Controller
                             if (isset($data['UserId'])) {
                                 $query->Where('Comment.UserId', $data['UserId']);
                             }
-                            /*
-                            if (isset($data['State'])) {
-                                $query->Where('State', $data['State']);
+                            
+                            if (isset($data['ClassId'])) {
+                                $query->Where('ClassId', $data['ClassId']);
                             }
-                            */
+                            
                          })
                          ->get();     
 

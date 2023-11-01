@@ -215,7 +215,8 @@ class AcademyCategoryController extends Controller
         //$userid = $data['userid'];
 
         $Categories = AcademyCategory::join('maite_backend.users', 'users.id', '=', 'Category.Author')
-                                       ->join('Category_Course_Class_Student', 'CategoryId', '=', 'Category.Id')
+                                       ->join('Course', 'CategoryId', '=', 'Category.Id')
+                                       ->join('Category_Course_Class_Student', 'CourseId', '=', 'Course.Id')
                          ->where(function($query) use ($data) {  
                             if (isset($data['Category.Id'])) {
                                 $query->Where('Category.Id', $data['Id']);
@@ -235,7 +236,7 @@ class AcademyCategoryController extends Controller
 
                          })
                          ->distinct() 
-                         ->selectRaw('Category.Id,Author,name,Title,Category.State')
+                         ->selectRaw('Category.Id,Category.Author,name,Category.Title,Category.State')
 
                          
                          ->get();

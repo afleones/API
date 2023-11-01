@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\livingplace;
+use App\Models\person;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -287,6 +288,8 @@ class livingplaceController extends Controller
         return $dataArray;
     }
 
+    
+
 
     public function showLivingplace(Request $request, livingplace $livingplace)
     {
@@ -317,6 +320,44 @@ class livingplaceController extends Controller
         $dataArray = $livingplace;             
         return $dataArray;
     }
+
+
+    public function showLivingplacePerson(Request $request, livingplace $livingplace)
+    {
+        $data = $request->all();
+
+        $query = livingplace::
+                where(function($query) use ($data) {  
+                    // Condiciones de búsqueda
+                })
+                ->leftJoin('maite_backend.users', 'users.id', '=', 'livingplace.userid')
+                ->select('livingplace.*')
+                ->orderBy('livingplace.userid');
+
+        // Aplicar paginación
+        $perPage = $data['per_page'] ?? 20; // Número de registros por página
+        $page = $data['page'] ?? 1; // Página actual
+
+        // Recuperar todas las páginas
+        $allPages = [];
+        do {
+            $livingplaces = $query->paginate($perPage, ['*'], 'page', $page);
+            $allPages[] = $livingplaces;
+            $page++; // Obtener la siguiente página
+        } while ($livingplaces->hasMorePages());
+
+        $payload = [];
+
+        foreach ($allPages as $page) {
+            foreach ($page as $livingplace) {
+                $persons = person::where('viviendaid', $livingplace->id)->get();
+                $payload[] = ['livingplace' => $livingplace, 'persons' => $persons];
+            }
+        }
+
+        return $payload;
+    }
+
 
 
     /**
