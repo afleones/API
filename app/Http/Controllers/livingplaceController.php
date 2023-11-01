@@ -337,18 +337,27 @@ class livingplaceController extends Controller
         // Aplicar paginación
         $perPage = $data['per_page'] ?? 20; // Número de registros por página
         $page = $data['page'] ?? 1; // Página actual
-        $livingplaces = $query->paginate($perPage, ['*'], 'page', $page);
+
+        // Recuperar todas las páginas
+        $allPages = [];
+        do {
+            $livingplaces = $query->paginate($perPage, ['*'], 'page', $page);
+            $allPages[] = $livingplaces;
+            $page++; // Obtener la siguiente página
+        } while ($livingplaces->hasMorePages());
 
         $payload = [];
 
-        foreach ($livingplaces as $livingplace) {
-            $persons = person::where('viviendaid', $livingplace->id)->get();
-
-            $payload[] = ['livingplace' => $livingplace, 'persons' => $persons];
+        foreach ($allPages as $page) {
+            foreach ($page as $livingplace) {
+                $persons = person::where('viviendaid', $livingplace->id)->get();
+                $payload[] = ['livingplace' => $livingplace, 'persons' => $persons];
+            }
         }
 
         return $payload;
     }
+
 
 
     /**
