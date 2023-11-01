@@ -6,6 +6,11 @@ use App\Models\livingplace;
 use App\Models\person;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Exports\LivingplaceExport;
+
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Middleware\CorsMiddleware;
+
 
 class livingplaceController extends Controller
 {
@@ -321,8 +326,8 @@ class livingplaceController extends Controller
         return $dataArray;
     }
 
-
-    public function showLivingplacePerson(Request $request, livingplace $livingplace)
+    
+    /*public function showLivingplacePerson(Request $request, livingplace $livingplace)
     {
         $data = $request->all();
 
@@ -355,7 +360,38 @@ class livingplaceController extends Controller
             }
         }
 
-        return $payload;
+        //return $payload;
+        return Excel::download(new LivingplaceExport($payload), 'data.xlsx');
+    }*/
+    
+
+    public function showLivingplacePerson(Request $request, livingplace $livingplace)
+    {
+        $data = $request->all();
+
+        $query = livingplace::
+                where(function($query) use ($data) {  
+                    // Condiciones de búsqueda
+                })
+                ->leftJoin('maite_backend.users', 'users.id', '=', 'livingplace.userid')
+                ->select('livingplace.*')
+                ->orderBy('livingplace.userid');
+
+        // Aplicar paginación
+        $perPage = $data['per_page'] ?? 20; // Número de registros por página
+        $page = $data['page'] ?? 1; // Página actual
+        $livingplaces = $query->paginate($perPage, ['*'], 'page', $page);
+
+        $payload = [];
+
+        foreach ($livingplaces as $livingplace) {
+            $persons = person::where('viviendaid', $livingplace->id)->get();
+
+            $payload[] = ['livingplace' => $livingplace, 'persons' => $persons];
+        }
+
+        //return $payload;
+        return Excel::download(new LivingplaceExport($payload), 'data.xlsx');
     }
 
 

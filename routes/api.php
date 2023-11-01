@@ -37,6 +37,8 @@ use App\Http\Controllers\AcademyVideoController;
 use App\Http\Controllers\AcademyExamController;
 use App\Http\Controllers\AcademyCertificateController;
 
+use App\Http\Middleware\CorsMiddleware;
+
 
 //Api Controllers GenomaX_Documents Start
 
@@ -133,7 +135,8 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::get('livingPlaces', [livingplaceController::class, 'index']);
     Route::post('livingplace', [livingplaceController::class, 'show']);
 
-    Route::post('showLivingplacePerson', [livingplaceController::class, 'showLivingplacePerson']);
+    Route::post('showLivingplacePerson', [livingplaceController::class, 'showLivingplacePerson'])->middleware(CorsMiddleware::class);
+    Route::get('/download-excel', 'LivingplaceController@downloadExcel');
 
     Route::post('updateLivingPlace', [livingplaceController::class, 'update']);
     Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']);
