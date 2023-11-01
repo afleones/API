@@ -324,49 +324,32 @@ class livingplaceController extends Controller
 
     public function showLivingplacePerson(Request $request, livingplace $livingplace)
     {
-        //$data = $request->json()->all();
-        $data = $request->all(); 
+        $data = $request->all();
 
-        //var_dump($data);exit();
-        //$userid = $data['userid'];
+        $query = livingplace::
+                where(function($query) use ($data) {  
+                    // Condiciones de búsqueda
+                })
+                ->leftJoin('maite_backend.users', 'users.id', '=', 'livingplace.userid')
+                ->select('livingplace.*')
+                ->orderBy('livingplace.userid');
 
-        $livingplaces = livingplace::
-                         where(function($query) use ($data) {  
-                            if (isset($data['userid'])) {
-                                $query->Where('livingplace.userid', $data['userid']);
-                            }
-                            if (isset($data['liderid'])) {
-                                $query->Where('users.liderid', $data['liderid']);
-                            }
-                            if (isset($data['viviendaid'])) {
-                                $query->Where('livingplace.id', $data['viviendaid']);
-                            }
-                            if (isset($data['fecha1']) and isset($data['fecha2'])) {
-                                $query->whereBetween(\DB::raw('DATE(livingplace.created_at)'), [$data['fecha1'], $data['fecha2']]);
-                            }
-                         })
-                         ->leftJoin('maite_backend.users', 'users.id', '=', 'livingplace.userid')
-                         ->select('livingplace.*')
-                         //->selectRaw('users.liderid,livingplace.userid, name, DATE(livingplace.created_at) as Creado')
-                         //->groupBy('livingplace.userid', 'Creado', 'liderid')
-                         ->orderBY('livingplace.userid')
-                         ->get();
+        // Aplicar paginación
+        $perPage = $data['per_page'] ?? 20; // Número de registros por página
+        $page = $data['page'] ?? 1; // Página actual
+        $livingplaces = $query->paginate($perPage, ['*'], 'page', $page);
 
-                         $payload = []; // Inicializa el arreglo de resultados
+        $payload = [];
 
-                        foreach ($livingplaces as $livingplace) {
-                            $persons = person::where('viviendaid', $livingplace->id)->get();
+        foreach ($livingplaces as $livingplace) {
+            $persons = person::where('viviendaid', $livingplace->id)->get();
 
-                            $payload = ['livingplace' => $livingplace, 'persons' => $persons];
+            $payload[] = ['livingplace' => $livingplace, 'persons' => $persons];
+        }
 
-                        }
-
-
-
-
-                   
         return $payload;
     }
+
 
     /**
      * Update the specified resource in storage.
