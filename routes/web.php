@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\livingplaceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+
+   
 });
+
+//Route::get('/exportar', 'livingplaceController@export');
+Route::get('exportar', [livingplaceController::class, 'export']);
+Route::get('showLivingplacePerson', [livingplaceController::class, 'showLivingplacePerson']);

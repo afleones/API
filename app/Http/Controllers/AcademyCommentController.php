@@ -210,9 +210,25 @@ class AcademyCommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        // Validación
+        /*$request->validate([
+            'Id' => 'required|integer|exists:academy_comments,id',
+        ]);*/
+
+        $Id = $request->input('Id');
+
+        // Intenta eliminar el registro
+        $deleted = AcademyComment::where('id', $Id)->delete();
+
+        $deleteDetail = AcademyCommentDetail::where('CommentId', $Id)->delete();
+
+        if ($deleted) {
+            return response()->json(['message' => 'Registro eliminado correctamente']);
+        } else {
+            return response()->json(['message' => 'El registro no pudo ser eliminado'], 422);
+        }
     }
 
 

@@ -136,5 +136,7 @@
                 </div>
             </div>
         </div>
+        <a href="/exportar">Exportar</a>
+        <a href="/showLivingplacePerson">Exportar showLivingplacePerson</a>
     </body>
 </html>
