@@ -126,6 +126,9 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::post('subir-video', [AcademyVideoController::class, 'subirVideo']);
 
+//Route::get('/exportar', 'livingplaceController@export');
+Route::get('exportarhouse', [livingplaceController::class, 'export']);
+
 Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], function(){
 
     //Api Controllers GenomaX_Documents Start
@@ -290,6 +293,11 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('Comment', [AcademyCommentController::class, 'show']);
     
     Route::post('SaveComment', [AcademyCommentController::class, 'store']);
+
+    Route::post('DeleteComment', [AcademyCommentController::class, 'destroy']);
+    Route::post('DeleteCommentDetail', [AcademyCommentController::class, 'destroyDetail']);
+    
+
     Route::post('SaveCommentDetail', [AcademyCommentController::class, 'storeDetail']);
     
     Route::post('UpdateComment', [AcademyCommentController::class, 'update']);

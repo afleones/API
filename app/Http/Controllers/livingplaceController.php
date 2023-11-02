@@ -7,6 +7,7 @@ use App\Models\person;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Exports\LivingplaceExport;
+use App\Exports\LivingplacePersonExport;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Middleware\CorsMiddleware;
@@ -394,7 +395,9 @@ class livingplaceController extends Controller
         return Excel::download(new LivingplaceExport($payload), 'data.xlsx');
     }
 
-
+    public function export(){
+        return Excel::download(new LivingplacePersonExport, 'data.xlsx');
+    }
 
     /**
      * Update the specified resource in storage.

@@ -9,4 +9,8 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    public function export(){
+        return Excel::download(new LivingplacePersonExport, 'data.xlsx');
+    }
 }

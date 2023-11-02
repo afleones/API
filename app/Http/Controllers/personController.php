@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\person;
+use App\Models\livingplace;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -112,9 +113,18 @@ class personController extends Controller
 
         
         $existingPerson = Person::where('numero_documento', $data['numero_documento'])->first();
+                                
+        $existingVivienda = livingplace::where('id', $existingPerson->viviendaid)->first();
+        $nucleo='';
+        if ($existingVivienda === null) {
+            // No se encontró ningún resultado, establece $existingVivienda como una cadena de texto vacía
+            $nucleo = '';
+        }else{
+            $nucleo = $existingVivienda->nombre_nucleo;
+        }
 
         if ($existingPerson) {
-            return response()->json(['message' => 'Alerta el registro ya existe']);
+            return response()->json(['message' => 'Alerta el registro ya existe en la vivienda con ID = '. $existingPerson->viviendaid.' con nombre de nucleo = '.$nucleo ]);
         } else {
 
 
