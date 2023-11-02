@@ -231,6 +231,25 @@ class AcademyCommentController extends Controller
         }
     }
 
+    public function destroyDetail(Request $request)
+    {
+        // Validación
+        /*$request->validate([
+            'Id' => 'required|integer|exists:academy_comments,id',
+        ]);*/
+
+        $Id = $request->input('Id');
+
+        
+
+        $deleteDetail = AcademyCommentDetail::where('Id', $Id)->delete();
+
+        if ($deleteDetail) {
+            return response()->json(['message' => 'Registro eliminado correctamente']);
+        } else {
+            return response()->json(['message' => 'El registro no pudo ser eliminado'], 422);
+        }
+    }
 
     public function showCoursexComment(Request $request){
         //$data = $request->json()->all();

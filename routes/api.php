@@ -295,6 +295,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('SaveComment', [AcademyCommentController::class, 'store']);
 
     Route::post('DeleteComment', [AcademyCommentController::class, 'destroy']);
+    Route::post('DeleteCommentDetail', [AcademyCommentController::class, 'destroyDetail']);
     
 
     Route::post('SaveCommentDetail', [AcademyCommentController::class, 'storeDetail']);
