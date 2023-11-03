@@ -84,7 +84,23 @@ class UsersAccountsController extends Controller
      */
     public function update(Request $request, User $user)
     {
-   
+        $data = $request->all(); 
+
+        $id = $data['id'];
+        $name = isset($data['name']) ? $data['name'] : '';
+        $logo = isset($data['logo']) ? $data['logo'] : '';
+
+        $tabla = livingplace::where('id', $id)
+                            //->where('userid', $userid)
+                            ->firstOrFail();
+
+                            $tabla->name = $name;
+                            $tabla->logo = $logo;
+                           
+        $tabla->save();
+
+        // Puedes retornar una respuesta o redireccionar a otra página
+        return response()->json(['message' => 'Datos Actualizado correctamente']);
 
     }
 

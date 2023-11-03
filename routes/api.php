@@ -249,6 +249,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* Rutas de Usuarios */
     Route::post('createUser', [AuthController::class, 'store']);
     Route::post('updateUser', [AuthController::class, 'update']);
+    Route::post('updateAcademyUser', [AuthController::class, 'updateAcademyUser']);
     /* End */
 
     /* Rutas para Listar Lideres */
