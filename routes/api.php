@@ -306,7 +306,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     
     Route::post('insertExam', [AcademyExamController::class, 'insertExam']);
-    Route::get('showExams', [AcademyExamController::class, 'showExams']);
+    Route::post('showExams', [AcademyExamController::class, 'showExams']);
     Route::post('updateExam', [AcademyExamController::class, 'updateExam']);
 
     Route::get('Certificates', [AcademyCertificateController::class, 'index']);
