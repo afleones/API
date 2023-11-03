@@ -55,11 +55,14 @@ class AcademyExamController extends Controller
 
     public function insertExam(Request $request) {
         $data = json_decode($request->getContent(), true);
+        //$data = $request->json()->all();
+        $data = array($data);
     
         DB::transaction(function () use ($data) {
             foreach ($data as $examenData) {
                 $examen = new AcademyExam();
                 $examen->Title = $examenData['tituloExamen'];
+                $examen->Author = $examenData['Author'];
                 $examen->save();
     
                 foreach ($examenData['preguntas'] as $preguntaData) {
@@ -100,7 +103,7 @@ class AcademyExamController extends Controller
 
                                 })
 
-                                ->selectRaw('Id,Title')
+                                ->selectRaw('Id,Title,Author')
 
                          
                                 ->get();
@@ -149,6 +152,7 @@ class AcademyExamController extends Controller
                                     $payload[] = [
                                         'Id' => $examen->Id,
                                         'tituloExamen' => $examen->Title,
+                                        'Author' => $examen->Author,
                                         'preguntas' => $preguntasData
                                     ];
 
@@ -162,6 +166,7 @@ class AcademyExamController extends Controller
 
     public function updateExam(Request $request) {
         $data = json_decode($request->getContent(), true);
+        $data = array($data);
     
         DB::transaction(function () use ($data) {
             $examenId = $data['Id'];
