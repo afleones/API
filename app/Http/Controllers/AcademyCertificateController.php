@@ -40,6 +40,7 @@ class AcademyCertificateController extends Controller
         $newResource->ExamId = $request->input('ExamId');
         $newResource->Signature1 = $request->input('Signature1');
         $newResource->Signature2 = $request->input('Signature2');
+        $newResource->Author = $request->input('Author');
         $newResource->save();
 
         //return response()->json($newResource, 201); // Devuelve una respuesta JSON con el nuevo recurso y el código de estado 201 (creado).
@@ -95,6 +96,7 @@ class AcademyCertificateController extends Controller
         $resource->ExamId = $data['ExamId'];
         $resource->Signature1 = $data['Signature1'];
         $resource->Signature2 = $data['Signature2'];
+        $resource->Author = $data['Author'];
 
         // Guarda los cambios en la base de datos
         $resource->save();
