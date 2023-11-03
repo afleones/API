@@ -62,10 +62,26 @@ class AcademyCertificateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
         // Aquí debes implementar la lógica para mostrar un recurso específico
-        $resource = AcademyCertificate::find($id);
+        $data = $request->all();
+        
+        
+        
+        $resource = AcademyCertificate::where(function($query) use ($data) {
+                                            if (isset($data['Id'])) {
+                                                $query->Where('Certificate.Id', $data['Id']);
+                                            }
+                                            if (isset($data['Author'])) {
+                                                $query->Where('Certificate.Author', $data['Author']);
+                                            }
+                                        })
+                                        ->join('Course', 'Course.Id', '=', 'Certificate.CourseId')
+                                        ->join('Exam', 'Exam.Id', '=', 'Certificate.ExamId')
+                                        ->selectRaw("Certificate.Id,CustomTitle,CourseId,Course.Title as TitleCourse,ExamId,Exam.Title as TitleExam,Signature1,Signature2,Certificate.Author,Certificate.created_at,Certificate.updated_at")
+                                        ->get();
+                                       
 
         if (!$resource) {
             return response()->json(['message' => 'Recurso no encontrado'], 404);
