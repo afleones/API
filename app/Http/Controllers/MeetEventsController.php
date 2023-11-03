@@ -57,7 +57,7 @@ class MeetEventsController extends Controller
     }
 
         
-        public function update(Request $request, MeetEvent $id)
+    public function update(Request $request, MeetEvent $id)
     {
         $data = $request->all();
         $id = $data['id'];
@@ -165,6 +165,49 @@ class MeetEventsController extends Controller
         return response()->json(['events' => $event, 'guests' => $guests]);
 
     }
+
+    public function showguests(Request $request)
+    {
+        $data = $request->all();
+    
+        // Define las reglas de validación
+        $rules = [
+            'eventId' => 'required|integer', // Agrega regla de validación para eventId
+        ];
+    
+        // Define mensajes de error personalizados si es necesario
+        $messages = [
+            'eventId.required' => 'No se proporcionó un eventId válido.', // Mensaje para eventId
+            'eventId.integer' => 'El campo eventId debe ser un número entero.', // Mensaje para eventId
+        ];
+    
+        // Crea un validador con las reglas y los mensajes personalizados
+        $validator = Validator::make($data, $rules, $messages);
+    
+        // Verifica si la validación falla
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+    
+        // Consulta los registros en meetGuestsEvents que coincidan con el eventId
+        $guests = MeetGuestsEvent::where(function ($query) use ($data) {
+            if (isset($data['eventId'])) { // Agrega condición para eventId
+                $query->where('eventId', $data['eventId']); // Filtra por eventId
+            }
+        })->where('status', '!=', 0)->get();
+    
+        // Obtiene los nombres de los usuarios correspondientes a los guestId
+        $userNames = [];
+        foreach ($guests as $guest) {
+            $user = User::where('id', $guest->guestId)->first(); // Suponiendo que 'userId' sea la columna que almacena el ID del usuario en la tabla 'users'
+            if ($user) {
+                $userNames[] = $user->name; // Suponiendo que 'name' sea el campo que almacena el nombre del usuario en la tabla 'users'
+            }
+        }
+    
+        return response()->json(['guests'=> $guests, 'userNames' => $userNames]);
+    }
+        
             
     public function notifyStatus(Request $request)
     {
@@ -279,7 +322,7 @@ class MeetEventsController extends Controller
         return response()->json(['events' => $events]);
     }
     
-        public function deleteNotification(Request $request, MeetEvent $id)
+    public function deleteNotification(Request $request, MeetEvent $id)
     {
         $data = $request->all();
         $id = $data['id'];
