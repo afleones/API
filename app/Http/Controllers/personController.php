@@ -113,8 +113,15 @@ class personController extends Controller
 
         
         $existingPerson = Person::where('numero_documento', $data['numero_documento'])->first();
+        $viviendaid='';
+        if ($existingPerson === null) {
+            // No se encontró ningún resultado, establece $existingVivienda como una cadena de texto vacía
+            $viviendaid = '';
+        }else{
+            $viviendaid = $existingPerson->viviendaid;
+        }
                                 
-        $existingVivienda = livingplace::where('id', $existingPerson->viviendaid)->first();
+        $existingVivienda = livingplace::where('id', $viviendaid)->first();
         $nucleo='';
         if ($existingVivienda === null) {
             // No se encontró ningún resultado, establece $existingVivienda como una cadena de texto vacía
