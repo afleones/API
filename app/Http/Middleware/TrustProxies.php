@@ -19,19 +19,10 @@ class TrustProxies extends Middleware
      *
      * @var int
      */
-    protected $headers = [
+    protected $headers =
         Request::HEADER_X_FORWARDED_FOR |
         Request::HEADER_X_FORWARDED_HOST |
         Request::HEADER_X_FORWARDED_PORT |
         Request::HEADER_X_FORWARDED_PROTO |
-        Request::HEADER_X_FORWARDED_AWS_ELB,
-        'Content-Security-Policy' => "default-src 'self';
-                                      script-src 'self' 'unsafe-inline' 'unsafe-eval'; 
-                                      style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; 
-                                      font-src 'self'; object-src 'self'; 
-                                      frame-src 'self' https://documents.genomax.app; 
-                                      frame-ancestors 'self' https://documents.genomax.app; 
-                                      download 'self';"
-    ];
-                
+        Request::HEADER_X_FORWARDED_AWS_ELB;
 }
