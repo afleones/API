@@ -391,8 +391,8 @@ class livingplaceController extends Controller
             $payload[] = ['livingplace' => $livingplace, 'persons' => $persons];
         }
 
-        //return $payload;
-        return Excel::download(new LivingplaceExport($payload), 'data.xlsx');
+        return $payload;
+        //return Excel::download(new LivingplaceExport($payload), 'data.xlsx');
     }
 
     public function export(){
