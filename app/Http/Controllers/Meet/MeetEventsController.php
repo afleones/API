@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Meet;
 
 use App\Http\Controllers\Controller;
-use App\Models\MeetEvent;
-use App\Models\MeetGuestEvent;
+use App\Models\Meet\MeetEvent;
+use App\Models\Meet\MeetGuestEvent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -20,6 +20,7 @@ class MeetEventsController extends Controller
     {
         $data = $request->all();
         $userId = $data['userId'];
+        
         
         // Si la validación pasa, continúa con la consulta
         $events = MeetEvent::where(function ($query) use ($data) {
@@ -47,7 +48,7 @@ class MeetEventsController extends Controller
                     // Agrega los invitados al array "invitadosEvento" con "guestId", "nombre" y "eventId"
                     $invitadosEvento[] = [
                         'guestId' => $invitado->guestId,
-                        'nombre' => $user->name,
+                        'name' => $user->name,
                         'eventId' => $event->id, // Agrega el eventId
                     ];
                 }
