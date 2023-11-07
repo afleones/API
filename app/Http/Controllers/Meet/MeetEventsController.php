@@ -16,7 +16,6 @@ class MeetEventsController extends Controller
 {
     public function index(Request $request)
     {
-        //
     }
 
     public function store(Request $request)
@@ -123,66 +122,40 @@ class MeetEventsController extends Controller
 	
 	public function show(Request $request)
     {
-        $data = $request->all();  
-        
-        $event = MeetEvent::where(function($query) use ($data) {
-            if (isset($data['id'])) {
-                $query->where('id', $data['id']);
-            }
-            if (isset($data['userId'])) {
-                $query->where('userId', $data['userId']);
-            }
-            if (isset($data['title'])) {
-                $query->where('title', $data['title']);
-            }
-        })->where('status', '!=', 0)->get();
-        
-        $dataArray = $event;
-        return $dataArray;
-    }     
-
-    public function showEvents2(Request $request)
-    {
         $data = $request->all();
-    
-        // Define las reglas de validación
-        $rules = [
-            'userId' => 'required|integer',
-        ];
-    
-        // Define mensajes de error personalizados si es necesario
-        $messages = [
-            'userId.required' => 'No se proporcionó un ID de usuario válido.',
-            'userId.integer' => 'El campo userId debe ser un número entero.',
-        ];
-    
-        // Crea un validador con las reglas y los mensajes personalizados
-        $validator = Validator::make($data, $rules, $messages);
-    
-        // Verifica si la validación falla
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
+        $userId = $data['userId'];
     
         // Si la validación pasa, continúa con la consulta
-        $events = MeetEvent::with('meetGuestEvents')  // Cargar la relación 'guests'
-            ->where(function ($query) use ($data) {
-                if (isset($data['id'])) {
-                    $query->where('id', $data['id']);
+        $events = MeetEvent::where(function ($query) use ($data) {
+            // ... (tu lógica de búsqueda)
+        })->where('status', '!=', 0)->with('meetGuestEvent')->get();
+    
+        // Renombrar la relación a 'invitados' y obtener el guestId y el nombre de los usuarios
+        $events = $events->map(function ($event) {
+            $invitados = [];
+    
+            foreach ($event->meetGuestEvent as $invitado) {
+                $user = User::find($invitado->guestId);
+                if ($user) {
+                    $invitados[] = [
+                        'invitadoId' => $invitado->guestId,
+                        'nombre' => $user->name,
+                    ];
                 }
-                if (isset($data['userId'])) {
-                    $query->where('userId', $data['userId']);
-                }
-                if (isset($data['title'])) {
-                    $query->where('title', $data['title']);
-                }
-            })
-            ->where('status', '!=', 0)
-            ->get();
+            }
+    
+            // Eliminar la propiedad 'meet_guest_event' si no es necesaria
+            unset($event->meetGuestEvent);
+    
+            // Agregar los invitados al objeto
+            $event->invitados = $invitados;
+    
+            return $event;
+        });
     
         return response()->json(['events' => $events]);
-    }
-    
+    }     
+
     public function showguests(Request $request)
     {
         $data = $request->all();
@@ -362,44 +335,39 @@ class MeetEventsController extends Controller
         return response()->json(['message' => 'se ha eliminado la notificacion']);
     }
 
-    public function showEvents(Request $request)
-    {
-        $data = $request->all();
-        $userId = $data['userId'];
+    // public function showEvents(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $userId = $data['userId'];
     
-        // Si la validación pasa, continúa con la consulta
-        $events = MeetEvent::where(function ($query) use ($data) {
-            // ... (tu lógica de búsqueda)
-        })->where('status', '!=', 0)->with('meetGuestEvent')->get();
+    //     // Si la validación pasa, continúa con la consulta
+    //     $events = MeetEvent::where(function ($query) use ($data) {
+    //         // ... (tu lógica de búsqueda)
+    //     })->where('status', '!=', 0)->with('meetGuestEvent')->get();
     
-        // Renombrar la relación a 'invitados' y obtener el guestId y el nombre de los usuarios
-        $events = $events->map(function ($event) {
-            $invitados = [];
+    //     // Renombrar la relación a 'invitados' y obtener el guestId y el nombre de los usuarios
+    //     $events = $events->map(function ($event) {
+    //         $invitados = [];
     
-            foreach ($event->meetGuestEvent as $invitado) {
-                $user = User::find($invitado->guestId);
-                if ($user) {
-                    $invitados[] = [
-                        'guestId' => $invitado->guestId,
-                        'nombre' => $user->name,
-                    ];
-                }
-            }
+    //         foreach ($event->meetGuestEvent as $invitado) {
+    //             $user = User::find($invitado->guestId);
+    //             if ($user) {
+    //                 $invitados[] = [
+    //                     'guestId' => $invitado->guestId,
+    //                     'nombre' => $user->name,
+    //                 ];
+    //             }
+    //         }
     
-            // Eliminar la propiedad 'meet_guest_event' si no es necesaria
-            unset($event->meetGuestEvent);
+    //         // Eliminar la propiedad 'meet_guest_event' si no es necesaria
+    //         unset($event->meetGuestEvent);
     
-            // Agregar los invitados al objeto
-            $event->invitados = $invitados;
+    //         // Agregar los invitados al objeto
+    //         $event->invitados = $invitados;
     
-            return $event;
-        });
+    //         return $event;
+    //     });
     
-        return response()->json(['events' => $events]);
-    }
-    
-            
-                
-
-                            
+    //     return response()->json(['events' => $events]);
+    // }                           
 }
