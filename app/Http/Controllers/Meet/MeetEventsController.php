@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 class MeetEventsController extends Controller
 {
 
-
+    /* Listar Eventos con sus respectivos invitados creados por userId*/
     public function index(Request $request)
     {
         $data = $request->all();
@@ -68,7 +68,8 @@ class MeetEventsController extends Controller
         
         return response()->json($responseData);
     }
-                        
+    
+    /* Crear nuevo evento */
     public function store(Request $request)
     {
         $data = $request->all();
@@ -126,8 +127,8 @@ class MeetEventsController extends Controller
     
         return response()->json(['message' => 'Evento y invitados creados exitosamente']);
     }
-        
-        
+    
+    /* Actualizar nuevo evento */
     public function update(Request $request, MeetEvent $id)
     {
         $data = $request->all();
@@ -171,6 +172,7 @@ class MeetEventsController extends Controller
         return response()->json(['message' => 'Datos Actualizados correctamente']);
     }
 	
+    /* Mostrar solo los campos de los eventos */
 	public function show(Request $request)
     {
         $data = $request->all();  

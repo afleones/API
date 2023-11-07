@@ -37,14 +37,23 @@ use App\Http\Controllers\AcademyVideoController;
 use App\Http\Controllers\AcademyExamController;
 use App\Http\Controllers\AcademyCertificateController;
 
-use App\Http\Middleware\CorsMiddleware;
-
-
-//Api Controllers GenomaX_Documents Start
+// API Controllers
 
 /* Controlador de Autenticación */
 use App\Http\Controllers\Api\AuthController;
 /*  */
+
+/* Politicas de Seguridad API */
+use App\Http\Middleware\CorsMiddleware;
+/*  */
+
+// API Controllers End
+ 
+/* controlador de Usuarios */
+use App\Http\Controllers\UsersAccountsController;
+/*  */
+
+//Api Controllers GenomaX_Documents Start
 
 /* Controlador de Viviendas */
 use App\Http\Controllers\livingplaceController;
@@ -78,10 +87,6 @@ use App\Http\Controllers\communicablediseasesController;
 use App\Http\Controllers\womenhealthController;
 /*  */
 
-/* controlador de Prueba de endPoints */
-use App\Http\Controllers\pruebaController;
-/*  */
-
 /* controlador de Adolescencees */
 use App\Http\Controllers\adolescenceController;
 /*  */
@@ -102,9 +107,7 @@ use App\Http\Controllers\youthController;
 use App\Http\Controllers\gestationbirthpostpartumController;
 /*  */
 
-/* controlador de Usuarios */
-use App\Http\Controllers\UsersAccountsController;
-/*  */
+//Api Controllers GenomaX_Documents End
 
 //controllers app Meet
 
@@ -112,19 +115,15 @@ use App\Http\Controllers\UsersAccountsController;
 use App\Http\Controllers\Meet\MeetEventsController;
 /* end */
 
-/* Chat Controller */
-use App\Http\Controllers\ChatController;
-/* end */
+// API rutas para gestionar Usuarios
+Route::post('register', [AuthController::class, 'register']); /* endPoint para Registrar Nuevo Usuario */
+Route::post('login', [AuthController::class, 'login']); /* endPoint para Iniciar Sesion */
+Route::get('users', [AuthController::class, 'allUsers']); /* endPoint para Listar Todos los Usuarios  */
+// End
 
 // Controllers app Meet
 
-
-//Api Controllers GenomaX_Documents End
-
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
-
-Route::post('subir-video', [AcademyVideoController::class, 'subirVideo']);
+Route::post('subir-video', [AcademyVideoController::class, 'subirVideo']); /* endPoint para Almacenar Videos */
 
 //Route::get('/exportar', 'livingplaceController@export');
 Route::get('exportarhouse', [livingplaceController::class, 'export']);
@@ -134,111 +133,111 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     //Api Controllers GenomaX_Documents Start
 
     /*Rutas de Viviendas*/
-    Route::post('saveLivingPlace', [livingplaceController::class, 'store']);
-    Route::get('livingPlaces', [livingplaceController::class, 'index']);
-    Route::post('livingplace', [livingplaceController::class, 'show']);
+    Route::post('saveLivingPlace', [livingplaceController::class, 'store']); /* endPoint para crear */
+    Route::get('livingPlaces', [livingplaceController::class, 'index']); /* endPoint para Listar */
+    Route::post('livingplace', [livingplaceController::class, 'show']); /* endPoint para Mostrar {id} */
 
     Route::post('showLivingplacePerson', [livingplaceController::class, 'showLivingplacePerson'])->middleware(CorsMiddleware::class);
     Route::get('/download-excel', 'LivingplaceController@downloadExcel');
 
-    Route::post('updateLivingPlace', [livingplaceController::class, 'update']);
-    Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']);
+    Route::post('updateLivingPlace', [livingplaceController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Personas */
-    Route::post('savePerson', [personController::class, 'store']);
-    Route::get('People', [personController::class, 'index']);
-    Route::post('Person', [personController::class, 'show']);
-    Route::post('updatePerson', [personController::class, 'update']);
-    Route::post('deletePerson', [personController::class, 'destroy']);
+    Route::post('savePerson', [personController::class, 'store']); /* endPoint para crear */
+    Route::get('People', [personController::class, 'index']); /* endPoint para listar */
+    Route::post('Person', [personController::class, 'show']); /* endPoint para Mostrar {id} */
+    Route::post('updatePerson', [personController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deletePerson', [personController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Empresas */
-    Route::post('saveCompany', [companyController::class, 'store']);
-    Route::get('companies', [companyController::class, 'index']);
-    Route::post('company', [companyController::class, 'show']);
-    Route::post('updateCompany', [companyController::class, 'update']);
-    Route::post('deleteCompany', [companyController::class, 'destroy']);
+    Route::post('saveCompany', [companyController::class, 'store']); /* endPoint para crear */
+    Route::get('companies', [companyController::class, 'index']); /* endPoint para Listar */
+    Route::post('company', [companyController::class, 'show']); /* endPoint para Mostrar {ID} */
+    Route::post('updateCompany', [companyController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteCompany', [companyController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Roles */
-    Route::post('saveRole', [roleController::class, 'store']);
-    Route::get('roles', [roleController::class, 'index']);
-    Route::post('role', [roleController::class, 'show']);
-    Route::post('updateRole', [roleController::class, 'update']);
-    Route::post('deleteRole', [roleController::class, 'destroy']);
+    Route::post('saveRole', [roleController::class, 'store']); /* endPoint para crear */
+    Route::get('roles', [roleController::class, 'index']); /* endPoint para Listar */
+    Route::post('role', [roleController::class, 'show']); /* endPoint para Mostrar {id} */
+    Route::post('updateRole', [roleController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteRole', [roleController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Primera Infancia */
-    Route::post('saveEarlyChildHood', [earlychildhoodController::class, 'store']);
-    Route::get('earlyChildHoods', [earlychildhoodController::class, 'index']);
-    Route::post('earlyChildHood', [earlychildhoodController::class, 'show']);
-    Route::post('updateEarlyChildHood', [earlychildhoodController::class, 'update']);
-    Route::post('deleteEarlyChildHood', [earlychildhoodController::class, 'destroy']);
+    Route::post('saveEarlyChildHood', [earlychildhoodController::class, 'store']); /* endPoint para crear */
+    Route::get('earlyChildHoods', [earlychildhoodController::class, 'index']); /* endPoint para Listar */
+    Route::post('earlyChildHood', [earlychildhoodController::class, 'show']); /* endPoint para Mostrar {id} */
+    Route::post('updateEarlyChildHood', [earlychildhoodController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteEarlyChildHood', [earlychildhoodController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Enfermedades Transmisibles */
-    Route::post('saveCommunicableDiseases', [communicablediseasesController::class, 'store']);
-    Route::get('communicableDiseases', [communicablediseasesController::class, 'index']);
-    Route::post('communicableDisease',[communicablediseasesController::class, 'show']);
-    Route::post('updateCommunicableDiseases', [communicablediseasesController::class, 'update']);
-    Route::post('deleteCommunicableDiseases', [communicablediseasesController::class, 'destroy']);
+    Route::post('saveCommunicableDiseases', [communicablediseasesController::class, 'store']); /* endPoint para crear */
+    Route::get('communicableDiseases', [communicablediseasesController::class, 'index']); /* endPoint para Listar */
+    Route::post('communicableDisease',[communicablediseasesController::class, 'show']); /* endPoint para Mostrar {id} */
+    Route::post('updateCommunicableDiseases', [communicablediseasesController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteCommunicableDiseases', [communicablediseasesController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Salud de la Mujer */
-    Route::post('saveWomenHealth', [womenhealthController::class, 'store']);
-    Route::get('womenHealths', [womenhealthController::class, 'index']);
-    Route::post('womenHealth', [womenhealthController::class, 'show']);
-    Route::post('updateWomenHealth', [womenhealthController::class, 'update']);
-    Route::post('deleteWomenHealth', [womenhealthController::class, 'destroy']);
+    Route::post('saveWomenHealth', [womenhealthController::class, 'store']); /* endPoint para Crear */
+    Route::get('womenHealths', [womenhealthController::class, 'index']); /* endPoint para Listar */
+    Route::post('womenHealth', [womenhealthController::class, 'show']); /* endPoint para Mostrar {id} */
+    Route::post('updateWomenHealth', [womenhealthController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteWomenHealth', [womenhealthController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Infancia */
-    Route::post('saveChildHood', [childhoodController::class, 'store']);
-    Route::get('childHoods', [childhoodController::class, 'index']);
-    Route::post('childHood', [childhoodController::class, 'show']);
-    Route::post('updateChildHood', [childhoodController::class, 'update']);
-    Route::post('deleteChildHood', [childhoodController::class, 'destroy']);
+    Route::post('saveChildHood', [childhoodController::class, 'store']); /* endPoint para Crear */
+    Route::get('childHoods', [childhoodController::class, 'index']); /* endPoint para Listar */
+    Route::post('childHood', [childhoodController::class, 'show']); /* endPoint para Mostrar {id} */
+    Route::post('updateChildHood', [childhoodController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteChildHood', [childhoodController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Adolescencia */
-    Route::post('saveAdolescence', [adolescenceController::class, 'store']);
-    Route::get('adolescences', [adolescenceController::class, 'index']);
-    Route::post('adolescence', [adolescenceController::class, 'show']);
-    Route::post('updateAdolescence', [adolescenceController::class, 'update']);
-    Route::post('deleteAdolescence', [adolescenceController::class, 'destroy']);
+    Route::post('saveAdolescence', [adolescenceController::class, 'store']); /* endPoint para Crear */
+    Route::get('adolescences', [adolescenceController::class, 'index']); /* endPoint para Listar */
+    Route::post('adolescence', [adolescenceController::class, 'show']); /* endPoint para Mostrar {id} */
+    Route::post('updateAdolescence', [adolescenceController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteAdolescence', [adolescenceController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Adulto */
-    Route::post('saveAdult', [adultController::class, 'store']);
-    Route::get('adults', [adultController::class, 'index']);
-    Route::post('adult', [adultController::class, 'show']);
-    Route::post('updateAdult', [adultController::class, 'update']);
-    Route::post('deleteAdult', [adultController::class, 'destroy']);
+    Route::post('saveAdult', [adultController::class, 'store']); /* endPoint para  */
+    Route::get('adults', [adultController::class, 'index']); /* endPoint para  */
+    Route::post('adult', [adultController::class, 'show']); /* endPoint para  */
+    Route::post('updateAdult', [adultController::class, 'update']); /* endPoint para  */
+    Route::post('deleteAdult', [adultController::class, 'destroy']); /* endPoint para  */
     /* End */
 
     /* Rutas de Adulto Mayor */
-    Route::post('saveOld', [oldController::class, 'store']);
-    Route::get('olds', [oldController::class, 'index']);
-    Route::post('old', [oldController::class, 'show']);
-    Route::post('updateOld', [oldController::class, 'update']);
-    Route::post('deleteOld', [oldController::class, 'destroy']);
+    Route::post('saveOld', [oldController::class, 'store']); /* endPoint para Crear */
+    Route::get('olds', [oldController::class, 'index']); /* endPoint para Listar */
+    Route::post('old', [oldController::class, 'show']); /* endPoint para Mostrat {id} */
+    Route::post('updateOld', [oldController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteOld', [oldController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Juventud */
-    Route::post('saveYouth', [youthController::class, 'store']);
-    Route::get('youths', [youthController::class, 'index']);
-    Route::post('youth', [youthController::class, 'show']);
-    Route::post('updateYouth', [youthController::class, 'update']);
-    Route::post('deleteYouth', [youthController::class, 'destroy']);
+    Route::post('saveYouth', [youthController::class, 'store']); /* endPoint para Guardar */
+    Route::get('youths', [youthController::class, 'index']); /* endPoint para  Listar */
+    Route::post('youth', [youthController::class, 'show']); /* endPoint para Nostrat {id} */
+    Route::post('updateYouth', [youthController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteYouth', [youthController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Rutas de Gestacion Parto y PostParto */
-    Route::post('saveGestation', [gestationbirthpostpartumController::class, 'store']);
-    Route::get('gestations', [gestationbirthpostpartumController::class, 'index']);
-    Route::post('gestation', [gestationbirthpostpartumController::class, 'show']);
-    Route::post('updateGestation', [gestationbirthpostpartumController::class, 'update']);
-    Route::post('deleteGestation', [gestationbirthpostpartumController::class, 'destroy']);
+    Route::post('saveGestation', [gestationbirthpostpartumController::class, 'store']); /* endPoint para Crear */
+    Route::get('gestations', [gestationbirthpostpartumController::class, 'index']); /* endPoint para Listar */
+    Route::post('gestation', [gestationbirthpostpartumController::class, 'show']); /* endPoint para  Mostrar {id} */
+    Route::post('updateGestation', [gestationbirthpostpartumController::class, 'update']); /* endPoint para Actualizar */
+    Route::post('deleteGestation', [gestationbirthpostpartumController::class, 'destroy']); /* endPoint para Borrar */
     /* End */
 
     /* Estadisticas */
@@ -253,7 +252,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* End */
 
     /* Rutas para Listar Lideres */
-    Route::post('showLider', [AuthController::class, 'showLider']);
+    Route::post('showLider', [AuthController::class, 'showLider']); /* endPoint para Listar Usuarios con rol de Lider  */
     /* End */
 
 
@@ -330,30 +329,20 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     //Api Routes Meet Start
 
     /* events */
-    Route::post('createEvent', [MeetEventsController::class, 'store']);
-    Route::post('updateEvent', [MeetEventsController::class, 'update']);
-    Route::post('events', [MeetEventsController::class, 'index']);
-    Route::post('event', [MeetEventsController::class, 'show']);
-    // Route::post('edit', [MeetEventsController::class, 'showEvents2']);
-    Route::post('showGuests', [MeetEventsController::class, 'showGuests']);
-    Route::post('notify', [MeetEventsController::class, 'validarReunion']);
-    Route::post('notification', [MeetEventsController::class, 'notifyStatus']);
-    Route::post('discard', [MeetEventsController::class, 'deleteNotification']);
-    Route::post('showEvents', [MeetEventsController::class, 'index']);
-
-    /* end */
-
-    /* invitados a meet */
-    Route::get('guests', [AuthController::class, 'showGuests']);
-    /* end */
-
-    /* chat */
-    Route::post('chat/send', [ChatController::class, 'sendMessage']);
-    Route::get('chat/history', [ChatController::class, 'getChatHistory']);
+    Route::post('createEvent', [MeetEventsController::class, 'store']); /* endPoint para crear nuevo Evento */
+    Route::post('showEvents', [MeetEventsController::class, 'index']); /* endPoint para Listar Eventos y sus Invitados */
+    Route::post('updateEvent', [MeetEventsController::class, 'update']); /* endPoint para Actualizar Evento */
+    Route::post('event', [MeetEventsController::class, 'show']); /* endPoint para Listar Eventos */
+    Route::post('notify', [MeetEventsController::class, 'validarReunion']); /* endPoint para Validar si estoy invitado a una reunion */
+    Route::post('notification', [MeetEventsController::class, 'notifyStatus']); /* endPoint para Notificar al creador de la reunion */
+    Route::post('discard', [MeetEventsController::class, 'deleteNotification']); /* endPoint para Eliminar una Notificacion  */
+    Route::get('guests', [AuthController::class, 'showGuests']); /* endPoint para Listar Usuarios Docente o Estudiante */
     /* end */
 
     //Api Routes Meet end
 
+
+/* Rutas no Pertenecientes a Maite_Backend */
 
     Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::post('logout', [AuthController::class, 'logOut']);
@@ -403,9 +392,9 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     // DashBoard
     Route::get('monthly-sales', [DashBoardController::class, 'dash_monthly_sales']);
-});
+/* Rutas no Pertenecientes a Maite_Backend */
 
-Route::get('users', [AuthController::class, 'allUsers']);
+});
 Route::get('plans', [PlansController::class, 'show']);
 
 Route::get('/invoice-pdf/{dbname}/{invoice}', [PdfController::class, 'invoicePdf']);
