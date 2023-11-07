@@ -11,4 +11,13 @@ class MeetEvent extends Model
 
     protected $connection = 'meet';
     protected $table = 'events';
+
+    public function meetGuestEvent()
+    {
+        return $this->belongsToMany(MeetGuestEvent::class, 'eventsMeetsGuests', 'eventId', 'meetGuestEventId');
+    }
+
+
+
+
 }

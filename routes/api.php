@@ -109,7 +109,7 @@ use App\Http\Controllers\UsersAccountsController;
 //controllers app Meet
 
 /* Events Controller */
-use App\Http\Controllers\MeetEventsController;
+use App\Http\Controllers\Meet\MeetEventsController;
 /* end */
 
 /* Chat Controller */
@@ -334,11 +334,12 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('updateEvent', [MeetEventsController::class, 'update']);
     Route::post('events', [MeetEventsController::class, 'index']);
     Route::post('event', [MeetEventsController::class, 'show']);
-    Route::post('edit', [MeetEventsController::class, 'showEvents']);
+    Route::post('edit', [MeetEventsController::class, 'showEvents2']);
     Route::post('showGuests', [MeetEventsController::class, 'showGuests']);
     Route::post('notify', [MeetEventsController::class, 'validarReunion']);
     Route::post('notification', [MeetEventsController::class, 'notifyStatus']);
     Route::post('discard', [MeetEventsController::class, 'deleteNotification']);
+    Route::post('aaa', [MeetEventsController::class, 'showEvents']);
 
     /* end */
 
