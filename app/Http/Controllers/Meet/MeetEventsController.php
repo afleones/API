@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Meet;
 
+use App\Http\Controllers\Controller;
 use App\Models\MeetEvent;
-use App\Models\MeetGuestsEvent;
+use App\Models\MeetGuestEvent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -21,7 +22,21 @@ class MeetEventsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
+    
+        // Validación de datos para el evento
+        $validator = Validator::make($data, [
+            'title' => 'required|string',
+            'start' => 'required|date',
+            'end' => 'required|date',
+            'userId' => 'required|integer',
+            'guestIds' => 'array', // Asegura que guestIds sea un arreglo
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+    
+        // Crear un nuevo evento
         $event = new MeetEvent();
         $event->title = $data['title'];
         $event->description = $data['description'] ?? 'Sin Descripción';
@@ -30,32 +45,38 @@ class MeetEventsController extends Controller
         $event->url = $data['url'] ?? '';
         $event->status = $data['status'] ?? 1;
         $event->userId = $data['userId'];
-
-        // Guardamos el objeto en la base de datos
+    
+        // Guardar el evento en la base de datos
         $event->save();
-
-        // Obtener el ID del registro de la primera tabla
-        $eventId = $event->getKey();
-
-        $guestIds = $data['guestIds'];
-        $userId = $data['userId'];
-
-        // Crear registros en la tabla MeetGuestsEvent para cada guestId
-        foreach ($guestIds as $guestId) {
-            $guestsEvent = new MeetGuestsEvent();
-            $guestsEvent->eventId = $eventId;
-            $guestsEvent->guestId = $guestId;
-            $guestsEvent->userId = $userId;
-            $guestsEvent->status = 1;
-            // Otros campos según tus necesidades
-            // Guardamos el objeto en la base de datos
-            $guestsEvent->save();
+    
+        // Obtener el ID del evento creado
+        $eventId = $event->id;
+    
+        // Validación y creación de invitados
+        if (isset($data['guestIds']) && is_array($data['guestIds'])) {
+            foreach ($data['guestIds'] as $guestId) {
+                // Crear un nuevo invitado
+                $guest = new MeetGuestEvent();
+                $guest->eventId = $eventId;
+                $guest->guestId = $guestId;
+                $guest->userId = $data['userId'];
+                $guest->status = 1;
+                $guest->notifyStatus = 1;
+    
+                // Guardar el invitado en la base de datos
+                $guest->save();
+    
+                // Almacenar la relación en la tabla intermedia
+                DB::table('testmeet000003.eventsMeetsGuests')->insert([
+                    'eventId' => $eventId,
+                    'meetGuestEventId' => $guest->id
+                ]);
+            }
         }
-
-        // Retornamos una respuesta de éxito
-        return response()->json(['message' => 'evento creado exitosamente']);
+    
+        return response()->json(['message' => 'Evento y invitados creados exitosamente']);
     }
-
+        
         
     public function update(Request $request, MeetEvent $id)
     {
@@ -120,7 +141,7 @@ class MeetEventsController extends Controller
         return $dataArray;
     }     
 
-    public function showEvents(Request $request)
+    public function showEvents2(Request $request)
     {
         $data = $request->all();
     
@@ -131,7 +152,7 @@ class MeetEventsController extends Controller
     
         // Define mensajes de error personalizados si es necesario
         $messages = [
-            'userId.required' => 'No se proporciono un id de usuario valido.',
+            'userId.required' => 'No se proporcionó un ID de usuario válido.',
             'userId.integer' => 'El campo userId debe ser un número entero.',
         ];
     
@@ -144,28 +165,24 @@ class MeetEventsController extends Controller
         }
     
         // Si la validación pasa, continúa con la consulta
-        $event = MeetEvent::where(function ($query) use ($data) {
-            if (isset($data['id'])) {
-                $query->where('id', $data['id']);
-            }
-            if (isset($data['userId'])) {
-                $query->where('userId', $data['userId']);
-            }
-            if (isset($data['title'])) {
-                $query->where('title', $data['title']);
-            }
-        })->where('status', '!=', 0)->get();
-
-        $guests = MeetGuestsEvent::where(function ($query) use ($data) {
-            if (isset($data['userId'])) {
-                $query->where('userId', $data['userId']);
-            }
-        })->where('status', '!=', 0)->get();
-
-        return response()->json(['events' => $event, 'guests' => $guests]);
-
+        $events = MeetEvent::with('meetGuestEvents')  // Cargar la relación 'guests'
+            ->where(function ($query) use ($data) {
+                if (isset($data['id'])) {
+                    $query->where('id', $data['id']);
+                }
+                if (isset($data['userId'])) {
+                    $query->where('userId', $data['userId']);
+                }
+                if (isset($data['title'])) {
+                    $query->where('title', $data['title']);
+                }
+            })
+            ->where('status', '!=', 0)
+            ->get();
+    
+        return response()->json(['events' => $events]);
     }
-
+    
     public function showguests(Request $request)
     {
         $data = $request->all();
@@ -344,6 +361,45 @@ class MeetEventsController extends Controller
 
         return response()->json(['message' => 'se ha eliminado la notificacion']);
     }
+
+    public function showEvents(Request $request)
+    {
+        $data = $request->all();
+        $userId = $data['userId'];
+    
+        // Si la validación pasa, continúa con la consulta
+        $events = MeetEvent::where(function ($query) use ($data) {
+            // ... (tu lógica de búsqueda)
+        })->where('status', '!=', 0)->with('meetGuestEvent')->get();
+    
+        // Renombrar la relación a 'invitados' y obtener el guestId y el nombre de los usuarios
+        $events = $events->map(function ($event) {
+            $invitados = [];
+    
+            foreach ($event->meetGuestEvent as $invitado) {
+                $user = User::find($invitado->guestId);
+                if ($user) {
+                    $invitados[] = [
+                        'guestId' => $invitado->guestId,
+                        'nombre' => $user->name,
+                    ];
+                }
+            }
+    
+            // Eliminar la propiedad 'meet_guest_event' si no es necesaria
+            unset($event->meetGuestEvent);
+    
+            // Agregar los invitados al objeto
+            $event->invitados = $invitados;
+    
+            return $event;
+        });
+    
+        return response()->json(['events' => $events]);
+    }
+    
+            
+                
 
                             
 }
