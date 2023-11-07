@@ -56,55 +56,55 @@ use App\Http\Controllers\UsersAccountsController;
 //Api Controllers GenomaX_Documents Start
 
 /* Controlador de Viviendas */
-use App\Http\Controllers\livingplaceController;
+use App\Http\Controllers\Documents\livingplaceController;
 /*  */
 
 /* Controlador de Personas */
-use App\Http\Controllers\personController;
+use App\Http\Controllers\Documents\personController;
 /*  */
 
 /* controlador de Compañía */
-use App\Http\Controllers\companyController;
+use App\Http\Controllers\Documents\companyController;
 /*  */
 
 /* controlador de Roles */
-use App\Http\Controllers\roleController;
+use App\Http\Controllers\Documents\roleController;
 /*  */
 
 /* controlador de Infancia */
-use App\Http\Controllers\childhoodController;
+use App\Http\Controllers\Documents\childhoodController;
 /*  */
 
 /* controlador de Primera Infancia */
-use App\Http\Controllers\earlychildhoodController;
+use App\Http\Controllers\Documents\earlychildhoodController;
 /*  */
 
 /* controlador de Enfermedades Transmisibles */
-use App\Http\Controllers\communicablediseasesController;
+use App\Http\Controllers\Documents\communicablediseasesController;
 /*  */
 
 /* controlador de Salud de la Mujer */
-use App\Http\Controllers\womenhealthController;
+use App\Http\Controllers\Documents\womenhealthController;
 /*  */
 
 /* controlador de Adolescencees */
-use App\Http\Controllers\adolescenceController;
+use App\Http\Controllers\Documents\adolescenceController;
 /*  */
 
 /* controlador de Adulto */
-use App\Http\Controllers\adultController;
+use App\Http\Controllers\Documents\adultController;
 /*  */
 
 /* controlador de Adulto Mayor */
-use App\Http\Controllers\oldController;
+use App\Http\Controllers\Documents\oldController;
 /*  */
 
 /* controlador de Adulto Mayor */
-use App\Http\Controllers\youthController;
+use App\Http\Controllers\Documents\youthController;
 /*  */
 
 /* controlador de Adulto Mayor */
-use App\Http\Controllers\gestationbirthpostpartumController;
+use App\Http\Controllers\Documents\gestationbirthpostpartumController;
 /*  */
 
 //Api Controllers GenomaX_Documents End
@@ -112,7 +112,7 @@ use App\Http\Controllers\gestationbirthpostpartumController;
 //controllers app Meet
 
 /* Events Controller */
-use App\Http\Controllers\Meet\MeetEventsController;
+use App\Http\Controllers\Meets\MeetEventsController;
 /* end */
 
 // API rutas para gestionar Usuarios
