@@ -198,7 +198,7 @@ class MeetEventsController extends Controller
         return response()->json(['guests'=> $guests, 'userNames' => $userNames]);
     }
         
-            
+    // Para notificaciones de usuarios invitados a reunion, valida que la notificacion esté en 1 para poder mostrar.       
     public function notifyStatus(Request $request)
     {
         $data = $request->all();
@@ -256,6 +256,7 @@ class MeetEventsController extends Controller
         return response()->json(['events' => $events]);
     }
 
+    // Para mostrar al usuario si tuene reuniones pendientes (Valida que esté dentro del rango del mes actual).
     public function validarReunion(Request $request)
     {
         $data = $request->all();
@@ -312,6 +313,9 @@ class MeetEventsController extends Controller
         return response()->json(['events' => $events]);
     }
     
+    /* manda un update a la base de datos para colocar el estado en 0,
+    y asi no mostrar mas el registro en la vista de notificaciones del usuario
+    */
     public function deleteNotification(Request $request, MeetEvent $id)
     {
         $data = $request->all();
