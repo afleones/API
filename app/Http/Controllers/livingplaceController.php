@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\livingplace;
 use App\Models\person;
+use App\Models\tablelivingplace;
+
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Exports\LivingplaceExport;
 use App\Exports\LivingplacePersonExport;
+
+
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Middleware\CorsMiddleware;
@@ -656,4 +660,31 @@ class livingplaceController extends Controller
         return response()->json(['message' => 'Dato borrado correctamente']);
 
     }
+
+
+    public function showTableLivingPlace(Request $request)
+    {
+        $data = $request->all();
+        $tablelivingplace = tablelivingplace::where(function($query) use ($data) {  
+                                if (isset($data['seccion'])) {
+                                    $query->Where('seccion', $data['seccion']);
+                                }
+                                if (isset($data['seccionnombre'])) {
+                                    $query->Where('seccionnombre', $data['seccionnombre']);
+                                }
+                                if (isset($data['codigocampo'])) {
+                                    $query->Where('codigocampo', $data['codigocampo']);
+                                }
+                                if (isset($data['nombrecampo'])) {
+                                    $query->Where('nombrecampo', $data['nombrecampo']);
+                                }
+                          })->get(); 
+
+        return $tablelivingplace;
+
+    }
+
+
+
 }
+
