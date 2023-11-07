@@ -143,6 +143,10 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     Route::post('updateLivingPlace', [livingplaceController::class, 'update']);
     Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']);
+
+    Route::post('showTableLivingPlace', [livingplaceController::class, 'showTableLivingPlace']);
+    
+
     /* End */
 
     /* Rutas de Personas */
