@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Meets;
 
 use App\Http\Controllers\Controller;
-use App\Models\Meet\MeetEvent;
-use App\Models\Meet\MeetGuestEvent;
+use App\Models\Meets\MeetEvent;
+use App\Models\Meets\MeetGuestEvent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
