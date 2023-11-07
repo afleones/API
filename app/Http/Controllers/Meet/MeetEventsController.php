@@ -16,38 +16,6 @@ class MeetEventsController extends Controller
 {
     public function index(Request $request)
     {
-        $data = $request->all();
-        $userId = $data['userId'];
-    
-        // Si la validación pasa, continúa con la consulta
-        $events = MeetEvent::where(function ($query) use ($data) {
-            // ... (tu lógica de búsqueda)
-        })->where('status', '!=', 0)->with('meetGuestEvent')->get();
-    
-        // Renombrar la relación a 'invitados' y obtener el guestId y el nombre de los usuarios
-        $events = $events->map(function ($event) {
-            $invitados = [];
-    
-            foreach ($event->meetGuestEvent as $invitado) {
-                $user = User::find($invitado->guestId);
-                if ($user) {
-                    $invitados[] = [
-                        'guestId' => $invitado->guestId,
-                        'nombre' => $user->name,
-                    ];
-                }
-            }
-    
-            // Eliminar la propiedad 'meet_guest_event' si no es necesaria
-            unset($event->meetGuestEvent);
-    
-            // Agregar los invitados al objeto
-            $event->invitados = $invitados;
-    
-            return $event;
-        });
-    
-        return response()->json(['events' => $events]);
     }
 
     public function store(Request $request)
@@ -154,22 +122,38 @@ class MeetEventsController extends Controller
 	
 	public function show(Request $request)
     {
-        $data = $request->all();  
-        
-        $event = MeetEvent::where(function($query) use ($data) {
-            if (isset($data['id'])) {
-                $query->where('id', $data['id']);
+        $data = $request->all();
+        $userId = $data['userId'];
+    
+        // Si la validación pasa, continúa con la consulta
+        $events = MeetEvent::where(function ($query) use ($data) {
+            // ... (tu lógica de búsqueda)
+        })->where('status', '!=', 0)->with('meetGuestEvent')->get();
+    
+        // Renombrar la relación a 'invitados' y obtener el guestId y el nombre de los usuarios
+        $events = $events->map(function ($event) {
+            $invitados = [];
+    
+            foreach ($event->meetGuestEvent as $invitado) {
+                $user = User::find($invitado->guestId);
+                if ($user) {
+                    $invitados[] = [
+                        'invitadoId' => $invitado->guestId,
+                        'nombre' => $user->name,
+                    ];
+                }
             }
-            if (isset($data['userId'])) {
-                $query->where('userId', $data['userId']);
-            }
-            if (isset($data['title'])) {
-                $query->where('title', $data['title']);
-            }
-        })->where('status', '!=', 0)->get();
-        
-        $dataArray = $event;
-        return $dataArray;
+    
+            // Eliminar la propiedad 'meet_guest_event' si no es necesaria
+            unset($event->meetGuestEvent);
+    
+            // Agregar los invitados al objeto
+            $event->invitados = $invitados;
+    
+            return $event;
+        });
+    
+        return response()->json(['events' => $events]);
     }     
 
     public function showguests(Request $request)
