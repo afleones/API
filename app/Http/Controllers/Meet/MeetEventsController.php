@@ -14,10 +14,61 @@ use Illuminate\Support\Facades\DB;
 
 class MeetEventsController extends Controller
 {
+
+
     public function index(Request $request)
     {
+        $data = $request->all();
+        $userId = $data['userId'];
+        
+        // Si la validación pasa, continúa con la consulta
+        $events = MeetEvent::where(function ($query) use ($data) {
+            // ... (tu lógica de búsqueda)
+        })->where('status', '!=', 0)->with('meetGuestEvent')->get();
+        
+        // Inicializa un array para almacenar los datos de los eventos
+        $eventData = [];
+        
+        $invitados = [];
+    
+        $events->each(function ($event) use (&$eventData, &$invitados) {
+            // Agrega los datos del evento a un nuevo arreglo
+            $meetData = $event->toArray();
+            
+            // Elimina el campo "meet_guest_event" del arreglo
+            unset($meetData['meet_guest_event']);
+            
+            // Inicializa un array para los invitados del evento actual
+            $invitadosEvento = [];
+        
+            foreach ($event->meetGuestEvent as $invitado) {
+                $user = User::find($invitado->guestId);
+                if ($user) {
+                    // Agrega los invitados al array "invitadosEvento" con "guestId", "nombre" y "eventId"
+                    $invitadosEvento[] = [
+                        'guestId' => $invitado->guestId,
+                        'nombre' => $user->name,
+                        'eventId' => $event->id, // Agrega el eventId
+                    ];
+                }
+            }
+            
+            // Agrega el array "invitadosEvento" al array "invitados"
+            $invitados = array_merge($invitados, $invitadosEvento);
+            
+            // Agrega el array "meetData" al array de eventos
+            $eventData[] = $meetData;
+        });
+        
+        // Crea un arreglo final con "meet" y "invitados" en arrays separados
+        $responseData = [
+            'event' => $eventData,
+            'guests' => $invitados,
+        ];
+        
+        return response()->json($responseData);
     }
-
+                        
     public function store(Request $request)
     {
         $data = $request->all();
@@ -66,7 +117,7 @@ class MeetEventsController extends Controller
                 $guest->save();
     
                 // Almacenar la relación en la tabla intermedia
-                DB::table('meet000003.eventsMeetsGuests')->insert([
+                DB::table('testmeet000003.eventsMeetsGuests')->insert([
                     'eventId' => $eventId,
                     'meetGuestEventId' => $guest->id
                 ]);
@@ -122,38 +173,22 @@ class MeetEventsController extends Controller
 	
 	public function show(Request $request)
     {
-        $data = $request->all();
-        $userId = $data['userId'];
-    
-        // Si la validación pasa, continúa con la consulta
-        $events = MeetEvent::where(function ($query) use ($data) {
-            // ... (tu lógica de búsqueda)
-        })->where('status', '!=', 0)->with('meetGuestEvent')->get();
-    
-        // Renombrar la relación a 'invitados' y obtener el guestId y el nombre de los usuarios
-        $events = $events->map(function ($event) {
-            $invitados = [];
-    
-            foreach ($event->meetGuestEvent as $invitado) {
-                $user = User::find($invitado->guestId);
-                if ($user) {
-                    $invitados[] = [
-                        'invitadoId' => $invitado->guestId,
-                        'nombre' => $user->name,
-                    ];
-                }
+        $data = $request->all();  
+        
+        $event = MeetEvent::where(function($query) use ($data) {
+            if (isset($data['id'])) {
+                $query->where('id', $data['id']);
             }
-    
-            // Eliminar la propiedad 'meet_guest_event' si no es necesaria
-            unset($event->meetGuestEvent);
-    
-            // Agregar los invitados al objeto
-            $event->invitados = $invitados;
-    
-            return $event;
-        });
-    
-        return response()->json(['events' => $events]);
+            if (isset($data['userId'])) {
+                $query->where('userId', $data['userId']);
+            }
+            if (isset($data['title'])) {
+                $query->where('title', $data['title']);
+            }
+        })->where('status', '!=', 0)->get();
+        
+        $dataArray = $event;
+        return $dataArray;
     }     
 
     public function showguests(Request $request)
@@ -198,7 +233,7 @@ class MeetEventsController extends Controller
         return response()->json(['guests'=> $guests, 'userNames' => $userNames]);
     }
         
-    // Para notificaciones de usuarios invitados a reunion, valida que la notificacion esté en 1 para poder mostrar.       
+            
     public function notifyStatus(Request $request)
     {
         $data = $request->all();
@@ -256,7 +291,6 @@ class MeetEventsController extends Controller
         return response()->json(['events' => $events]);
     }
 
-    // Para mostrar al usuario si tuene reuniones pendientes (Valida que esté dentro del rango del mes actual).
     public function validarReunion(Request $request)
     {
         $data = $request->all();
@@ -313,9 +347,6 @@ class MeetEventsController extends Controller
         return response()->json(['events' => $events]);
     }
     
-    /* manda un update a la base de datos para colocar el estado en 0,
-    y asi no mostrar mas el registro en la vista de notificaciones del usuario
-    */
     public function deleteNotification(Request $request, MeetEvent $id)
     {
         $data = $request->all();
