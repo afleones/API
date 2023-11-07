@@ -142,6 +142,10 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     Route::post('updateLivingPlace', [livingplaceController::class, 'update']); /* endPoint para Actualizar */
     Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']); /* endPoint para Borrar */
+
+    Route::post('showTableLivingPlace', [livingplaceController::class, 'showTableLivingPlace']);
+    
+
     /* End */
 
     /* Rutas de Personas */

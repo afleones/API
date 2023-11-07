@@ -247,6 +247,7 @@ class personController extends Controller
                         \DB::raw('IFNULL(womenHealth.id, 0) as formulario_womenHealth'),
                         \DB::raw('IFNULL(youth.id, 0) as formulario_youth')
                         )
+                        ->distinct()
                          ->get();
 
        
