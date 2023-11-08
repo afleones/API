@@ -81,7 +81,7 @@ class MeetEventsController extends Controller
             'start' => 'required|date',
             'end' => 'required|date',
             'userId' => 'required|integer',
-            'guestIds' => 'array', // Asegura que guestIds sea un arreglo
+            'guestIds' => 'nullable|array', // Cambiar la regla a 'nullable|array'
         ]);
     
         if ($validator->fails()) {
@@ -132,47 +132,53 @@ class MeetEventsController extends Controller
     /* Actualizar nuevo evento */
     public function update(Request $request, MeetEvent $id)
     {
-        $data = $request->all();
-        $id = $data['id'];
-        $userId = $data['userId'];
-
-        // Obtener el evento a actualizar
-        $event = MeetEvent::where('id', $id)->where('userId', $userId)->firstOrFail();
-
-        $event->title = $data['title'] ?? $event->title;
-        $event->description = $data['description'] ?? $event->description;
-        $event->start = $data['start'] ?? $event->start;
-        $event->end = $data['end'] ?? $event->end;
-        $event->url = $data['url'] ?? $event->url;
-        $event->status = $data['status'] ?? $event->status;
-
-        $event->save();
-
-        // Si necesitas actualizar otros registros relacionados, como MeetGuestEvent, aquí es el lugar para hacerlo.
-        // Elimina los registros existentes en MeetGuestEvent para este evento
-        MeetGuestEvent::where('eventId', $id)->delete();
-
-        // Crea registros en la tabla MeetGuestEvent para cada guestId
-        $guestIds = $data['guestIds'];
-        $userId = $data['userId'];
-
-        foreach ($guestIds as $guestId) {
-            $guestsEvent = new MeetGuestEvent();
-            $guestsEvent->eventId = $id; // Usamos $id en lugar de $eventId
-            $guestsEvent->guestId = $guestId;
-            $guestsEvent->userId = $userId;
-            $guestsEvent->status = 1;
-            // Otros campos según tus necesidades
-            // Guardamos el objeto en la base de datos
-            $guestsEvent->save();
+        try {
+            $data = $request->all();
+            $id = $data['id'];
+            $userId = $data['userId'];
+    
+            // Obtener el evento a actualizar
+            $event = MeetEvent::where('id', $id)->where('userId', $userId)->firstOrFail();
+    
+            $event->title = $data['title'] ?? $event->title;
+            $event->description = $data['description'] ?? $event->description;
+            $event->start = $data['start'] ?? $event->start;
+            $event->end = $data['end'] ?? $event->end;
+            $event->url = $data['url'] ?? $event->url;
+            $event->status = $data['status'] ?? $event->status;
+    
+            $event->save();
+    
+            // Validación y actualización de invitados (guestIds)
+            if (isset($data['guestIds'])) {
+                $guestIds = $data['guestIds'];
+                $userId = $data['userId'];
+    
+                // Elimina los registros existentes en MeetGuestEvent para este evento
+                MeetGuestEvent::where('eventId', $id)->delete();
+    
+                // Crea registros en la tabla MeetGuestEvent para cada guestId
+                foreach ($guestIds as $guestId) {
+                    $guestEvent = new MeetGuestEvent();
+                    $guestEvent->eventId = $id;
+                    $guestEvent->guestId = $guestId;
+                    $guestEvent->userId = $userId;
+                    $guestEvent->status = 1;
+                    // Otros campos según tus necesidades
+                    // Guardamos el objeto en la base de datos
+                    $guestEvent->save();
+                }
+    
+                // Actualizar el campo 'status' en el modelo MeetGuestEvent relacionado
+                MeetGuestEvent::where('eventId', $event->id)->update(['status' => $event->status]);
+            }
+    
+            return response()->json(['message' => 'Datos Actualizados correctamente']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500); // Manejar la excepción, puedes personalizar la respuesta de error según tus necesidades.
         }
-
-        // Actualizar el campo 'status' en el modelo MeetGuestsEvent relacionado
-        MeetGuestsEvent::where('eventId', $event->id)->update(['status' => $event->status]);
-
-        return response()->json(['message' => 'Datos Actualizados correctamente']);
     }
-	
+        
     /* Mostrar solo los campos de los eventos */
 	public function show(Request $request)
     {
