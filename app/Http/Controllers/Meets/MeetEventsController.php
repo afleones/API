@@ -129,7 +129,6 @@ class MeetEventsController extends Controller
         return response()->json(['message' => 'Evento y invitados creados exitosamente']);
     }
     
-    /* Actualizar nuevo evento */
     public function update(Request $request, MeetEvent $id)
     {
         try {
@@ -154,10 +153,13 @@ class MeetEventsController extends Controller
                 $guestIds = $data['guestIds'];
                 $userId = $data['userId'];
     
-                // Elimina los registros existentes en MeetGuestEvent para este evento
+                // Elimina los registros existentes en la tabla intermedia 'eventsMeetsGuests' para este evento
+                DB::table('eventsMeetsGuests')->where('eventId', $id)->delete();
+    
+                // Elimina los registros existentes en la tabla 'MeetGuestEvent' para este evento
                 MeetGuestEvent::where('eventId', $id)->delete();
     
-                // Crea registros en la tabla MeetGuestEvent para cada guestId
+                // Crea registros en la tabla 'MeetGuestEvent' y la tabla intermedia 'eventsMeetsGuests' para cada guestId
                 foreach ($guestIds as $guestId) {
                     $guestEvent = new MeetGuestEvent();
                     $guestEvent->eventId = $id;
@@ -167,6 +169,12 @@ class MeetEventsController extends Controller
                     // Otros campos según tus necesidades
                     // Guardamos el objeto en la base de datos
                     $guestEvent->save();
+    
+                    // Insertar la relación en la tabla intermedia 'eventsMeetsGuests'
+                    DB::table('eventsMeetsGuests')->insert([
+                        'eventId' => $id,
+                        'meetGuestsEventsId' => $guestEvent->id,
+                    ]);
                 }
     
                 // Actualizar el campo 'status' en el modelo MeetGuestEvent relacionado
@@ -178,7 +186,7 @@ class MeetEventsController extends Controller
             return response()->json(['error' => $e->getMessage()], 500); // Manejar la excepción, puedes personalizar la respuesta de error según tus necesidades.
         }
     }
-        
+            
     /* Mostrar solo los campos de los eventos */
 	public function show(Request $request)
     {
