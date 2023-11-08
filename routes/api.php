@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
-use App\Http\Middleware\SwitchDatabaseMiddleware;
-use Illuminate\Support\Facades\Route;
+// Controladores sin uso
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\DetailpriceController;
 use App\Http\Controllers\maiteController;
@@ -26,108 +24,66 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\CryptDBController;
 use App\Http\Controllers\DashBoardController;
+// Controladores sin uso
 
 
-use App\Http\Controllers\AcademyCategoryController;
-use App\Http\Controllers\AcademyCourseController;
-use App\Http\Controllers\AcademyClassController;
-use App\Http\Controllers\AcademyStudentController;
-use App\Http\Controllers\AcademyCommentController;
-use App\Http\Controllers\AcademyVideoController;
-use App\Http\Controllers\AcademyExamController;
-use App\Http\Controllers\AcademyCertificateController;
+// Laravel Libraries
+use Illuminate\Http\Request;
+use App\Http\Middleware\SwitchDatabaseMiddleware;
+use Illuminate\Support\Facades\Route;
+// Laravel Libraries End
 
 // API Controllers
-
-/* Controlador de Autenticación */
-use App\Http\Controllers\Api\AuthController;
-/*  */
-
-/* Politicas de Seguridad API */
-use App\Http\Middleware\CorsMiddleware;
-/*  */
-
+use App\Http\Controllers\Api\AuthController; /* Controlador de Autenticación */
+use App\Http\Middleware\CorsMiddleware; /* Politicas de Seguridad API */
+use App\Http\Controllers\UsersAccountsController; /* controlador de Usuarios */
 // API Controllers End
- 
-/* controlador de Usuarios */
-use App\Http\Controllers\UsersAccountsController;
-/*  */
 
 //Api Controllers GenomaX_Documents Start
-
-/* Controlador de Viviendas */
-use App\Http\Controllers\Documents\livingplaceController;
-/*  */
-
-/* Controlador de Personas */
-use App\Http\Controllers\Documents\personController;
-/*  */
-
-/* controlador de Compañía */
-use App\Http\Controllers\Documents\companyController;
-/*  */
-
-/* controlador de Roles */
-use App\Http\Controllers\Documents\roleController;
-/*  */
-
-/* controlador de Infancia */
-use App\Http\Controllers\Documents\childhoodController;
-/*  */
-
-/* controlador de Primera Infancia */
-use App\Http\Controllers\Documents\earlychildhoodController;
-/*  */
-
-/* controlador de Enfermedades Transmisibles */
-use App\Http\Controllers\Documents\communicablediseasesController;
-/*  */
-
-/* controlador de Salud de la Mujer */
-use App\Http\Controllers\Documents\womenhealthController;
-/*  */
-
-/* controlador de Adolescencees */
-use App\Http\Controllers\Documents\adolescenceController;
-/*  */
-
-/* controlador de Adulto */
-use App\Http\Controllers\Documents\adultController;
-/*  */
-
-/* controlador de Adulto Mayor */
-use App\Http\Controllers\Documents\oldController;
-/*  */
-
-/* controlador de Adulto Mayor */
-use App\Http\Controllers\Documents\youthController;
-/*  */
-
-/* controlador de Adulto Mayor */
-use App\Http\Controllers\Documents\gestationbirthpostpartumController;
-/*  */
-
+use App\Http\Controllers\Documents\livingplaceController; /* Controlador de Viviendas */
+use App\Http\Controllers\Documents\personController; /* Controlador de Personas */
+use App\Http\Controllers\Documents\companyController; /* controlador de Compañía */
+use App\Http\Controllers\Documents\roleController; /* controlador de Roles */
+use App\Http\Controllers\Documents\childhoodController; /* controlador de Infancia */
+use App\Http\Controllers\Documents\earlychildhoodController; /* controlador de Primera Infancia */
+use App\Http\Controllers\Documents\communicablediseasesController; /* controlador de Enfermedades Transmisibles */
+use App\Http\Controllers\Documents\womenhealthController; /* controlador de Salud de la Mujer */
+use App\Http\Controllers\Documents\adolescenceController; /* controlador de Adolescentes */
+use App\Http\Controllers\Documents\adultController; /* controlador de Adulto */
+use App\Http\Controllers\Documents\oldController; /* controlador de Adulto Mayor */
+use App\Http\Controllers\Documents\youthController; /* controlador de Adulto Mayor */
+use App\Http\Controllers\Documents\gestationbirthpostpartumController; /* controlador de Adulto Mayor */
 //Api Controllers GenomaX_Documents End
 
-//controllers app Meet
+// Academy Controllers
+use App\Http\Controllers\Academy\AcademyCategoryController; /* Controlador de Categorias */
+use App\Http\Controllers\Academy\AcademyCourseController; /* Controlador de Cursos */
+use App\Http\Controllers\Academy\AcademyClassController; /* Controlador de Clases */
+use App\Http\Controllers\Academy\AcademyStudentController; /* Controlador de Estudiantes */
+use App\Http\Controllers\Academy\AcademyCommentController; /* Controlador de Comentarios */
+use App\Http\Controllers\Academy\AcademyVideoController; /* Controlador de Carga de videos */
+use App\Http\Controllers\Academy\AcademyExamController; /* Controlador de Examenes */
+use App\Http\Controllers\Academy\AcademyCertificateController; /* Controlador de Certificados */
+// Academy Controllers End
+
+//Meet Controllers
 
 /* Events Controller */
-use App\Http\Controllers\Meets\MeetEventsController;
+use App\Http\Controllers\Meets\MeetEventsController; /* Conttolador de Eventos */
 /* end */
 
-// API rutas para gestionar Usuarios
+/* Aqui inician las Rutas de la API */
+
+// rutas para gestionar Usuarios
 Route::post('register', [AuthController::class, 'register']); /* endPoint para Registrar Nuevo Usuario */
 Route::post('login', [AuthController::class, 'login']); /* endPoint para Iniciar Sesion */
 Route::get('users', [AuthController::class, 'allUsers']); /* endPoint para Listar Todos los Usuarios  */
 // End
 
 // Controllers app Meet
-
 Route::post('subir-video', [AcademyVideoController::class, 'subirVideo']); /* endPoint para Almacenar Videos */
-
 //Route::get('/exportar', 'livingplaceController@export');
 Route::get('exportarhouse', [livingplaceController::class, 'export']);
-
 Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], function(){
 
     //Api Controllers GenomaX_Documents Start
@@ -136,16 +92,11 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('saveLivingPlace', [livingplaceController::class, 'store']); /* endPoint para crear */
     Route::get('livingPlaces', [livingplaceController::class, 'index']); /* endPoint para Listar */
     Route::post('livingplace', [livingplaceController::class, 'show']); /* endPoint para Mostrar {id} */
-
     Route::post('showLivingplacePerson', [livingplaceController::class, 'showLivingplacePerson'])->middleware(CorsMiddleware::class);
     Route::get('/download-excel', 'LivingplaceController@downloadExcel');
-
     Route::post('updateLivingPlace', [livingplaceController::class, 'update']); /* endPoint para Actualizar */
     Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']); /* endPoint para Borrar */
-
     Route::post('showTableLivingPlace', [livingplaceController::class, 'showTableLivingPlace']);
-    
-
     /* End */
 
     /* Rutas de Personas */
@@ -295,15 +246,10 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     Route::get('Comments', [AcademyCommentController::class, 'index']);
     Route::post('Comment', [AcademyCommentController::class, 'show']);
-    
     Route::post('SaveComment', [AcademyCommentController::class, 'store']);
-
     Route::post('DeleteComment', [AcademyCommentController::class, 'destroy']);
     Route::post('DeleteCommentDetail', [AcademyCommentController::class, 'destroyDetail']);
-    
-
     Route::post('SaveCommentDetail', [AcademyCommentController::class, 'storeDetail']);
-    
     Route::post('UpdateComment', [AcademyCommentController::class, 'update']);
     Route::post('UpdateCommentDetail', [AcademyCommentController::class, 'updateDetail']);
 
@@ -317,15 +263,9 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('Certificate', [AcademyCertificateController::class, 'show']);
     Route::post('saveCertificate', [AcademyCertificateController::class, 'store']);
     Route::post('updateCertificate', [AcademyCertificateController::class, 'update']);
-
     Route::get('/ViewPDF/{certificate}', [AcademyCertificateController::class, 'ViewPDF']);
-
     Route::post('storeExamCertificateStudent', [AcademyCertificateController::class, 'storeExamCertificateStudent']);
-    
     Route::post('showCertificateStudent', [AcademyCertificateController::class, 'showCertificateStudent']);
-    
-    
-    
 
     //Api Routes Academy End
 
@@ -346,8 +286,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     //Api Routes Meet end
 
 
-/* Rutas no Pertenecientes a Maite_Backend */
-
+    /* Rutas no Pertenecientes a Maite_Backend */
     Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::post('logout', [AuthController::class, 'logOut']);
     Route::post('change-password', [AuthController::class, 'changePassword']);
@@ -396,9 +335,10 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
 
     // DashBoard
     Route::get('monthly-sales', [DashBoardController::class, 'dash_monthly_sales']);
-/* Rutas no Pertenecientes a Maite_Backend */
+    /* Rutas no Pertenecientes a Maite_Backend */
 
 });
+
 Route::get('plans', [PlansController::class, 'show']);
 
 Route::get('/invoice-pdf/{dbname}/{invoice}', [PdfController::class, 'invoicePdf']);

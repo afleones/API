@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Academy;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Str; 
 
-class AcademyCategory extends Model
+class AcademyStudent extends Model
 {
     use HasFactory;
 
     protected $connection = 'academy';
-    protected $table = 'Category';
-
+    protected $table = 'Category_Course_Class_Student';
 
     protected static function boot()
     {
@@ -23,7 +22,6 @@ class AcademyCategory extends Model
             $table->Id = Str::random(10); // Generar un código alfanumérico único de 10 caracteres
         });
     }
-
 
 }
     

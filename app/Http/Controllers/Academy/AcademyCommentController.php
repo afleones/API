@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Academy;
 
-use App\Models\AcademyComment;
-use App\Models\AcademyCommentDetail;
-
-use App\Models\AcademyCourse;
-use App\Models\AcademyClass;
+use App\Http\Controllers\Controller;
+use App\Models\Academy\AcademyComment;
+use App\Models\Academy\AcademyCommentDetail;
+use App\Models\Academy\AcademyCourse;
+use App\Models\Academy\AcademyClass;
 
 use Illuminate\Http\Request;
 

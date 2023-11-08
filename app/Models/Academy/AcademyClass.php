@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Academy;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Str; 
 
-class AcademyExamOptionAnswer extends Model
+class AcademyClass extends Model
 {
     use HasFactory;
 
     protected $connection = 'academy';
-    protected $table = 'Exam_Option_Answer';
+    protected $table = 'Class';
 
     protected static function boot()
     {

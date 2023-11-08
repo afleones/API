@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Academy;
 
+use App\Http\Controllers\Controller;
+use App\Models\Academy\AcademyCourse;
+use App\Models\Academy\AcademyExamCertificateStudent;
+use App\Models\Academy\AcademyCertificate;
 use PDF;
-use App\Models\AcademyCourse;
-use App\Models\AcademyExamCertificateStudent;
-use App\Models\AcademyCertificate;
 
 use Illuminate\Http\Request;
 

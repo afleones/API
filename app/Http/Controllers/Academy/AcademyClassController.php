@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Academy;
 
-use App\Models\AcademyClass;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Models\Academy\AcademyClass;
 
 class AcademyClassController extends Controller
 {

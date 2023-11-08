@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Academy;
 
-use App\Models\AcademyStudent;
+use App\Http\Controllers\Controller;
+use App\Models\Academy\AcademyStudent;
 use Illuminate\Http\Request;
 
 class AcademyStudentController extends Controller

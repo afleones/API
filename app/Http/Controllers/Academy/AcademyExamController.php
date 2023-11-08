@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Academy;
 
-use App\Models\AcademyExam;
-use App\Models\AcademyExamOptionAnswer;
-use App\Models\AcademyExamQuestion;
+use App\Http\Controllers\Controller;
+use App\Models\Academy\AcademyExam;
+use App\Models\Academy\AcademyExamOptionAnswer;
+use App\Models\Academy\AcademyExamQuestion;
 
 use Illuminate\Support\Facades\DB;
 
