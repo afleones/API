@@ -154,7 +154,7 @@ class MeetEventsController extends Controller
                 $userId = $data['userId'];
     
                 // Elimina los registros existentes en la tabla intermedia 'eventsMeetsGuests' para este evento
-                DB::table('eventsMeetsGuests')->where('eventId', $id)->delete();
+                DB::table('meet000003.eventsMeetsGuests')->where('eventId', $id)->delete();
     
                 // Elimina los registros existentes en la tabla 'MeetGuestEvent' para este evento
                 MeetGuestEvent::where('eventId', $id)->delete();
