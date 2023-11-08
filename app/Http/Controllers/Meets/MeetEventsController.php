@@ -171,7 +171,7 @@ class MeetEventsController extends Controller
                     $guestEvent->save();
     
                     // Insertar la relación en la tabla intermedia 'eventsMeetsGuests'
-                    DB::table('eventsMeetsGuests')->insert([
+                    DB::table('meet000003eventsMeetsGuests')->insert([
                         'eventId' => $id,
                         'meetGuestsEventsId' => $guestEvent->id,
                     ]);
