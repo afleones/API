@@ -148,16 +148,16 @@ class MeetEventsController extends Controller
 
         $event->save();
 
-        // Si necesitas actualizar otros registros relacionados, como MeetGuestsEvent, aquí es el lugar para hacerlo.
-        // Elimina los registros existentes en MeetGuestsEvent para este evento
-        MeetGuestsEvent::where('eventId', $id)->delete();
+        // Si necesitas actualizar otros registros relacionados, como MeetGuestEvent, aquí es el lugar para hacerlo.
+        // Elimina los registros existentes en MeetGuestEvent para este evento
+        MeetGuestEvent::where('eventId', $id)->delete();
 
-        // Crea registros en la tabla MeetGuestsEvent para cada guestId
+        // Crea registros en la tabla MeetGuestEvent para cada guestId
         $guestIds = $data['guestIds'];
         $userId = $data['userId'];
 
         foreach ($guestIds as $guestId) {
-            $guestsEvent = new MeetGuestsEvent();
+            $guestsEvent = new MeetGuestEvent();
             $guestsEvent->eventId = $id; // Usamos $id en lugar de $eventId
             $guestsEvent->guestId = $guestId;
             $guestsEvent->userId = $userId;
