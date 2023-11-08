@@ -23,7 +23,7 @@ class MeetEventsController extends Controller
         
         
         // Si la validación pasa, continúa con la consulta
-        $events = MeetEvent::where(function ($query) use ($data) {
+        $events = MeetEvent::where(function ($query) use ($userId) {
             // ... (tu lógica de búsqueda)
         })->where('status', '!=', 0)->with('meetGuestEvent')->get();
         
