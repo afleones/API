@@ -4,6 +4,7 @@ namespace App\Http\controllers\Documents;
 
 use App\Http\Controllers\Controller;
 use App\Models\Documents\livingplace;
+use App\Models\Documents\livingplaceCompleted;
 use App\Models\Documents\person;
 use App\Models\Documents\tablelivingplace;
 
@@ -382,6 +383,35 @@ class livingplaceController extends Controller
                 ->leftJoin('maite_backend.users', 'users.id', '=', 'livingplace.userid')
                 ->select('livingplace.*')
                 ->orderBy('livingplace.userid');
+
+        // Aplicar paginación
+        $perPage = $data['per_page'] ?? 20; // Número de registros por página
+        $page = $data['page'] ?? 1; // Página actual
+        $livingplaces = $query->paginate($perPage, ['*'], 'page', $page);
+
+        $payload = [];
+
+        foreach ($livingplaces as $livingplace) {
+            $persons = person::where('viviendaid', $livingplace->id)->get();
+
+            $payload[] = ['livingplace' => $livingplace, 'persons' => $persons];
+        }
+
+        return $payload;
+        //return Excel::download(new LivingplaceExport($payload), 'data.xlsx');
+    }
+
+    public function showLivingplacePersonCompleted(Request $request, livingplace $livingplace)
+    {
+        $data = $request->all();
+
+        $query = livingplaceCompleted::
+                where(function($query) use ($data) {  
+                    // Condiciones de búsqueda
+                })
+                ->leftJoin('maite_backend.users', 'users.id', '=', 'view_livingplace_completed.userid')
+                ->select('view_livingplace_completed.*')
+                ->orderBy('view_livingplace_completed.userid');
 
         // Aplicar paginación
         $perPage = $data['per_page'] ?? 20; // Número de registros por página
