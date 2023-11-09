@@ -153,14 +153,20 @@ class MeetEventsController extends Controller
                 $guestIds = $data['guestIds'];
                 $userId = $data['userId'];
     
-                // Elimina los registros existentes en la tabla intermedia 'eventsMeetsGuests' para este evento
-                DB::table('meet000003.eventsMeetsGuests')->where('eventId', $id)->delete();
+                // Obtener los invitados actuales del evento
+                $currentGuestIds = MeetGuestEvent::where('eventId', $id)->pluck('guestId')->toArray();
     
-                // Elimina los registros existentes en la tabla 'MeetGuestEvent' para este evento
-                MeetGuestEvent::where('eventId', $id)->delete();
+                // Identificar los invitados a eliminar (existentes pero no en $guestIds)
+                $guestsToDelete = array_diff($currentGuestIds, $guestIds);
     
-                // Crea registros en la tabla 'MeetGuestEvent' y la tabla intermedia 'eventsMeetsGuests' para cada guestId
-                foreach ($guestIds as $guestId) {
+                // Identificar los invitados a agregar (en $guestIds pero no existentes)
+                $guestsToAdd = array_diff($guestIds, $currentGuestIds);
+    
+                // Eliminar los invitados que deben ser eliminados
+                MeetGuestEvent::where('eventId', $id)->whereIn('guestId', $guestsToDelete)->delete();
+    
+                // Agregar los invitados que deben ser agregados
+                foreach ($guestsToAdd as $guestId) {
                     $guestEvent = new MeetGuestEvent();
                     $guestEvent->eventId = $id;
                     $guestEvent->guestId = $guestId;
@@ -169,16 +175,7 @@ class MeetEventsController extends Controller
                     // Otros campos según tus necesidades
                     // Guardamos el objeto en la base de datos
                     $guestEvent->save();
-    
-                    // Insertar la relación en la tabla intermedia 'eventsMeetsGuests'
-                    DB::table('meet000003.eventsMeetsGuests')->insert([
-                        'eventId' => $id,
-                        'meetGuestEventId' => $guestEvent->id,
-                    ]);
                 }
-    
-                // Actualizar el campo 'status' en el modelo MeetGuestEvent relacionado
-                MeetGuestEvent::where('eventId', $event->id)->update(['status' => $event->status]);
             }
     
             return response()->json(['message' => 'Datos Actualizados correctamente']);
@@ -186,7 +183,7 @@ class MeetEventsController extends Controller
             return response()->json(['error' => $e->getMessage()], 500); // Manejar la excepción, puedes personalizar la respuesta de error según tus necesidades.
         }
     }
-            
+                
     /* Mostrar solo los campos de los eventos */
 	public function show(Request $request)
     {
