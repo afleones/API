@@ -93,6 +93,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::get('livingPlaces', [livingplaceController::class, 'index']); /* endPoint para Listar */
     Route::post('livingplace', [livingplaceController::class, 'show']); /* endPoint para Mostrar {id} */
     Route::post('showLivingplacePerson', [livingplaceController::class, 'showLivingplacePerson'])->middleware(CorsMiddleware::class);
+    Route::post('showLivingplacePersonCompleted', [livingplaceController::class, 'showLivingplacePersonCompleted'])->middleware(CorsMiddleware::class);
     Route::get('/download-excel', 'LivingplaceController@downloadExcel');
     Route::post('updateLivingPlace', [livingplaceController::class, 'update']); /* endPoint para Actualizar */
     Route::post('deleteLivingPlace', [livingplaceController::class, 'destroy']); /* endPoint para Borrar */
