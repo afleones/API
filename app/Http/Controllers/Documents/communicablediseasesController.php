@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Documents\Controllers;
+namespace App\Http\Controllers\Documents;
 
 use App\Http\Controllers\Controller;
 use App\Models\Documents\communicablediseases;
