@@ -70,6 +70,12 @@ class AcademyStudentController extends Controller
                                         if (isset($data['StudentId'])) {
                                             $query->Where('StudentId', $data['StudentId']);
                                         }
+                                        if (isset($data['State'])) {
+                                            $query->Where('Category_Course_Class_Student.State', $data['State']);
+                                        }
+                                        if (isset($data['fecha1']) and isset($data['fecha2'])) {
+                                            $query->whereBetween(\DB::raw('DATE(Category_Course_Class_Student.created_at)'), [$data['fecha1'], $data['fecha2']]);
+                                        }
                                         
                                     })
                                     ->join('Category', 'Category.id', '=', 'Category_Course_Class_Student.CategoryId')
@@ -80,7 +86,7 @@ class AcademyStudentController extends Controller
             Category_Course_Class_Student.CourseId, Course.Title as Title_Course, 
                         ClassId, Class.Title as Title_Class,
                         StudentId, users.name, 
-                        Category_Course_Class_Student.State")
+                        Category_Course_Class_Student.State,Category_Course_Class_Student.created_at")
             ->get();
 
 
