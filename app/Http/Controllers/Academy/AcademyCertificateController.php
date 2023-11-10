@@ -190,7 +190,7 @@ class AcademyCertificateController extends Controller
             'Signature1' => $certificateStudents->Signature1,
             'logo' => 'logo.jpeg',
             'Signature2' => $certificateStudents->Signature2,
-            'approvaldate' => $certificateStudents->created_at,
+            'approvaldate' => $certificateStudents->created_at,   
             'coursehour' => '',
         ];
         
