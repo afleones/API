@@ -171,9 +171,9 @@
                         <td colspan="3"><div id="titulo">{{ $info_data['coursename'] }}</div></td>
                     </tr>
                     <tr >
-                        <td><img src="images/{{ $info_data['Signature1'] }}" alt="Logo"></td>
+                        <td><img src="data:image/png;base64, {{ $info_data['Signature1'] }}" alt="Firma"  style="width: 180px; height: auto;"></td>
                         <td><img src="images/{{ $info_data['logo'] }}" alt="Logo"></td>
-                        <td><img src="images/{{ $info_data['Signature2'] }}" alt="Logo"></td>
+                        <td><img src="data:image/png;base64, {{ $info_data['Signature2'] }}" alt="Firma"  style="width: 180px; height: auto;"></td>
                     </tr>
                     <tr>
                         <td colspan="3">Certificado de aprobacion online</td>
