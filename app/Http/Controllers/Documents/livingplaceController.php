@@ -279,7 +279,7 @@ class livingplaceController extends Controller
     {
         //$data = $request->json()->all();  recibe por raw
         $data = $request->all();   //recibe por json
-        //var_dump($data);exit();
+       // var_dump($data);exit();
         // $userid = $data['userid'];
         //$fecha1 = $data['fecha1'];
         //$fecha2 = $data['fecha2'];
@@ -294,7 +294,10 @@ class livingplaceController extends Controller
             if (isset($data['fecha1']) and isset($data['fecha2'])) {
                 $query->whereBetween(\DB::raw('DATE(created_at)'), [$data['fecha1'], $data['fecha2']]);
             }
-        })->get();     
+        })     ->select('livingplace.*', \DB::raw('(SELECT COUNT(*) FROM person WHERE person.viviendaid = livingplace.id) as persons_count'))
+
+        
+        ->get();     
 
         //$dataArray = array($livingplace);
         $dataArray = ($livingplace);   //CORRECCION DE MOSTREO DE VIVIENDA 2023-10-06      OTRA VEZ                                   

@@ -11,4 +11,10 @@ class livingplace extends Model
 
     protected $connection = 'maite';
     protected $table = 'livingplace';
+
+
+    public function persons()
+    {
+        return $this->hasMany(person::class);
+    }
 }
