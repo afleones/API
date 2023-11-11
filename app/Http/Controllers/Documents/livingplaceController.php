@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Documents\livingplace;
 use App\Models\Documents\livingplaceCompleted;
 use App\Models\Documents\person;
+use App\Models\Documents\personCompleted;
+
 use App\Models\Documents\tablelivingplace;
 
 use Illuminate\Http\Request;
@@ -433,7 +435,7 @@ class livingplaceController extends Controller
         $payload = [];
 
         foreach ($livingplaces as $livingplace) {
-            $persons = person::where('viviendaid', $livingplace->id)->get();
+            $persons = personCompleted::where('viviendaid', $livingplace->id)->get();
 
             $payload[] = ['livingplace' => $livingplace, 'persons' => $persons];
         }
