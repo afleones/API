@@ -278,11 +278,11 @@ class livingplaceController extends Controller
         //$data = $request->json()->all();  recibe por raw
         $data = $request->all();   //recibe por json
         //var_dump($data);exit();
-        $userid = $data['userid'];
+        // $userid = $data['userid'];
         //$fecha1 = $data['fecha1'];
         //$fecha2 = $data['fecha2'];
         
-        $livingplace = livingplace::where('userid', $userid)->where(function($query) use ($data) {
+        $livingplace = livingplace::where(function($query) use ($data) {
             if (isset($data['id'])) {
                 $query->Where('id', $data['id']);
             }
@@ -379,6 +379,18 @@ class livingplaceController extends Controller
         $query = livingplace::
                 where(function($query) use ($data) {  
                     // Condiciones de búsqueda
+                    if (isset($data['userid'])) {
+                        $query->Where('livingplace.userid', $data['userid']);
+                    }
+                    if (isset($data['liderid'])) {
+                        $query->Where('users.liderid', $data['liderid']);
+                    }
+                    if (isset($data['id'])) {
+                        $query->Where('livingplace.id', $data['id']);
+                    }
+                    if (isset($data['fecha1']) and isset($data['fecha2'])) {
+                        $query->whereBetween(\DB::raw('DATE(livingplace.created_at)'), [$data['fecha1'], $data['fecha2']]);
+                    }
                 })
                 ->leftJoin('maite_backend.users', 'users.id', '=', 'livingplace.userid')
                 ->select('livingplace.*')
