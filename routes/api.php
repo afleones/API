@@ -74,6 +74,7 @@ use App\Http\Controllers\Meets\MeetEventsController; /* Conttolador de Eventos *
 
 // AutoSchedule Controllers
 use App\Http\Controllers\AutoSchedule\DoctorsController; /* Conttolador de Medicos */
+use App\Http\Controllers\AutoSchedule\SpecialtiesController; /* Conttolador de Especialidades */
 // AutoSchedule Controllers End
 
 /* Aqui inician las Rutas de la API */
@@ -286,7 +287,9 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
         //Api Routes AutoSchedule Start
 
     /* events */
-    Route::post('showDoctors', [DoctorsController::class, 'showDoctors']); /* endPoint para Listar Meducos */
+    Route::post('showDoctors', [DoctorsController::class, 'showDoctors']); /* endPoint para Listar Medicos */
+    Route::post('showSpecialties', [SpecialtiesController::class, 'showSpecialties']); /* endPoint para Listar Especialidades */
+
     /* end */
 
     //Api Routes AutoSchedule end
