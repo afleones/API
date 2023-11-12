@@ -72,6 +72,10 @@ use App\Http\Controllers\Academy\AcademyCertificateController; /* Controlador de
 use App\Http\Controllers\Meets\MeetEventsController; /* Conttolador de Eventos */
 /* end */
 
+// AutoSchedule Controllers
+use App\Http\Controllers\AutoSchedule\DoctorsController; /* Conttolador de Medicos */
+// AutoSchedule Controllers End
+
 /* Aqui inician las Rutas de la API */
 
 // rutas para gestionar Usuarios
@@ -84,6 +88,7 @@ Route::get('users', [AuthController::class, 'allUsers']); /* endPoint para Lista
 Route::post('subir-video', [AcademyVideoController::class, 'subirVideo']); /* endPoint para Almacenar Videos */
 //Route::get('/exportar', 'livingplaceController@export');
 Route::get('exportarhouse', [livingplaceController::class, 'export']);
+
 Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], function(){
 
     //Api Controllers GenomaX_Documents Start
@@ -211,9 +216,7 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('showLider', [AuthController::class, 'showLider']); /* endPoint para Listar Usuarios con rol de Lider  */
     /* End */
 
-
     //Api Routes GenomaX_Documents End
-
 
     //Api Routes Academy Start
     Route::get('Categories', [AcademyCategoryController::class, 'index']);
@@ -222,7 +225,6 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('UpdateCategory', [AcademyCategoryController::class, 'update']);
     Route::get('DeleteCategory', [AcademyCategoryController::class, 'destroy']);
 
-    
     Route::post('CoursexCategory', [AcademyCategoryController::class, 'showCoursexCategory']);
     Route::post('CoursexCategoryStudent', [AcademyCategoryController::class, 'showCoursexCategoryStudent']);
 
@@ -231,7 +233,6 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('SaveCourse', [AcademyCourseController::class, 'store']);
     Route::post('UpdateCourse', [AcademyCourseController::class, 'update']);
     Route::get('DeleteCourse', [AcademyCourseController::class, 'destroy']);
-
 
     Route::get('Classes', [AcademyClassController::class, 'index']);
     Route::post('Class', [AcademyClassController::class, 'show']);
@@ -244,7 +245,6 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('SaveStudent', [AcademyStudentController::class, 'store']);
     Route::post('UpdateStudent', [AcademyStudentController::class, 'update']);
 
-
     Route::get('Comments', [AcademyCommentController::class, 'index']);
     Route::post('Comment', [AcademyCommentController::class, 'show']);
     Route::post('SaveComment', [AcademyCommentController::class, 'store']);
@@ -254,8 +254,6 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('UpdateComment', [AcademyCommentController::class, 'update']);
     Route::post('UpdateCommentDetail', [AcademyCommentController::class, 'updateDetail']);
 
-
-    
     Route::post('insertExam', [AcademyExamController::class, 'insertExam']);
     Route::post('showExams', [AcademyExamController::class, 'showExams']);
     Route::post('updateExam', [AcademyExamController::class, 'updateExam']);
@@ -269,7 +267,6 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     Route::post('showCertificateStudent', [AcademyCertificateController::class, 'showCertificateStudent']);
 
     //Api Routes Academy End
-
 
     //Api Routes Meet Start
 
@@ -285,6 +282,14 @@ Route::group(['middleware'=>['auth:sanctum', SwitchDatabaseMiddleware::class]], 
     /* end */
 
     //Api Routes Meet end
+
+        //Api Routes AutoSchedule Start
+
+    /* events */
+    Route::post('showDoctors', [DoctorsController::class, 'showDoctors']); /* endPoint para Listar Meducos */
+    /* end */
+
+    //Api Routes AutoSchedule end
 
 
     /* Rutas no Pertenecientes a Maite_Backend */

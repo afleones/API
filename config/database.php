@@ -83,27 +83,27 @@ return [
             ]) : [],
         ],
 
-         'academy' => [
-             'driver' => 'mysql',
-             'url' => env('DATABASE_URL'),
-             'host' => env('ACA_HOST', '127.0.0.1'),
-             'port' => env('ACA_PORT', '3306'),
-             'database' => env('ACA_DATABASE', 'forge'),
-             'username' => env('ACA_USERNAME', 'forge'),
-             'password' => env('ACA_PASSWORD', ''),
-             'unix_socket' => env('ACA_SOCKET', ''),
-             'charset' => 'utf8mb4',
-             'collation' => 'utf8mb4_unicode_ci',
-             'prefix' => '',
-             'prefix_indexes' => true,
-             'strict' => true,
-             'engine' => null,
-             'options' => extension_loaded('pdo_mysql') ? array_filter([
-                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-             ]) : [],
-         ],
+        'academy' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('ACA_HOST', '127.0.0.1'),
+            'port' => env('ACA_PORT', '3306'),
+            'database' => env('ACA_DATABASE', 'forge'),
+            'username' => env('ACA_USERNAME', 'forge'),
+            'password' => env('ACA_PASSWORD', ''),
+            'unix_socket' => env('ACA_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
 
-         'meet' => [
+        'meet' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'host' => env('MEET_HOST', '127.0.0.1'),
@@ -123,6 +123,25 @@ return [
             ]) : [],
         ],
 
+        'maite_sai' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('SAI_HOST', '127.0.0.1'),
+            'port' => env('SAI_PORT', '3306'),
+            'database' => env('SAI_DATABASE', 'forge'),
+            'username' => env('SAI_USERNAME', 'forge'),
+            'password' => env('SAI_PASSWORD', ''),
+            'unix_socket' => env('SAI_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',
