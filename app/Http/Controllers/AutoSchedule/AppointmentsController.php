@@ -69,4 +69,23 @@ class AppointmentsController extends Controller
 
         return response()->json(['message' => 'Cita médica creada con éxito', 'appointment' => $appointment]);
     }
+
+    public function show(Request $request)
+    {
+        $data = $request->all(); 
+        $Codigo_TER = $data['Codigo_TER'];
+
+        $appointments = Appointment::where('Codigo_TER', $Codigo_TER)->where(function($query) use ($data) {  
+            if (isset($data['id'])) {
+                $query->Where('id', $data['id']);
+            }
+            if (isset($data['ID_TER'])) {
+                $query->Where('ID_TER', $data['ID_TER']);
+            }
+        })->get();
+
+        $dataArray = $appointments;             
+        return $dataArray;
+
+    }
 }
