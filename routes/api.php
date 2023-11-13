@@ -297,7 +297,9 @@
 
             /* Schedule */
                 Route::post('newAppointment', [AppointmentsController::class, 'store']); /* endPoint para Registrar Cita */
-            /* end */
+                Route::post('showAppointments', [AppointmentsController::class, 'show']); /* endPoint para Registrar Cita */
+
+                /* end */
 
         //Api Routes AutoSchedule end
 
